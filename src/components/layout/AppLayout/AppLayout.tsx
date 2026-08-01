@@ -4,31 +4,31 @@ import { Sidebar } from "../Sidebar/Sidebar";
 import { Header } from "../Header/Header";
 
 export const AppLayout = () => {
-    return (
-        <div
-            className="
+  return (
+    <div
+      className="
                 grid
                 h-screen
                 grid-cols-[var(--sidebar-width)_1fr]
                 bg-[var(--color-background)]
                 text-white
               "
-            >
-            <Sidebar />
+    >
+      <Sidebar />
 
-            <div
-                className="
+      <div
+        className="
                     grid
                     grid-rows-[var(--header-height)_1fr]
                     overflow-hidden    
                   "
-            >
-                <Header />
+      >
+        <Header />
 
-                <main className="overflow-y-auto p-6">
-                    <Outlet />
-                </main>
-            </div>
-        </div>
-    );
+        <main className="overflow-y-auto p-6">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
 };
