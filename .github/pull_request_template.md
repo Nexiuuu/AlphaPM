@@ -1,5 +1,25 @@
-## Sample Pull Request Template Description
+## Pull Request Checklist
 
-This is a sample pull request template. You can customize it to fit your project's needs.
+Please use this template to describe your changes and make review easier.
 
-Don't forget to commit your template file to the repository so that it can be used for future pull requests!
+### Summary
+- What does this PR change?
+- Why is this change needed?
+
+### Changes
+- List of the key changes made
+- New features, bug fixes, refactors, etc.
+
+### Testing
+- How was this tested?
+- Include commands, browsers, or environments used.
+
+### Notes
+- Any additional context for reviewers
+- Related issues, known limitations, or follow-up work
+
+### Checklist
+- [ ] I have tested these changes locally
+- [ ] I have updated documentation if needed
+- [ ] My code follows project style and conventions
+- [ ] No unrelated changes are included
