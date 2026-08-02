@@ -3,7 +3,10 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Header } from "../Header/Header";
 
+import { supabase } from "../../../lib/supabase";
+
 export const AppLayout = () => {
+    console.log(supabase);  
   return (
     <div
       className="
