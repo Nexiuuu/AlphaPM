@@ -1,4 +1,4 @@
-export const SidebarProfile = () => {
+export const SidebarWsItem = () => {
     return (
         <div>
             

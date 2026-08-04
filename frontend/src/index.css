@@ -1,24 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  /* Colors */
+  /* Backgrounds */
   --color-background: #09090b;
   --color-surface: #18181b;
-  --color-surface-hover: #27272a;
-  --color-border: #27272a;
+  --color-surface-hover: #232326;
+  --color-surface-active: #2b2b31;
 
+  /* Borders */
+  --color-border: #2d2d31;
+
+  /* Text */
   --color-text: #fafafa;
+  --color-text-secondary: #d4d4d8;
   --color-text-muted: #a1a1aa;
+  --color-text-disabled: #71717a;
 
-  --color-primary: #7c3aed;
-  --color-primary-hover: #8b5cf6;
+  /* Brand */
+  --color-primary: #27f580;
+  --color-primary-hover: #45ff98;
+  --color-primary-foreground: #06130c;
+
+  /* Focus */
+  --color-ring: #27f580;
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
 
   /* Layout */
-  --sidebar-width: 280px;
+  --sidebar-width-expanded: 280px;
+  --sidebar-width-collapsed: 84px;
+
   --header-height: 72px;
 
   /* Radius */
-  --radius-sm: 12px;
+  --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.18);
+  --shadow-md: 0 8px 30px rgba(0,0,0,.35);
+
+  /* Animations */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
 }

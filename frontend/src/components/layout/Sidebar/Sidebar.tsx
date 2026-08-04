@@ -1,3 +1,7 @@
+import { SidebarNav } from "./SidebarNavigation";
+import { SidebarProfile } from "./SidebarProfile";
+import { SidebarWS } from "./SidebarWorkspace";
+
 export const Sidebar = () => {
     return (
         <aside
@@ -9,7 +13,13 @@ export const Sidebar = () => {
                 bg-[var(--color-surface)]
               "
         >
-            Sidebar
+            LOGO
+
+            <SidebarNav />
+
+            <SidebarWS />
+
+            <SidebarProfile />
         </aside>
     );
 };
