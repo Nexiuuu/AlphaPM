@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 
 interface SidebarNavItemProps {
   label: string;
@@ -13,19 +14,14 @@ export const SidebarNavItem = ({
     <li>
       <NavLink
         to={href}
-        className="
-          flex
-          items-center
-          gap-3
-          rounded-[var(--radius-md)]
-          px-3
-          py-2
-          text-[var(--color-text-muted)]
-          transition-all
-          duration-150
-          hover:bg-[var(--color-surface-hover)]
-          hover:text-[var(--color-text)]
-        "
+        className={({ isActive }) =>
+          clsx(
+            "flex items-center gap-3 rounded-[var(--radius-md)] px-3 py-2 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]",
+            isActive
+              ? "bg-[var(--color-surface-active)] text-[var(--color-text)]"
+              : "text-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)]"
+          )
+        }
       >
         {label}
       </NavLink>

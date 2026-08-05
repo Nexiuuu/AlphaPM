@@ -1,3 +1,4 @@
+import { SidebarLogo } from "./SidebarLogo";
 import { SidebarNav } from "./SidebarNavigation";
 import { SidebarProfile } from "./SidebarProfile";
 import { SidebarWS } from "./SidebarWorkspace";
@@ -13,7 +14,7 @@ export const Sidebar = () => {
                 bg-[var(--color-surface)]
               "
         >
-            LOGO
+            <SidebarLogo />
 
             <SidebarNav />
 

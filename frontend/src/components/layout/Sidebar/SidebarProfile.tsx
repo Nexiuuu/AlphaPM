@@ -1,6 +1,6 @@
 export const SidebarProfile = () => {
     return (
-        <div>
+        <div className="mt-auto">
             
         </div>
     )
