@@ -3,7 +3,11 @@ import { SidebarWsItem } from "./SidebarWorkspaceItem"
 export const SidebarWS = () => {
     return (
         <section>
-            <SidebarWsItem />
+            <h2>Workspaces</h2>
+
+            <ul>
+                <SidebarWsItem />
+            </ul>
         </section>
     )
 }
