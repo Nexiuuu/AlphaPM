@@ -9,9 +9,10 @@ import org.springframework.web.client.RestClient;
 public class SupabaseConfig {
     
     @Bean
-    public RestClient supbabaRestClient(
-        @Value("${https://lgplkntgjzmrmasdhbqi.supabase.co}") String supabaseurl
+    public RestClient supabaseRestClient(
+        @Value("${supabase.url}") String supabaseurl
     ) {
         return RestClient.builder().baseUrl(supabaseurl).build();
     }
+    
 }

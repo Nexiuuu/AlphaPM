@@ -8,4 +8,13 @@ public record UserSettingsDTO (
     Theme theme,
     Language language,
     NotificationPreference notificationPreference
-) {}
+) {
+    public static UserSettingsDTO defaults() {
+        return new UserSettingsDTO{
+            Theme.DARK,
+            Language.POLISH,
+            NotificationPreference.MEDIUM
+        };
+    }
+
+}

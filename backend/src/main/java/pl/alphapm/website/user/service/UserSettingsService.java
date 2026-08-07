@@ -1,8 +1,9 @@
 package pl.alphapm.website.user.service;
 
-import java.util.List;
+import java.util.Map;
 
-import org.springframework.core.ParameterizedTypeReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -11,6 +12,10 @@ import pl.alphapm.website.user.dto.UserSettingsDTO;
 @Service
 public class UserSettingsService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserSettingsService.class);
+
+    private static final int MAX_RETRIES = 3;
+
     private final RestClient supabaseRestClient;
 
     public UserSettingsService(RestClient supabaseRestClient) {
@@ -18,20 +23,59 @@ public class UserSettingsService {
     }
 
     public UserSettingsDTO getSettings(String token, String userId) {
-        var results = supabaseRestClient.get()
-        .uri("/user_settings?select=*")
-        .header("Authorization", "Bearer " + token)
-        .retrieve()
-        .body(new ParameterizedTypeReference<List<UserSettingsDTO>>() { });
+        
+        UserSettingsDTO result = null;
+        for (int attempt = 0; attempt<MAX_RETRIES; ++attempt) {
 
-        if (results == null || results.isEmpty()) {
+                try {
+                    result = supabaseRestClient.post()
+                    .uri("/rpc/get_user_settings")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .body(UserSettingsDTO.class);
+                
+            } catch (Exception e) {
+                logger.atError()
+                .addKeyValue("userId", userId)
+                .addKeyValue("by", "UserSettingsService.getSettings()")
+                .log("Error occurs: " + e.toString());
+
+                // Thread.sleep(100L); TODO: wait some miliseconds before retry
+                continue;
+            }
+
+            if (result == null) {
+                result = UserSettingsDTO.defaults();
+                logger.atInfo()
+                .addKeyValue("userId", userId)
+                .addKeyValue("by", "UserSettingsService.getSettings()")
+                .log("Settings not found, create new with defaults parameters");
+            }
+            break;
+        }
+        return result;
+    }
+
+    public boolean setSettings(String token, String userId, UserSettingsDTO settings) {
+        
+        try {
+            supabaseRestClient.post()
+            .uri("/rpc/set_user_settings")
+            .header("Authorization", "Bearer " + token)
+            .body(Map.of(
+                "new_settings", settings
+            ))
+            .retrieve()
+            .body(UserSettingsDTO.class);
             
+        } catch (Exception e) {
+            logger.atError()
+            .addKeyValue("userId", userId)
+            .addKeyValue("by", "UserSettingsService.setSettings()")
+            .log("Error occurs: " + e.toString());
+            return false;
         }
 
-        if (results.size() > 1) {
-
-        }
-
-        return results.get(0);
+        return true;
     }
 }
