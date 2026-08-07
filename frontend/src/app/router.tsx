@@ -7,6 +7,7 @@ import { AnalyticsPage } from "../pages/AnalyticsPage";
 import { CalendarPage } from "../pages/CalendarPage";
 import { ProjectsPage } from "../pages/ProjectsPage";
 import { SettingsPage } from "../pages/SettingsPage";
+import { TaskPage } from "../pages/TaskPage";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: "Projects",
                 element: <ProjectsPage />,
+            },
+            {
+                path: "Tasks",
+                element: <TaskPage />,
             },
             {
                 path: "Settings",
