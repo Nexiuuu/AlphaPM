@@ -8,7 +8,8 @@ export const AppLayout = () => {
     <div
       className="
         grid
-        h-screen
+        min-h-screen
+        w-full
         grid-cols-[var(--sidebar-width-expanded)_1fr]
         bg-[var(--color-background)]
         text-[var(--color-text)]
@@ -18,14 +19,15 @@ export const AppLayout = () => {
 
       <div
         className="
-          grid
-          grid-rows-[var(--header-height)_1fr]
-          overflow-hidden
+          flex
+          flex-col
+          w-full
+          min-h-screen
         "
       >
         <Header />
 
-        <main className="overflow-y-auto p-6">
+        <main className="flex-1 p-6">
           <Outlet />
         </main>
       </div>
