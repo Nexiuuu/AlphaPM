@@ -1,29 +1,15 @@
+import { navigation } from "../../../data/sidebar";
+
 import { SidebarNavItem } from "./SidebarNavigationItem";
-import { LayoutDashboard } from "lucide-react";
-
-
-const navigation = [
-  {
-    label: "Dashboard",
-    href: "/",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Projects",
-    href: "/projects",
-    icon: LayoutDashboard,
-  },
-];
 
 export const SidebarNav = () => {
   return (
-    <nav>
-      <ul>
+    <nav className="px-3 py-4">
+      <ul className="space-y-1">
         {navigation.map((item) => (
           <SidebarNavItem
             key={item.href}
-            label={item.label}
-            href={item.href}
+            {...item}
           />
         ))}
       </ul>
