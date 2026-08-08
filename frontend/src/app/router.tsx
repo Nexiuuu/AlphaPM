@@ -10,34 +10,40 @@ import { SettingsPage } from "../pages/SettingsPage";
 import { TaskPage } from "../pages/TaskPage";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <AppLayout />,
-        children: [
-            {
-                index: true,
-                element: <DashboardPage />,
-            },
-            {
-                path: "Analytics",
-                element: <AnalyticsPage />,
-            },
-            {
-                path: "Calendar",
-                element: <CalendarPage />,
-            },
-            {
-                path: "Projects",
-                element: <ProjectsPage />,
-            },
-            {
-                path: "Tasks",
-                element: <TaskPage />,
-            },
-            {
-                path: "Settings",
-                element: <SettingsPage />,
-            }
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+        handle: { title: "Dashboard" },
+      },
+      {
+        path: "Analytics",
+        element: <AnalyticsPage />,
+        handle: { title: "Analytics" },
+      },
+      {
+        path: "Calendar",
+        element: <CalendarPage />,
+        handle: { title: "Calendar" },
+      },
+      {
+        path: "Projects",
+        element: <ProjectsPage />,
+        handle: { title: "Projects" },
+      },
+      {
+        path: "Tasks",
+        element: <TaskPage />,
+        handle: { title: "Tasks" },
+      },
+      {
+        path: "Settings",
+        element: <SettingsPage />,
+        handle: { title: "Settings" },
+      },
+    ],
+  },
+]);

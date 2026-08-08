@@ -18,7 +18,8 @@
 
   /* Brand */
   --color-primary: #27f580;
-  --color-primary-hover: #45ff98;
+  --color-primary-hover: #63ffa7;
+  --color-primary-active: #63ffa7;
   --color-primary-foreground: #06130c;
 
   /* Focus */

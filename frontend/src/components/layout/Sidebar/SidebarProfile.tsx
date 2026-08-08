@@ -38,7 +38,7 @@ export const SidebarProfile = () => {
               text-black
             "
           >
-            AH
+            IN
           </div>
 
           <div className="flex min-w-0 flex-col">
