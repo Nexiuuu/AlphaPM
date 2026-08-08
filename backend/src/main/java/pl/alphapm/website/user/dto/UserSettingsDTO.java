@@ -10,11 +10,11 @@ public record UserSettingsDTO (
     NotificationPreference notificationPreference
 ) {
     public static UserSettingsDTO defaults() {
-        return new UserSettingsDTO{
+        return new UserSettingsDTO(
             Theme.DARK,
             Language.POLISH,
             NotificationPreference.MEDIUM
-        };
+        );
     }
 
 }
