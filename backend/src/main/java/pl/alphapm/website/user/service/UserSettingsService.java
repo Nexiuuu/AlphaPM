@@ -22,17 +22,23 @@ public class UserSettingsService {
         this.supabaseRestClient = supabaseRestClient;
     }
 
-    public UserSettingsDTO getSettings(String token, String userId) {
-        
-        UserSettingsDTO result = null;
-        for (int attempt = 0; attempt<MAX_RETRIES; ++attempt) {
+    public UserSettingsDTO getSettings() {
+        return UserSettingsDTO.defaults();
+    }
 
-                try {
-                    result = supabaseRestClient.post()
+    public UserSettingsDTO getSettings(String token, String userId) {
+        if (token == null || userId == null)
+            return getSettings();
+
+
+        UserSettingsDTO result = null;
+        for (int attempt = 0; attempt < MAX_RETRIES; ++attempt) {
+            try {
+                result = supabaseRestClient.post()
                     .uri("/rpc/get_user_settings")
-                .header("Authorization", "Bearer " + token)
-                .retrieve()
-                .body(UserSettingsDTO.class);
+                    .header("Authorization", "Bearer " + token)
+                    .retrieve()
+                    .body(UserSettingsDTO.class);
                 
             } catch (Exception e) {
                 logger.atError()
@@ -57,7 +63,9 @@ public class UserSettingsService {
     }
 
     public boolean setSettings(String token, String userId, UserSettingsDTO settings) {
-        
+        if (token == null || userId == null)
+            return false;
+
         try {
             supabaseRestClient.post()
             .uri("/rpc/set_user_settings")
