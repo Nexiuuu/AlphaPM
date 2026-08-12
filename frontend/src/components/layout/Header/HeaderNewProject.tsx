@@ -1,29 +1,12 @@
-import { Plus } from "lucide-react"
+import { Plus } from "lucide-react";
+
+import { Button } from "../../ui/Button/Button";
 
 export const HeaderNewProject = () => {
   return (
-    <button
-      type="button"
-      className="
-        flex
-        items-center
-        gap-2
-        rounded-[var(--radius-md)]
-        bg-[var(--color-primary)]
-        px-4
-        py-2
-        text-sm
-        font-medium
-        text-black
-        transition-colors
-        duration-150
-        hover:bg-[var(--color-primary-hover)]
-        cursor-pointer
-        active:bg-black
-      "
-    >
+    <Button>
       <Plus size={18} />
       New Project
-    </button>
+    </Button>
   );
 };
