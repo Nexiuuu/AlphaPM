@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.alphapm.website.user.dto.UserSettingsDTO;
 
 @RestController
-@RequestMapping("/public/user/settings")
+@RequestMapping("/api/public/settings")
 public class PublicSettingsController {
 
     @GetMapping
