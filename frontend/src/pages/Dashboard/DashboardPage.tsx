@@ -1,9 +1,9 @@
-// import { useEffect } from "react"; 
+// import { useEffect } from "react";
 
 import { DashboardStats } from "./DashboardStats/DashboardStats";
 
 export const DashboardPage = () => {
-/*  useEffect(() => {
+  /*  useEffect(() => {
         fetch("/api/public/settings")
             .then(response => {
                 if (!response.ok) {
@@ -20,37 +20,39 @@ export const DashboardPage = () => {
             });
     }, []); */
 
-    return (
-        <section>
-            <DashboardStats />
+  return (
+    <section>
+      <DashboardStats />
 
-            <div className="mt-6 grid grid-cols-1 lg:grid-cols-[2f_1fr] gap-4">
-                <div className="
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-[2f_1fr] gap-4">
+        <div
+          className="
                     border 
                     border-dashed 
                     border-[var(--color-text-muted)] 
                     p-4 
                     rounded-lg
                   "
-                >
-                    <span className="text-[var(--color-text-muted)] text-sm">
-                        Recent Projects Container
-                    </span>
-                </div>
+        >
+          <span className="text-[var(--color-text-muted)] text-sm">
+            Recent Projects Container
+          </span>
+        </div>
 
-                <div className="
+        <div
+          className="
                     border 
                     border-dashed 
                     border-[var(--color-text-muted)] 
                     p-4 
                     rounded-lg
                   "
-                >
-                    <span className="text-[var(--color-text-muted)] text-sm">
-                        Activity Container
-                    </span>
-                </div>
-            </div>
-        </section>
-    );
+        >
+          <span className="text-[var(--color-text-muted)] text-sm">
+            Activity Container
+          </span>
+        </div>
+      </div>
+    </section>
+  );
 };

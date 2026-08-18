@@ -1,7 +1,9 @@
+import { SettingsForm } from "../features/settings/components/SettingsForm";
+
 export const SettingsPage = () => {
-    return (
-        <section>
-            <h1>Dashboard</h1>
-        </section>
-    )
-}
+  return (
+    <section>
+      <SettingsForm></SettingsForm>
+    </section>
+  );
+};
