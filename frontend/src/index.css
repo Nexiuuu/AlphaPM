@@ -43,10 +43,27 @@
   --radius-lg: 24px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.18);
-  --shadow-md: 0 8px 30px rgba(0,0,0,.35);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.35);
 
   /* Animations */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
+}
+
+:root.light {
+  /* Backgrounds */
+  --color-background: #fafafa;
+  --color-surface: #d4d4d8;
+  --color-surface-hover: #a1a1aa;
+  --color-surface-active: #71717a;
+
+  /* Borders */
+  --color-border: #2d2d31;
+
+  /* Text */
+  --color-text: #09090b;
+  --color-text-secondary: #18181b;
+  --color-text-muted: #232326;
+  --color-text-disabled: #2b2b31;
 }

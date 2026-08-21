@@ -10,9 +10,12 @@ import "./index.css";
 
 // App
 import { router } from "./app/router";
+import { ThemeProvider } from "./app/theme/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </React.StrictMode>,
 );
