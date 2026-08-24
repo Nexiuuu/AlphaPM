@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useId, type SelectHTMLAttributes } from "react";
+import { useId, useRef, type SelectHTMLAttributes } from "react";
 
 type SelectbarVariants = "form" | "search" | "hidden";
 
@@ -13,17 +13,19 @@ interface SelectbarProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 type SelectbarElements = {
+  outerStyle: string;
   labelStyle: string;
   selectStyle: string;
   hintStyle: string;
 };
 
 const baseStyles: SelectbarElements = {
+  outerStyle: "",
   labelStyle: "",
   selectStyle: `
     text-[var(--color-text)]
-    w-full bg-transparent
-    focus:outline-none text-sm
+    bg-transparent
+    text-sm
     transition-opacity duration-200
     opacity-100 delay-100
   `,
@@ -32,22 +34,41 @@ const baseStyles: SelectbarElements = {
 
 const SelectbarStylesVariants: Record<SelectbarVariants, SelectbarElements> = {
   form: {
-    labelStyle: `w-4/5 h-20 px-2 mx-2 
+    outerStyle: `w-4/5 p-1
+      rounded-[calc(var(--radius-md)+var(--spacing))]
+      transition-all duration-200
+      
+      hover:shadow-[0_0_15px_color-mix(in_srgb,var(--color-primary-hover)_30%,transparent)]
+      `,
+    labelStyle: `
+      w-full
+      items-center
+      justify-center
+      flex
+      gap-3
+      `,
+    selectStyle: `w-full h-full 
+      p-[calc(var(--spacing)/2)]
+      block
       rounded-[var(--radius-md)]
       bg-[var(--color-surface)]
-      border-1 border-[var(--color-background)]
-      outline-2 outline-offset-2 outline-[var(--color-primary-hover)]`,
-    selectStyle: "",
+      outline-2 outline-offset-2 outline-[var(--color-primary)]
+      transition-all duration-200
+      
+      hover:outline-[var(--color-primary-hover)]
+      `,
     hintStyle: "",
   },
 
   search: {
-    labelStyle: "w-full",
+    outerStyle: "",
+    labelStyle: "",
     selectStyle: "",
     hintStyle: "",
   },
 
   hidden: {
+    outerStyle: "",
     labelStyle: `opacity-0 delay-100`,
     selectStyle: "",
     hintStyle: "",
@@ -66,30 +87,46 @@ export const Selectbar = ({
 }: SelectbarProps) => {
   const generatedId = useId();
   const selectId = name ?? generatedId;
+  const sRef = useRef<HTMLSelectElement>(null);
+
+  const setSelectRef = (element: HTMLSelectElement | null) => {
+    sRef.current = element;
+
+    if (typeof ref == "function") ref(element);
+    else if (ref) {
+      ref.current = element;
+    }
+  };
 
   const styles = SelectbarStylesVariants[variant];
 
   return (
-    <label
-      className={clsx(baseStyles.labelStyle, styles.labelStyle, className)}
-    >
+    <label className={clsx(baseStyles.labelStyle, styles.labelStyle)}>
       {label}
 
-      <select
-        className={clsx(baseStyles.selectStyle, styles.selectStyle)}
-        ref={ref}
-        id={selectId}
-        name={name}
-        {...selectProps}
+      <div
+        className={clsx(baseStyles.outerStyle, styles.outerStyle, className)}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          sRef.current?.showPicker();
+        }}
       >
-        {children}
-      </select>
+        <select
+          className={clsx(baseStyles.selectStyle, styles.selectStyle)}
+          ref={setSelectRef}
+          id={selectId}
+          name={name}
+          {...selectProps}
+        >
+          {children}
+        </select>
 
-      {hint ? (
-        <span className={clsx(baseStyles.hintStyle, styles.hintStyle)}>
-          {hint}
-        </span>
-      ) : null}
+        {hint ? (
+          <span className={clsx(baseStyles.hintStyle, styles.hintStyle)}>
+            {hint}
+          </span>
+        ) : null}
+      </div>
     </label>
   );
 };

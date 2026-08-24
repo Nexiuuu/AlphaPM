@@ -37,6 +37,9 @@
 
   --header-height: 72px;
 
+  /* Spacing */
+  --spacing: 0.25rem;
+
   /* Radius */
   --radius-sm: 10px;
   --radius-md: 16px;
