@@ -7,12 +7,15 @@ import org.springframework.web.client.RestClient;
 
 @Configuration
 public class SupabaseConfig {
-    
+
     @Bean
     public RestClient supabaseRestClient(
-        @Value("${supabase.url}") String supabaseurl
+        @Value("${supabase.url}") String supabaseUrl,
+        @Value("${supabase.service-role-key}") String serviceRoleKey
     ) {
-        return RestClient.builder().baseUrl(supabaseurl).build();
+        return RestClient.builder()
+            .baseUrl(supabaseUrl)
+            .defaultHeader("apikey", serviceRoleKey)
+            .build();
     }
-    
 }

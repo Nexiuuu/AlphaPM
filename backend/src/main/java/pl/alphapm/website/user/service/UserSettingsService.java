@@ -35,7 +35,7 @@ public class UserSettingsService {
         for (int attempt = 0; attempt < MAX_RETRIES; ++attempt) {
             try {
                 result = supabaseRestClient.post()
-                    .uri("/rpc/get_user_settings")
+                    .uri("/rest/v1/rpc/get_user_settings")
                     .header("Authorization", "Bearer " + token)
                     .retrieve()
                     .body(UserSettingsDTO.class);
@@ -68,7 +68,7 @@ public class UserSettingsService {
 
         try {
             supabaseRestClient.post()
-            .uri("/rpc/set_user_settings")
+            .uri("/rest/v1/rpc/set_user_settings")
             .header("Authorization", "Bearer " + token)
             .body(Map.of(
                 "new_settings", settings

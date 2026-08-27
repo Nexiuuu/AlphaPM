@@ -5,7 +5,6 @@ interface WorkspaceItemProps {
 }
 
 export const SidebarWsItem = ({
-  id,
   name,
   color,
 }: WorkspaceItemProps) => {
