@@ -1,4 +1,4 @@
-package pl.alphapm.website.user.enums;
+package pl.alphapm.website.settings.enums;
 
 public enum NotificationPreference {
     ALL,

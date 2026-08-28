@@ -6,11 +6,6 @@ import {
 } from "../../features/settings/LocalStorageSettings";
 import { ThemeContext } from "./ThemeContext";
 
-export type ThemeContextType = {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-};
-
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const userTheme = getUserTheme();
   const [theme, setThemeState] = useState(userTheme);

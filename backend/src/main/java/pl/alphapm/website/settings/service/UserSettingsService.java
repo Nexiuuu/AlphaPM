@@ -1,4 +1,4 @@
-package pl.alphapm.website.user.service;
+package pl.alphapm.website.settings.service;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import pl.alphapm.website.user.dto.UserSettingsDTO;
+import pl.alphapm.website.settings.dto.UserSettingsDTO;
 
 @Service
 public class UserSettingsService {

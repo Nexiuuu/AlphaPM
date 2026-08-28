@@ -6,6 +6,7 @@
   --color-surface: #18181b;
   --color-surface-hover: #232326;
   --color-surface-active: #2b2b31;
+  --color-surface-grid: #070708;
 
   /* Borders */
   --color-border: #2d2d31;
@@ -60,6 +61,7 @@
   --color-surface: #d4d4d8;
   --color-surface-hover: #a1a1aa;
   --color-surface-active: #71717a;
+  --color-surface-grid: #cccccc;
 
   /* Borders */
   --color-border: #2d2d31;
@@ -69,4 +71,44 @@
   --color-text-secondary: #18181b;
   --color-text-muted: #232326;
   --color-text-disabled: #2b2b31;
+}
+
+/* Animations */
+.animations-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.animations-flash::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -35%;
+  top: -50%;
+
+  width: 8%;
+  height: 200%;
+
+  border-radius: 50%;
+
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 0 20px var(--color-primary-hover);
+
+  transform: rotate(-30deg);
+
+  animation: flash 0.4s cubic-bezier(1, 0.005, 0.5, 1.5);
+}
+
+@keyframes flash {
+  from {
+    left: -35%;
+  }
+
+  to {
+    left: 130%;
+  }
 }

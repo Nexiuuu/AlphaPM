@@ -21,7 +21,7 @@ export const DashboardPage = () => {
     }, []); */
 
   return (
-    <section>
+    <section className="m-4">
       <DashboardStats />
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-[2f_1fr] gap-4">

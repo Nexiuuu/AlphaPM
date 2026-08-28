@@ -7,10 +7,7 @@ export const SidebarNav = () => {
     <nav className="px-3 py-4">
       <ul className="space-y-1">
         {navigation.map((item) => (
-          <SidebarNavItem
-            key={item.href}
-            {...item}
-          />
+          <SidebarNavItem key={item.href} {...item} />
         ))}
       </ul>
     </nav>

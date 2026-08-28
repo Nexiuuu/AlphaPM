@@ -1,7 +1,3 @@
 export const TaskPage = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  return <div></div>;
+};

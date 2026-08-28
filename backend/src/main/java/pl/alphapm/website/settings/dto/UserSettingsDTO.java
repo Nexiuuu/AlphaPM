@@ -1,8 +1,8 @@
-package pl.alphapm.website.user.dto;
+package pl.alphapm.website.settings.dto;
 
-import pl.alphapm.website.user.enums.Language;
-import pl.alphapm.website.user.enums.NotificationPreference;
-import pl.alphapm.website.user.enums.Theme;
+import pl.alphapm.website.settings.enums.Language;
+import pl.alphapm.website.settings.enums.NotificationPreference;
+import pl.alphapm.website.settings.enums.Theme;
 
 public record UserSettingsDTO (
     Theme theme,
