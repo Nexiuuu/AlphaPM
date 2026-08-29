@@ -9,18 +9,12 @@ import { ProjectsPage } from "../pages/ProjectsPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { TaskPage } from "../pages/TaskPage";
 import { LoginPage } from "../pages/LoginPage";
-import { RegisterPage } from "../pages/RegisterPage";
 
 export const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
     handle: { title: "Logowanie" },
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-    handle: { title: "Rejestracja" },
   },
   {
     path: "/",

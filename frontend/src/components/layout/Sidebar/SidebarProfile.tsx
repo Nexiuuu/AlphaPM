@@ -16,14 +16,27 @@ import {
   subscribeToAuthChanges,
 } from "../../../lib/utils/API/auth";
 
-const getInitials = (session: Session | null) => {
-  if (!session) return null;
+const getGoogleProfile = (session: Session | null) => {
+  const metadata = session?.user.user_metadata;
+  const fullName = String(
+    metadata?.full_name ??
+      metadata?.name ??
+      [metadata?.given_name, metadata?.family_name].filter(Boolean).join(" ") ??
+      "",
+  ).trim();
+  const avatarUrl = String(metadata?.avatar_url ?? metadata?.picture ?? "");
+  const initials = fullName
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0))
+    .join("")
+    .toUpperCase();
 
-  const firstName = String(session.user.user_metadata.first_name ?? "");
-  const lastName = String(session.user.user_metadata.last_name ?? "");
-  const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-
-  return initials || session.user.email?.charAt(0).toUpperCase() || "U";
+  return {
+    fullName,
+    avatarUrl,
+    initials: initials || session?.user.email?.charAt(0).toUpperCase() || "U",
+  };
 };
 
 export const SidebarProfile = () => {
@@ -78,9 +91,7 @@ export const SidebarProfile = () => {
     }
   };
 
-  const firstName = String(session?.user.user_metadata.first_name ?? "");
-  const lastName = String(session?.user.user_metadata.last_name ?? "");
-  const fullName = `${firstName} ${lastName}`.trim();
+  const googleProfile = getGoogleProfile(session);
 
   return (
     <div
@@ -99,7 +110,7 @@ export const SidebarProfile = () => {
                   <span className="h-2 w-2 rounded-full bg-[var(--color-success)] shadow-[0_0_10px_var(--color-success)]" />
                 </div>
                 <p className="truncate font-semibold text-[var(--color-text)]">
-                  {fullName || "Użytkownik AlphaPM"}
+                  {googleProfile.fullName || "Użytkownik AlphaPM"}
                 </p>
                 <p className="truncate text-xs text-[var(--color-text-muted)]">
                   {session.user.email}
@@ -147,20 +158,13 @@ export const SidebarProfile = () => {
                 </p>
               </div>
 
-              <div className="space-y-2 p-3">
+              <div className="p-3">
                 <button
                   type="button"
                   className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary)] px-3 py-2.5 text-sm font-semibold text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-primary-hover)]"
                   onClick={() => openPage("/login")}
                 >
                   Zaloguj się
-                </button>
-                <button
-                  type="button"
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-sm)] border border-[var(--color-border)] px-3 py-2.5 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)]"
-                  onClick={() => openPage("/register")}
-                >
-                  Utwórz konto
                 </button>
               </div>
             </>
@@ -176,11 +180,18 @@ export const SidebarProfile = () => {
         onClick={() => setIsOpen((current) => !current)}
       >
         <span className="flex min-w-0 items-center gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-[var(--color-primary-foreground)]">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--color-primary)] text-sm font-semibold text-[var(--color-primary-foreground)]">
             {isSessionLoading ? (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+            ) : session && googleProfile.avatarUrl ? (
+              <img
+                className="h-full w-full object-cover"
+                src={googleProfile.avatarUrl}
+                alt=""
+                referrerPolicy="no-referrer"
+              />
             ) : session ? (
-              getInitials(session)
+              googleProfile.initials
             ) : (
               <UserRound size={19} />
             )}
@@ -191,11 +202,11 @@ export const SidebarProfile = () => {
               {isSessionLoading
                 ? "Sprawdzanie sesji..."
                 : session
-                  ? fullName || "Użytkownik"
+                  ? googleProfile.fullName || "Użytkownik Google"
                   : "Konto gościa"}
             </span>
             <span className="truncate text-xs text-[var(--color-text-muted)]">
-              {session?.user.email ?? "Zaloguj się lub zarejestruj"}
+              {session?.user.email ?? "Zaloguj się przez Google"}
             </span>
           </span>
         </span>
