@@ -1,35 +1,66 @@
-import { workspaces } from "../../../data/workspace"
-import { SidebarWsItem } from "./SidebarWorkspaceItem"
+import { Plus, X } from "lucide-react";
+import { useState } from "react";
+
+import { useWorkspaces } from "../../../features/workspaces/useWorkspaces";
+import { SidebarWorkspaceForm } from "./SidebarWorkspaceForm";
+import { SidebarWorkspaceList } from "./SidebarWorkspaceList";
 
 export const SidebarWS = () => {
-    return (
-        <section>
-            <div className="group flex items-center justify-between px-2 py-1.5 cursor-pointer">
-                <h2>Workspaces</h2>
+  const [isCreating, setIsCreating] = useState(false);
+  const { isAuthenticated } = useWorkspaces();
 
-                <button className="
-                    p-0.5
-                    text-[var(--color-text-muted)]
-                    opacity-0 
-                    group-hover:opacity-100 
-                    transition-opacity 
-                    duration-200 
-                    hover:text-[var(--color-text)]
-                    hover:cursor-pointer
-                  "
-                >
-                    +
-                </button>
-            </div>
+  return (
+    <section className="px-3">
+      <div
+        className="
+          group
+          flex
+          items-center
+          justify-between
+          px-2
+          py-1.5
+        "
+      >
+        <h2
+          className="
+            cursor-pointer
+            text-xs
+            font-semibold
+            uppercase
+            tracking-[0.12em]
+            text-[var(--color-text)]
+          "
+        >
+          Workspaces
+        </h2>
 
-            <ul className="mt-1">
-                {workspaces.map((workspace) => (
-                    <SidebarWsItem
-                        key={workspace.id}
-                        {...workspace}
-                    />
-                ))}
-            </ul>
-        </section>
-    )
-}
+        <button
+          type="button"
+          onClick={() => setIsCreating(!isCreating)}
+          disabled={!isAuthenticated}
+          aria-label="Utwórz workspace"
+          className="
+            cursor-pointer
+            p-0.5
+            text-[var(--color-text-muted)]
+            opacity-0
+            transition-opacity
+            duration-200
+            group-hover:opacity-100
+            hover:text-[var(--color-text)]
+            disabled:cursor-not-allowed
+            disabled:opacity-20
+          "
+        >
+          {isCreating ? <X size={15} /> : <Plus size={15} />}
+        </button>
+      </div>
+
+      {isCreating && (
+        <SidebarWorkspaceForm onClose={() => setIsCreating(false)} />
+      )}
+
+      <SidebarWorkspaceList />
+    </section>
+  );
+};

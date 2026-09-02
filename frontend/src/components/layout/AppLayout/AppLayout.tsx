@@ -4,32 +4,34 @@ import { Sidebar } from "../Sidebar/Sidebar";
 import { Header } from "../Header/Header";
 import { TriangularGrid } from "../../decorations/background/triangular/TriangularGrid";
 import { useFlash } from "../../../hooks/animations/useFlash";
+import { WorkspacesProvider } from "../../../features/workspaces/WorkspacesContext";
 
 export const AppLayout = () => {
   const { active, finish } = useFlash();
 
   return (
-    <div
-      className="
-        grid
-        min-h-screen
-        w-full
-        grid-cols-[var(--sidebar-width-expanded)_1fr]
-        bg-[var(--color-background)]
-        text-[var(--color-text)]
-      "
-    >
-      <Sidebar />
-
+    <WorkspacesProvider>
       <div
         className="
-          flex
-          flex-col
-          w-full
+          grid
           min-h-screen
+          w-full
+          grid-cols-[var(--sidebar-width-expanded)_1fr]
+          bg-[var(--color-background)]
+          text-[var(--color-text)]
         "
       >
-        <Header />
+        <Sidebar />
+
+        <div
+          className="
+            flex
+            min-h-screen
+            w-full
+            flex-col
+          "
+        >
+          <Header />
 
         <main className="relative w-full h-full">
           <div className="absolute inset-0 z-1 pointer-events-none w-full h-full overflow-hidden">
@@ -48,7 +50,8 @@ export const AppLayout = () => {
             <Outlet />
           </div>
         </main>
+        </div>
       </div>
-    </div>
+    </WorkspacesProvider>
   );
 };
