@@ -7,49 +7,60 @@ import { AnalyticsPage } from "../pages/AnalyticsPage";
 import { CalendarPage } from "../pages/CalendarPage";
 import { ProjectsPage } from "../pages/ProjectsPage";
 import { SettingsPage } from "../pages/SettingsPage";
+import { TeamPage } from "../pages/TeamPage";
 import { TaskPage } from "../pages/TaskPage";
 import { LoginPage } from "../pages/LoginPage";
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      path: "/login",
+      element: <LoginPage />,
+      handle: { title: "Logowanie" },
+    },
+    {
+      path: "/",
+      element: <AppLayout />,
+      children: [
+        {
+          index: true,
+          element: <DashboardPage />,
+          handle: { title: "Dashboard" },
+        },
+        {
+          path: "Analytics",
+          element: <AnalyticsPage />,
+          handle: { title: "Analytics" },
+        },
+        {
+          path: "Calendar",
+          element: <CalendarPage />,
+          handle: { title: "Calendar" },
+        },
+        {
+          path: "Team",
+          element: <TeamPage />,
+          handle: { title: "Team" },
+        },
+        {
+          path: "Projects",
+          element: <ProjectsPage />,
+          handle: { title: "Projects" },
+        },
+        {
+          path: "Tasks",
+          element: <TaskPage />,
+          handle: { title: "Tasks" },
+        },
+        {
+          path: "Settings",
+          element: <SettingsPage />,
+          handle: { title: "Settings" },
+        },
+      ],
+    },
+  ],
   {
-    path: "/login",
-    element: <LoginPage />,
-    handle: { title: "Logowanie" },
-  },
-  {
-    path: "/",
-    element: <AppLayout />,
-    children: [
-      {
-        index: true,
-        element: <DashboardPage />,
-        handle: { title: "Dashboard" },
-      },
-      {
-        path: "Analytics",
-        element: <AnalyticsPage />,
-        handle: { title: "Analytics" },
-      },
-      {
-        path: "Calendar",
-        element: <CalendarPage />,
-        handle: { title: "Calendar" },
-      },
-      {
-        path: "Projects",
-        element: <ProjectsPage />,
-        handle: { title: "Projects" },
-      },
-      {
-        path: "Tasks",
-        element: <TaskPage />,
-        handle: { title: "Tasks" },
-      },
-      {
-        path: "Settings",
-        element: <SettingsPage />,
-        handle: { title: "Settings" },
-      },
-    ],
-  },
-]);
+    basename: "/AlphaPM",
+  }
+);
