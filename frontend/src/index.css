@@ -107,19 +107,93 @@ body {
   border-radius: 50%;
 
   background-color: var(--color-primary-hover);
-  box-shadow: 0 0 20px var(--color-primary-hover);
+  box-shadow: -8vw 0 15vw var(--color-primary-hover);
 
   transform: rotate(-30deg);
 
-  animation: flash 0.4s cubic-bezier(1, 0.005, 0.5, 1.5);
+  animation: flash 1s cubic-bezier(1, 0.1, 0.4, 0.15);
 }
 
 @keyframes flash {
   from {
     left: -35%;
+    width: 8%;
+  }
+
+  30% {
+    box-shadow: -4vw 0 15vw var(--color-primary-hover);
+  }
+
+  30% {
+    left: 7%;
+    width: 8%;
+    box-shadow: -2vw 0 15vw var(--color-primary-hover);
+  }
+
+  70% {
+    box-shadow: -4vw 0 15vw var(--color-primary-hover);
   }
 
   to {
-    left: 130%;
+    left: 135%;
+    width: 18%;
+    box-shadow: -10vw 0 10vw var(--color-primary-hover);
   }
+}
+
+.animations-flow {
+  opacity: 1;
+  transition: opacity 300ms ease;
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.animations-flow::before,
+.animations-flow::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -300%;
+  top: 100%;
+
+  width: 400%;
+  height: 200%;
+
+  background: linear-gradient(
+    var(--color-background) 0%,
+    var(--color-background) 35%,
+    var(--color-primary) 50%,
+    var(--color-background) 75%,
+    var(--color-background) 100%
+  );
+
+  background-size: 50%;
+  background-repeat: no-repeat;
+
+  transform: rotate(45deg);
+  animation: flow 20s infinite linear;
+}
+
+.animations-flow::after {
+  animation-delay: 10s;
+}
+
+@keyframes flow {
+  from {
+    left: -200%;
+    /* top: 200%; */
+  }
+
+  to {
+    /* top: -200%; */
+    left: 105%;
+  }
+}
+
+.animations-fading-out {
+  opacity: 0;
 }

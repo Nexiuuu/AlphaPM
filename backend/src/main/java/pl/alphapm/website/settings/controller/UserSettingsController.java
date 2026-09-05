@@ -11,7 +11,7 @@ import pl.alphapm.website.settings.service.UserSettingsService;
 
 
 @RestController
-@RequestMapping("/api/user/settings")
+@RequestMapping("/api/me/settings")
 public class UserSettingsController {
 
     private final UserSettingsService service;

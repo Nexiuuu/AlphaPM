@@ -34,14 +34,15 @@ const baseStyles: SelectbarElements = {
 
 const SelectbarStylesVariants: Record<SelectbarVariants, SelectbarElements> = {
   form: {
-    outerStyle: `w-4/5 p-1
+    outerStyle: `w-4/5 p-[2.15px]
       rounded-[calc(var(--radius-md)+var(--spacing))]
       transition-all duration-200
-      
+      bg-[var(--color-surface)]
       hover:shadow-[0_0_15px_color-mix(in_srgb,var(--color-primary-hover)_30%,transparent)]
       `,
     labelStyle: `
       w-full
+      [-webkit-text-stroke:0px]
       items-center
       justify-center
       flex
@@ -50,10 +51,13 @@ const SelectbarStylesVariants: Record<SelectbarVariants, SelectbarElements> = {
     selectStyle: `w-full h-full 
       p-[calc(var(--spacing)/2)]
       block
+      [-webkit-text-stroke:6px_var(--color-surface)]
+      [paint-order:stroke_fill]
       rounded-[var(--radius-md)]
-      bg-[var(--color-surface)]
-      outline-2 outline-offset-2 outline-[var(--color-primary)]
+      outline-2 outline-offset outline-[var(--color-primary)]
       transition-all duration-200
+      border-3
+      border-[var(--color-surface-grid)]
       
       hover:outline-[var(--color-primary-hover)]
       `,

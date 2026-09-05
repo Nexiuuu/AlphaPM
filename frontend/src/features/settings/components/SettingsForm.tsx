@@ -3,6 +3,8 @@ import { Selectbar } from "../../../components/ui/selectionbar/Selectionbar";
 import { useTheme } from "../../../hooks/useTheme";
 import type { Language, NotificationPreference, Theme } from "../types";
 import { Button } from "../../../components/ui/Button/Button";
+import { useFlash } from "../../../hooks/animations/useFlash";
+import { getUserTheme } from "../LocalStorageSettings";
 
 type SettingsFormData = {
   theme: Theme;
@@ -12,11 +14,22 @@ type SettingsFormData = {
 
 export const SettingsForm = () => {
   const { setTheme } = useTheme();
-
-  const { register, handleSubmit, reset } = useForm<SettingsFormData>();
+  const { trigger } = useFlash();
+  const { register, handleSubmit, reset } = useForm<SettingsFormData>({
+    defaultValues: {
+      theme: getUserTheme(),
+    },
+  });
 
   const onSubmit = (data: SettingsFormData) => {
     setTheme(data.theme);
+    trigger();
+  };
+
+  const handleCancel = () => {
+    reset({
+      theme: getUserTheme(),
+    });
   };
 
   return (
@@ -45,9 +58,8 @@ export const SettingsForm = () => {
           </Button>
           <Button
             variant="secondary"
-            onClick={() => {
-              reset();
-            }}
+            type="button"
+            onClick={handleCancel}
             className="ml-3 mr-auto"
           >
             Cofnij

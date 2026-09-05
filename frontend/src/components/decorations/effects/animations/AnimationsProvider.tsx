@@ -9,7 +9,7 @@ export const AnimationsProvider = ({
   const [flash, setFlash] = useState(false);
   const lastFlash = useRef(0);
 
-  const cooldown = 400;
+  const cooldown = 1000;
 
   const triggerFlash = () => {
     const now = Date.now();

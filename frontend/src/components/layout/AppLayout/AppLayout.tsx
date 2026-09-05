@@ -22,9 +22,11 @@ export const AppLayout = () => {
           transition-[grid-template-columns]
           duration-300
           ease-in-out
-          ${isSidebarCollapsed
-            ? "md:grid-cols-[var(--sidebar-width-collapsed)_minmax(0,1fr)]"
-            : "md:grid-cols-[var(--sidebar-width-expanded)_minmax(0,1fr)]"}
+          ${
+            isSidebarCollapsed
+              ? "md:grid-cols-[var(--sidebar-width-collapsed)_minmax(0,1fr)]"
+              : "md:grid-cols-[var(--sidebar-width-expanded)_minmax(0,1fr)]"
+          }
           bg-[var(--color-background)]
           text-[var(--color-text)]
         `}
@@ -35,33 +37,27 @@ export const AppLayout = () => {
           onExpand={() => setIsSidebarCollapsed(false)}
         />
 
-        <div
-          className="
-            flex
-            min-h-screen
-            min-w-0
-            flex-col
-          "
-        >
+        <div className="flex min-h-screen min-w-0 flex-col">
           <Header />
 
-        <main className="relative min-w-0 flex-1 overflow-x-hidden">
-          <div className="pointer-events-none absolute inset-0 z-1 overflow-hidden">
-            {active && (
-              <div className="animations-flash" onAnimationEnd={finish}></div>
-            )}
-            <TriangularGrid
-              gap={8}
-              trianglesCount={{ wider: 30, narrower: 10 }}
-              autoTranslate={true}
-              className="h-[120%] w-[120%]"
-            />
-          </div>
+          <main className="relative min-w-0 flex-1 overflow-x-hidden">
+            <div className="pointer-events-none absolute inset-0 z-1 overflow-hidden">
+              {active && (
+                <div className="animations-flash" onAnimationEnd={finish} />
+              )}
 
-          <div className="relative z-10">
-            <Outlet />
-          </div>
-        </main>
+              <TriangularGrid
+                gap={8}
+                trianglesCount={{ wider: 30, narrower: 10 }}
+                autoTranslate={true}
+                className="h-[120%] w-[120%]"
+              />
+            </div>
+
+            <div className="relative z-10">
+              <Outlet />
+            </div>
+          </main>
         </div>
       </div>
     </WorkspacesProvider>

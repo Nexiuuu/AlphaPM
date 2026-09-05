@@ -1,7 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import type { LucideIcon } from "lucide-react";
-import { useFlash } from "../../../../hooks/animations/useFlash";
 
 interface SidebarNavItemProps {
   label: string;
@@ -10,23 +9,24 @@ interface SidebarNavItemProps {
   isCollapsed: boolean;
 }
 
-export const SidebarNavItem = ({ label, href, icon, isCollapsed }: SidebarNavItemProps) => {
+export const SidebarNavItem = ({
+  label,
+  href,
+  icon,
+  isCollapsed,
+}: SidebarNavItemProps) => {
   const Icon = icon;
-  const location = useLocation();
-  const { trigger } = useFlash();
 
-  const handleClick = () => {
-    if (location.pathname !== href) {
-      trigger();
-    }
-  };
+  // const handleClick = () => {
+  //
+  // };
 
   return (
     <li>
       <NavLink
         to={href}
         title={isCollapsed ? label : undefined}
-        onClick={handleClick}
+        // onClick={handleClick}
         className={({ isActive }) =>
           clsx(
             "flex items-center gap-3 rounded-[var(--radius-md)] px-3 py-2 transition-colors duration-150",
