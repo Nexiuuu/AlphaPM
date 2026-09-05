@@ -22,8 +22,7 @@ export const TriangularGrid = ({
 
   const BASE_HEIGHT = 86.6;
   const BASE_WIDTH = 100;
-  // When the browser is zoomed out, keep the decorative pattern legible
-  // instead of rendering an increasingly dense set of tiny triangles.
+
   const zoomScale = Math.min(4, Math.max(1, 1 / window.devicePixelRatio));
   const triangleHeight = BASE_HEIGHT * zoomScale;
   const triangleWidth = BASE_WIDTH * zoomScale;
@@ -58,13 +57,12 @@ export const TriangularGrid = ({
 
   const xCount = Math.max(
     gridSize.xCount,
-    Math.ceil(size.width / stepX) + 4,
+    Math.ceil((size.width * 2) / stepX) + 6,
   );
   const maxX = xCount * stepX;
 
   const stepY = triangleHeight + gap;
-  // The visible CSS viewport changes when the browser zoom changes. Keep the
-  // original density, but add rows whenever the main content area is taller.
+
   const yCount = Math.max(
     gridSize.yCount,
     Math.ceil(size.height / stepY) + 3,
@@ -103,6 +101,8 @@ export const TriangularGrid = ({
   const transformX = ((triangleWidth + gap) * scale) / 100;
   return (
     <svg
+      viewBox={`0 0 ${maxX} ${maxY}`}
+      preserveAspectRatio="xMinYMin slice"
       style={{
         color: "var(--color-surface-grid)",
         ...(autoTranslate && {
