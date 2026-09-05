@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { useWorkspaces } from "../../../features/workspaces/useWorkspaces";
+import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
 
 interface SidebarWorkspaceFormProps {
   onClose: () => void;
@@ -32,7 +32,7 @@ export const SidebarWorkspaceForm = ({
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<WorkspaceForm>({
@@ -42,7 +42,7 @@ export const SidebarWorkspaceForm = ({
     },
   });
 
-  const selectedColor = watch("color");
+  const selectedColor = useWatch({ control, name: "color" });
 
   const onSubmit = handleSubmit(async (values) => {
     setCreateError(null);

@@ -16,7 +16,7 @@ export const HeaderSearch = () => {
         className={`
                     flex items-center h-10 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full overflow-hidden
                     transition-all duration-300 ease-in-out
-                    ${isOpen ? "w-80 px-4" : "w-10 px-0 border-transparent bg-transparent"}
+                    ${isOpen ? "w-[min(20rem,calc(100vw-8rem))] px-4" : "w-10 px-0 border-transparent bg-transparent"}
                 `}
       >
         <Typebar

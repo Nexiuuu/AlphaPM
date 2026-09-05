@@ -20,9 +20,9 @@ const getGoogleProfile = (session: Session | null) => {
   const metadata = session?.user.user_metadata;
   const fullName = String(
     metadata?.full_name ??
-      metadata?.name ??
-      [metadata?.given_name, metadata?.family_name].filter(Boolean).join(" ") ??
-      "",
+    metadata?.name ??
+    [metadata?.given_name, metadata?.family_name].filter(Boolean).join(" ") ??
+    "",
   ).trim();
   const avatarUrl = String(metadata?.avatar_url ?? metadata?.picture ?? "");
   const initials = fullName
@@ -39,7 +39,15 @@ const getGoogleProfile = (session: Session | null) => {
   };
 };
 
-export const SidebarProfile = () => {
+interface SidebarProfileProps {
+  isCollapsed: boolean;
+  onExpand: () => void;
+}
+
+export const SidebarProfile = ({
+  isCollapsed,
+  onExpand,
+}: SidebarProfileProps) => {
   const navigate = useNavigate();
   const profileRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -96,10 +104,10 @@ export const SidebarProfile = () => {
   return (
     <div
       ref={profileRef}
-      className="relative mt-auto border-t border-[var(--color-border)] p-4"
+      className="relative mt-0 flex flex-col border-b border-[var(--color-border)] p-4 md:mt-auto md:block md:border-t md:border-b-0"
     >
-      {isOpen ? (
-        <div className="absolute bottom-[calc(100%-0.25rem)] left-4 right-4 z-50 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-md)]">
+      {isOpen && !isCollapsed ? (
+        <div className="order-2 mt-2 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-md)] md:absolute md:bottom-[calc(100%-0.25rem)] md:left-4 md:right-4 md:mt-0 md:z-50">
           {session ? (
             <>
               <div className="border-b border-[var(--color-border)] bg-[linear-gradient(135deg,var(--color-surface-hover),var(--color-surface))] p-4">
@@ -174,13 +182,39 @@ export const SidebarProfile = () => {
 
       <button
         type="button"
-        className="group flex w-full cursor-pointer items-center justify-between rounded-[var(--radius-md)] p-2 text-left transition-colors duration-150 hover:bg-[var(--color-surface-hover)]"
+        className={`order-1 group flex w-full cursor-pointer items-center justify-between rounded-[var(--radius-md)] p-2 text-left transition-colors duration-150 hover:bg-[var(--color-surface-hover)] ${isCollapsed ? "md:justify-center" : ""}`}
         aria-expanded={isOpen}
         aria-label="Otwórz panel użytkownika"
-        onClick={() => setIsOpen((current) => !current)}
+        title={isCollapsed ? "Panel użytkownika" : undefined}
+        onClick={() => {
+          if (isCollapsed) {
+            onExpand();
+            setIsOpen(true);
+            return;
+          }
+
+          setIsOpen((current) => !current);
+        }}
       >
         <span className="flex min-w-0 items-center gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--color-primary)] text-sm font-semibold text-[var(--color-primary-foreground)]">
+          <span className={`
+            flex 
+            h-10 
+            w-10 
+            shrink-0 
+            items-center 
+            justify-center 
+            overflow-hidden 
+            border-1 
+            border-[var(--color-primary)] 
+            rounded-full 
+            bg-[var(--color-background)] 
+            text-sm 
+            font-semibold 
+            hover:border-[var(--color-primary-hover)]
+            ${session ? "text-[var(--color-primary-foreground)]" : "text-[var(--color-primary)]"}
+           `}
+          >
             {isSessionLoading ? (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
             ) : session && googleProfile.avatarUrl ? (
@@ -197,7 +231,7 @@ export const SidebarProfile = () => {
             )}
           </span>
 
-          <span className="flex min-w-0 flex-col">
+          <span className={`flex min-w-0 flex-col ${isCollapsed ? "md:hidden" : ""}`}>
             <span className="truncate text-sm font-semibold text-[var(--color-text)]">
               {isSessionLoading
                 ? "Sprawdzanie sesji..."
@@ -213,7 +247,7 @@ export const SidebarProfile = () => {
 
         <ChevronUp
           size={17}
-          className={`shrink-0 text-[var(--color-text-muted)] transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`shrink-0 text-[var(--color-text-muted)] transition-transform ${isCollapsed ? "md:hidden" : ""} ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
     </div>

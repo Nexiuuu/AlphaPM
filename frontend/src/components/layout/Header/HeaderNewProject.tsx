@@ -6,7 +6,7 @@ export const HeaderNewProject = () => {
   return (
     <Button>
       <Plus size={18} />
-      New Project
+      <span className="hidden sm:inline">New Project</span>
     </Button>
   );
 };

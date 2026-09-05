@@ -1,11 +1,15 @@
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
 
-import { useWorkspaces } from "../../../features/workspaces/useWorkspaces";
+import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
 import { SidebarWorkspaceForm } from "./SidebarWorkspaceForm";
 import { SidebarWorkspaceList } from "./SidebarWorkspaceList";
 
-export const SidebarWS = () => {
+interface SidebarWorkspaceProps {
+  isCollapsed: boolean;
+}
+
+export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
   const [isCreating, setIsCreating] = useState(false);
   const { isAuthenticated } = useWorkspaces();
 
@@ -22,14 +26,7 @@ export const SidebarWS = () => {
         "
       >
         <h2
-          className="
-            cursor-pointer
-            text-xs
-            font-semibold
-            uppercase
-            tracking-[0.12em]
-            text-[var(--color-text)]
-          "
+          className={isCollapsed ? "md:sr-only" : "cursor-pointer text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text)]"}
         >
           Workspaces
         </h2>
@@ -39,18 +36,11 @@ export const SidebarWS = () => {
           onClick={() => setIsCreating(!isCreating)}
           disabled={!isAuthenticated}
           aria-label="Utwórz workspace"
-          className="
-            cursor-pointer
-            p-0.5
-            text-[var(--color-text-muted)]
-            opacity-0
-            transition-opacity
-            duration-200
-            group-hover:opacity-100
-            hover:text-[var(--color-text)]
-            disabled:cursor-not-allowed
-            disabled:opacity-20
-          "
+          className={
+            isCollapsed
+              ? "cursor-pointer p-0.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-20 md:mx-auto"
+              : "cursor-pointer p-0.5 text-[var(--color-text-muted)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-20"
+          }
         >
           {isCreating ? <X size={15} /> : <Plus size={15} />}
         </button>
@@ -60,7 +50,7 @@ export const SidebarWS = () => {
         <SidebarWorkspaceForm onClose={() => setIsCreating(false)} />
       )}
 
-      <SidebarWorkspaceList />
+      <SidebarWorkspaceList isCollapsed={isCollapsed} />
     </section>
   );
 };

@@ -22,19 +22,11 @@ export const TriangularGrid = ({
 
   const BASE_HEIGHT = 86.6;
   const BASE_WIDTH = 100;
-
-  const useDesktop = size.width > size.height;
-
-  const mobileGrid = {
-    yCount: trianglesCount.wider,
-    xCount: trianglesCount.narrower * 2,
-  };
-  const desktopGrid = {
-    yCount: trianglesCount.narrower,
-    xCount: trianglesCount.wider * 2,
-  };
-
-  const gridSize = useDesktop ? desktopGrid : mobileGrid;
+  // When the browser is zoomed out, keep the decorative pattern legible
+  // instead of rendering an increasingly dense set of tiny triangles.
+  const zoomScale = Math.min(4, Math.max(1, 1 / window.devicePixelRatio));
+  const triangleHeight = BASE_HEIGHT * zoomScale;
+  const triangleWidth = BASE_WIDTH * zoomScale;
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -58,11 +50,26 @@ export const TriangularGrid = ({
     };
   }, []);
 
-  const stepX = BASE_WIDTH / 2 + gap;
-  const maxX = gridSize.xCount * stepX;
+  const stepX = triangleWidth / 2 + gap;
+  const useDesktop = size.width > size.height;
+  const gridSize = useDesktop
+    ? { yCount: trianglesCount.narrower, xCount: trianglesCount.wider * 2 }
+    : { yCount: trianglesCount.wider, xCount: trianglesCount.narrower * 2 };
 
-  const stepY = BASE_HEIGHT + gap;
-  const maxY = gridSize.yCount * stepY;
+  const xCount = Math.max(
+    gridSize.xCount,
+    Math.ceil(size.width / stepX) + 4,
+  );
+  const maxX = xCount * stepX;
+
+  const stepY = triangleHeight + gap;
+  // The visible CSS viewport changes when the browser zoom changes. Keep the
+  // original density, but add rows whenever the main content area is taller.
+  const yCount = Math.max(
+    gridSize.yCount,
+    Math.ceil(size.height / stepY) + 3,
+  );
+  const maxY = yCount * stepY;
 
   let counterY = 0;
   let reversed = false;
@@ -77,13 +84,13 @@ export const TriangularGrid = ({
         const vertices: TriangleParams["vertices"] = reversed
           ? [
               [x, y],
-              [x + BASE_WIDTH, y],
-              [x + BASE_WIDTH / 2, y + BASE_HEIGHT],
+              [x + triangleWidth, y],
+              [x + triangleWidth / 2, y + triangleHeight],
             ]
           : [
-              [x + BASE_WIDTH / 2, y],
-              [x, y + BASE_HEIGHT],
-              [x + BASE_WIDTH, y + BASE_HEIGHT],
+              [x + triangleWidth / 2, y],
+              [x, y + triangleHeight],
+              [x + triangleWidth, y + triangleHeight],
             ];
 
         triangles.push(<Triangle key={`${x},${y}`} vertices={vertices} />);
@@ -93,7 +100,7 @@ export const TriangularGrid = ({
     return triangles;
   };
 
-  const transformX = ((BASE_WIDTH + gap) * scale) / 100;
+  const transformX = ((triangleWidth + gap) * scale) / 100;
   return (
     <svg
       style={{

@@ -14,11 +14,14 @@ export const Header = () => {
         justify-between
         border-b
         border-[var(--color-border)]
-        px-6
+        px-4
+        sm:px-6
       "
     >
       <h1
         className="
+          min-w-0
+          truncate
           text-lg
           font-semibold
           text-[var(--color-text)]

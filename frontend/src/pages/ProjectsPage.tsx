@@ -14,7 +14,7 @@ export const ProjectsPage = () => {
   return (
     <section className="mx-auto max-w-6xl p-8">
       <div className="mb-7">
-        <p className="mb-2 text-sm text-[var(--color-text-muted)]">
+        <p className="mb-2 text-sm text-[var(--color-text-muted)] select-none">
           Twoja przestrzeń pracy
         </p>
 
