@@ -1,0 +1,2 @@
+export const BASIC_WORKSPACE_LIMIT = 5;
+export const COLLAPSED_WORKSPACES_COUNT = 3;

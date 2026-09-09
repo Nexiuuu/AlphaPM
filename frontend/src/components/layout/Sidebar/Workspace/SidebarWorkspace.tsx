@@ -1,6 +1,10 @@
-import { Plus, X } from "lucide-react";
+import { ChevronDown, Plus, X } from "lucide-react";
 import { useState } from "react";
 
+import {
+  BASIC_WORKSPACE_LIMIT,
+  COLLAPSED_WORKSPACES_COUNT,
+} from "../../../../features/workspaces/constants";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
 import { SidebarWorkspaceForm } from "./SidebarWorkspaceForm";
 import { SidebarWorkspaceList } from "./SidebarWorkspaceList";
@@ -11,7 +15,12 @@ interface SidebarWorkspaceProps {
 
 export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
   const [isCreating, setIsCreating] = useState(false);
-  const { isAuthenticated } = useWorkspaces();
+  const [isListExpanded, setIsListExpanded] = useState(true);
+  const { isAuthenticated, workspaces } = useWorkspaces();
+
+  const canCollapseList = workspaces.length > COLLAPSED_WORKSPACES_COUNT;
+  const hasReachedLimit = workspaces.length >= BASIC_WORKSPACE_LIMIT;
+  const isCreateDisabled = !isAuthenticated || hasReachedLimit;
 
   return (
     <section className="px-3">
@@ -25,17 +34,46 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
           py-1.5
         "
       >
-        <h2
-          className={isCollapsed ? "md:sr-only" : "cursor-pointer text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text)]"}
+        <button
+          type="button"
+          onClick={() => setIsListExpanded(!isListExpanded)}
+          disabled={!canCollapseList}
+          className={
+            isCollapsed
+              ? "md:sr-only"
+              : "flex cursor-pointer items-center gap-1.5 disabled:cursor-default"
+          }
         >
-          Workspaces
-        </h2>
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text)]">
+            Workspaces
+          </h2>
+
+          <span className="text-xs text-[var(--color-text-disabled)]">
+            {workspaces.length}/{BASIC_WORKSPACE_LIMIT}
+          </span>
+
+          {canCollapseList && (
+            <ChevronDown
+              size={14}
+              className={`transition-transform ${isListExpanded ? "rotate-180" : ""}`}
+            />
+          )}
+        </button>
 
         <button
           type="button"
           onClick={() => setIsCreating(!isCreating)}
-          disabled={!isAuthenticated}
-          aria-label="Utwórz workspace"
+          disabled={isCreateDisabled}
+          aria-label={
+            hasReachedLimit
+              ? "Osiągnięto limit 5 workspace'ów"
+              : "Utwórz workspace"
+          }
+          title={
+            hasReachedLimit
+              ? "Plan podstawowy pozwala utworzyć maksymalnie 5 workspace'ów"
+              : undefined
+          }
           className={
             isCollapsed
               ? "cursor-pointer p-0.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-20 md:mx-auto"
@@ -50,7 +88,10 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
         <SidebarWorkspaceForm onClose={() => setIsCreating(false)} />
       )}
 
-      <SidebarWorkspaceList isCollapsed={isCollapsed} />
+      <SidebarWorkspaceList
+        isCollapsed={isCollapsed}
+        isExpanded={isListExpanded}
+      />
     </section>
   );
 };

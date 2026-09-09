@@ -10,6 +10,7 @@ import { SettingsPage } from "../pages/SettingsPage";
 import { TeamPage } from "../pages/TeamPage";
 import { TaskPage } from "../pages/TaskPage";
 import { LoginPage } from "../pages/LoginPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
 
 export const router = createBrowserRouter(
   [
@@ -57,10 +58,15 @@ export const router = createBrowserRouter(
           element: <SettingsPage />,
           handle: { title: "Settings" },
         },
+        {
+          path: "*",
+          element: <NotFoundPage />,
+          handle: { title: "Nie znaleziono" },
+        },
       ],
     },
   ],
   {
     basename: "/AlphaPM",
-  }
+  },
 );

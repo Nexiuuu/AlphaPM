@@ -5,12 +5,23 @@ import type {
 import { supabase } from "./supabase";
 
 export const getWorkspaces = async (): Promise<Workspace[]> => {
-  const { data, error } = await supabase.rpc("get_projects");
-  if (error) {
-    throw error;
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const { data, error } = await supabase.rpc("get_projects");
+
+    if (!error) {
+      return (data ?? []) as Workspace[];
+    }
+
+    lastError = error;
+
+    if (attempt === 0) {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    }
   }
 
-  return (data ?? []) as Workspace[];
+  throw lastError;
 };
 
 export const createWorkspace = async (
