@@ -11,7 +11,7 @@ public class SupabaseConfig {
     @Bean
     public RestClient supabaseRestClient(
         @Value("${supabase.url}") String supabaseUrl,
-        @Value("${supabase.service-role-key}") String serviceRoleKey
+        @Value("${supabase.secret-key}") String serviceRoleKey
     ) {
         return RestClient.builder()
             .baseUrl(supabaseUrl)

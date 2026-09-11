@@ -1,10 +1,13 @@
-package pl.alphapm.website.project;
+package pl.alphapm.website.project.data.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import pl.alphapm.website.project.data.dto.ProjectCountDTO;
+import pl.alphapm.website.project.data.service.ProjectService;
 
 @RestController
 @RequestMapping("/api/projects")

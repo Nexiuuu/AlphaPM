@@ -38,20 +38,72 @@ export const SettingsForm = () => {
         className="w-6/7 rounded-[var(--radius-md)] m-auto p-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Selectbar label="Motyw:" variant="form" {...register("theme")}>
-          <option
-            className="bg-[var(--color-surface)] text-[var(--color-text)]"
-            value={"DARK"}
+        <div className="flex flex-col gap-4">
+          <Selectbar label="Motyw:" variant="form" {...register("theme")}>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"DARK"}
+            >
+              Ciemny
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"LIGHT"}
+            >
+              Jasny
+            </option>
+          </Selectbar>
+          <Selectbar label="Język:" variant="form" {...register("language")}>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"POLISH"}
+            >
+              Polski
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"ENGLISH"}
+            >
+              Angielski
+            </option>
+          </Selectbar>
+          <Selectbar
+            label="Powiadomienia:"
+            variant="form"
+            {...register("notificationPreference")}
           >
-            Ciemny
-          </option>
-          <option
-            className="bg-[var(--color-surface)] text-[var(--color-text)]"
-            value={"LIGHT"}
-          >
-            Jasny
-          </option>
-        </Selectbar>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"ALL"}
+            >
+              Wszystkie
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"MEDIUM"}
+            >
+              Średni priorytet
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"HIGH"}
+            >
+              Wysoki priorytet
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"IMPORTANT"}
+            >
+              Bardzo wysoki priorytet
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"NOTHING"}
+            >
+              Żadne
+            </option>
+          </Selectbar>
+        </div>
         <div className="flex justify-center mt-2">
           <Button variant="primary" type="submit" className="ml-auto mr-3">
             Zastosuj

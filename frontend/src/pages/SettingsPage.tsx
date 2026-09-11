@@ -7,7 +7,10 @@ export const SettingsPage = () => {
     <section className="mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
       <div className="mb-7">
         <p className="mb-2 flex select-none items-center gap-2 text-sm text-[var(--color-primary)]">
-          <Settings size={16} />
+          <Settings
+            size={16}
+            className="[-webkit-text-stroke:4px_var(--color-surface-grid)] [paint-order:stroke_fill]"
+          />
           Ustawienia
         </p>
       </div>

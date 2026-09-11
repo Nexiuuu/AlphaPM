@@ -1,4 +1,4 @@
-package pl.alphapm.website.project;
+package pl.alphapm.website.project.data.dto;
 
 public record ProjectCountDTO(int total) {
     

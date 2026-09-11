@@ -1,4 +1,4 @@
-import { Plus, Globe } from "lucide-react";
+import { Globe, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const DashboardHeader = () => (
@@ -20,7 +20,7 @@ export const DashboardHeader = () => (
       to="/projects"
       className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-primary-hover)]"
     >
-      <Plus size={18} />
+      <Eye size={18} />
       Zobacz projekty
     </Link>
   </div>

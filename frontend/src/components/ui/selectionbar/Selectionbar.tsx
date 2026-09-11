@@ -42,10 +42,11 @@ const SelectbarStylesVariants: Record<SelectbarVariants, SelectbarElements> = {
       `,
     labelStyle: `
       w-full
+      relative
+      flex
       [-webkit-text-stroke:0px]
       items-center
       justify-center
-      flex
       gap-3
       `,
     selectStyle: `w-full h-full 
@@ -106,7 +107,7 @@ export const Selectbar = ({
 
   return (
     <label className={clsx(baseStyles.labelStyle, styles.labelStyle)}>
-      {label}
+      <span className="absolute text-right right-[92%]">{label}</span>
 
       <div
         className={clsx(baseStyles.outerStyle, styles.outerStyle, className)}

@@ -48,8 +48,9 @@ export const AppLayout = () => {
 
               <TriangularGrid
                 gap={8}
+                autoTranslate={true}
                 trianglesCount={{ wider: 30, narrower: 10 }}
-                className="h-full w-full"
+                className="h-[130%] w-[130%]"
               />
             </div>
 
