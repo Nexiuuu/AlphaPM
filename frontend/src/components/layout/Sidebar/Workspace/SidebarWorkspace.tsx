@@ -1,12 +1,12 @@
-import { ChevronDown, Plus, X } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   BASIC_WORKSPACE_LIMIT,
   COLLAPSED_WORKSPACES_COUNT,
 } from "../../../../features/workspaces/constants";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
-import { SidebarWorkspaceForm } from "./SidebarWorkspaceForm";
 import { SidebarWorkspaceList } from "./SidebarWorkspaceList";
 
 interface SidebarWorkspaceProps {
@@ -14,9 +14,9 @@ interface SidebarWorkspaceProps {
 }
 
 export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
-  const [isCreating, setIsCreating] = useState(false);
   const [isListExpanded, setIsListExpanded] = useState(true);
   const { isAuthenticated, workspaces } = useWorkspaces();
+  const navigate = useNavigate();
 
   const canCollapseList = workspaces.length > COLLAPSED_WORKSPACES_COUNT;
   const hasReachedLimit = workspaces.length >= BASIC_WORKSPACE_LIMIT;
@@ -62,7 +62,7 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
 
         <button
           type="button"
-          onClick={() => setIsCreating(!isCreating)}
+          onClick={() => navigate("/projects/new")}
           disabled={isCreateDisabled}
           aria-label={
             hasReachedLimit
@@ -80,13 +80,9 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
               : "cursor-pointer p-0.5 text-[var(--color-text-muted)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-20"
           }
         >
-          {isCreating ? <X size={15} /> : <Plus size={15} />}
+          <Plus size={15} />
         </button>
       </div>
-
-      {isCreating && (
-        <SidebarWorkspaceForm onClose={() => setIsCreating(false)} />
-      )}
 
       <SidebarWorkspaceList
         isCollapsed={isCollapsed}

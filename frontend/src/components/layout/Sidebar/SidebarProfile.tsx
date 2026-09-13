@@ -135,7 +135,22 @@ export const SidebarProfile = ({
                 </button>
                 <button
                   type="button"
-                  className="flex w-full cursor-pointer items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5 text-left text-sm text-[var(--color-danger)] transition-colors hover:bg-[color-mix(in_srgb,var(--color-danger)_10%,transparent)]"
+                  className="
+                    flex 
+                    w-full 
+                    cursor-pointer 
+                    items-center 
+                    gap-3 
+                    rounded-[var(--radius-sm)] 
+                    px-3 
+                    py-2.5 
+                    text-left 
+                    text-sm 
+                    text-[var(--color-danger)] 
+                    transition-colors 
+                    hover:bg-[color-mix(in_srgb,var(--color-danger)_10%,transparent)]
+                    focus:outline-none
+                  "
                   onClick={() => void handleLogout()}
                 >
                   <LogOut size={17} /> Wyloguj się
@@ -169,7 +184,24 @@ export const SidebarProfile = ({
               <div className="p-3">
                 <button
                   type="button"
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary)] px-3 py-2.5 text-sm font-semibold text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-primary-hover)]"
+                  className="
+                    flex 
+                    w-full 
+                    cursor-pointer 
+                    items-center 
+                    justify-center 
+                    gap-2 
+                    rounded-[var(--radius-sm)] 
+                    bg-[var(--color-primary)] 
+                    px-3 
+                    py-2.5 
+                    text-sm 
+                    font-semibold 
+                    text-[var(--color-primary-foreground)] 
+                    transition-colors 
+                    hover:bg-[var(--color-primary-hover)]
+                    focus:outline-none
+                  "
                   onClick={() => openPage("/login")}
                 >
                   Zaloguj się
@@ -182,7 +214,21 @@ export const SidebarProfile = ({
 
       <button
         type="button"
-        className={`order-1 group flex w-full cursor-pointer items-center justify-between rounded-[var(--radius-md)] p-2 text-left transition-colors duration-150 hover:bg-[var(--color-surface-hover)] ${isCollapsed ? "md:justify-center" : ""}`}
+        className={`
+          order-1 
+          group 
+          flex 
+          w-full 
+          cursor-pointer 
+          items-center 
+          justify-between 
+          rounded-[var(--radius-md)] 
+          p-2 
+          text-left 
+          transition-colors 
+          duration-150 
+          hover:bg-[var(--color-surface-hover)] 
+          ${isCollapsed ? "md:justify-center " : "focus:outline-none"}`}
         aria-expanded={isOpen}
         aria-label="Otwórz panel użytkownika"
         title={isCollapsed ? "Panel użytkownika" : undefined}

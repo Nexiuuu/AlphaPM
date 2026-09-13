@@ -1,52 +1,96 @@
 import clsx from "clsx";
-import { useId, type InputHTMLAttributes } from "react";
+import { useId, type InputHTMLAttributes, type Ref } from "react";
 
-type TypebarVariants = "search" | "form" | "hidden";
+type TypebarVariant = "search" | "form" | "hidden";
 
 interface TypebarProps extends InputHTMLAttributes<HTMLInputElement> {
-  name?: string;
-  className?: string;
-  variant?: TypebarVariants;
-  ref?: React.Ref<HTMLInputElement>;
+  variant?: TypebarVariant;
+  ref?: Ref<HTMLInputElement>;
   hint?: string;
   label?: string;
 }
 
-type TypebarElements = {
-  labelStyle: string;
-  inputStyle: string;
-  hintStyle: string;
-};
+interface TypebarStyles {
+  container: string;
+  input: string;
+  label: string;
+  hint: string;
+}
 
-const baseStyles: TypebarElements = {
-  labelStyle: "",
-  inputStyle: `
-                        w-full bg-transparent text-neutral-200 placeholder-neutral-500 focus:outline-none text-sm
-                        transition-opacity duration-200
-                        opacity-100 delay-100
-                    `,
-  hintStyle: "",
-};
-
-const TypebarStylesVariants: Record<TypebarVariants, TypebarElements> = {
+const styles: Record<TypebarVariant, TypebarStyles> = {
   form: {
-    labelStyle: ``,
-    inputStyle: "",
-    hintStyle: "",
+    container: "relative block w-full",
+    input: `
+      peer
+      block
+      h-12
+      w-full
+      rounded-lg
+      border
+      border-[var(--color-border)]
+      bg-[var(--color-surface)]
+      px-5
+      pb-1
+      pt-5
+      text-sm
+      text-[var(--color-text)]
+      outline-none
+      transition-colors
+      focus:border-[var(--color-primary)]
+    `,
+    label: `
+      pointer-events-none
+      absolute
+      left-3
+      top-2
+      origin-[0]
+      scale-75
+      select-none
+      text-sm
+      text-[var(--color-text-muted)]
+      transition-all
+      duration-200
+      peer-placeholder-shown:top-1/2
+      peer-placeholder-shown:-translate-y-1/2
+      peer-placeholder-shown:scale-100
+      peer-focus:top-0
+      peer-focus:left-5
+      peer-focus:translate-y-0
+      peer-focus:scale-75
+      peer-focus:text-[var(--color-primary)]
+    `,
+    hint: "mt-1 block text-xs text-[var(--color-text-muted)]",
   },
   search: {
-    labelStyle: "w-full",
-    inputStyle: "",
-    hintStyle: "",
+    container: "block w-full",
+    input: `
+      w-full
+      bg-transparent
+      text-sm
+      text-[var(--color-text)]
+      placeholder:text-[var(--color-text-muted)]
+      focus:outline-none
+    `,
+    label: "sr-only",
+    hint: "sr-only",
   },
   hidden: {
-    labelStyle: `opacity-0 delay-100`,
-    inputStyle: "",
-    hintStyle: "",
+    container: "block w-full opacity-0 transition-opacity duration-200",
+    input: `
+      w-full
+      bg-transparent
+      text-sm
+      text-[var(--color-text)]
+      placeholder:text-[var(--color-text-muted)]
+      focus:outline-none
+    `,
+    label: "sr-only",
+    hint: "sr-only",
   },
 };
 
 export const Typebar = ({
+  id,
   name,
   className,
   variant = "form",
@@ -56,30 +100,30 @@ export const Typebar = ({
   ...inputProps
 }: TypebarProps) => {
   const generatedId = useId();
-  const inputId = name ? name : generatedId;
-  const styles = TypebarStylesVariants[variant];
+  const inputId = id ?? name ?? generatedId;
+  const variantStyles = styles[variant];
 
   return (
-    <label
-      className={clsx(
-        baseStyles["labelStyle"],
-        styles["labelStyle"],
-        className,
-      )}
-    >
-      {label}
+    <label className={clsx(variantStyles.container, className)}>
       <input
-        className={clsx(baseStyles["inputStyle"], styles["inputStyle"])}
         ref={ref}
         id={inputId}
         name={name}
+        className={variantStyles.input}
         {...inputProps}
       />
-      {hint ? (
-        <span className={clsx(baseStyles["hintStyle"], styles["hintStyle"])}>
+
+      {label && (
+        <span className={variantStyles.label}>
+          {label}
+        </span>
+      )}
+
+      {hint && (
+        <span className={variantStyles.hint}>
           {hint}
         </span>
-      ) : null}
+      )}
     </label>
   );
 };

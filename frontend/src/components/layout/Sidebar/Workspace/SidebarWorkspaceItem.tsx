@@ -40,6 +40,7 @@ export const SidebarWsItem = ({
           duration-150
             hover:bg-[var(--color-surface-hover)]
             hover:text-[var(--color-text)]
+            focus:outline-none
           `,
           isCollapsed && "md:justify-center md:px-2",
           isActive &&

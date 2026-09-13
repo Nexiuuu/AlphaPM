@@ -72,7 +72,20 @@ export const ModulePage = ({
 
           <Link
             to="/projects"
-            className="mt-5 inline-flex items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-primary-foreground)]"
+            className="
+              mt-5 
+              inline-flex 
+              items-center 
+              gap-2 
+              rounded-[var(--radius-md)] 
+              bg-[var(--color-primary)] 
+              px-4 
+              py-2 
+              text-sm 
+              font-medium 
+              text-[var(--color-primary-foreground)]
+              focus:outline-none
+            "
           >
             <Plus size={17} /> Otwórz projekty
             <ArrowRight size={16} />

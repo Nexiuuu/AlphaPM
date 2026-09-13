@@ -1,7 +1,7 @@
 import { FolderKanban, Plus } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
-import { useWorkspaces } from "../features/workspaces/useWorkspaces";
+import { useWorkspaces } from "../../features/workspaces/useWorkspaces";
 
 export const ProjectsPage = () => {
   const { workspaces, isLoading, isAuthenticated } = useWorkspaces();
