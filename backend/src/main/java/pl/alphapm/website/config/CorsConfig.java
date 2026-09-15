@@ -16,7 +16,8 @@ public class CorsConfig {
                 registry.addMapping("/api/**")
                 .allowedOrigins(
                     "https://localhost:5173",
-                    "http://localhost:5173"
+                    "http://localhost:5173",
+                    "https://nexiuuu.github.io"
                 )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*");

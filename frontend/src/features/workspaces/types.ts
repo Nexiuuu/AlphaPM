@@ -3,7 +3,7 @@ export interface Workspace {
   owner_id: string | null;
   name: string;
   color: string;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface CreateWorkspaceInput {

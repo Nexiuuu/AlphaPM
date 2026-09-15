@@ -4,36 +4,57 @@ import type {
 } from "../../../features/workspaces/types";
 import { supabase } from "./supabase";
 
+const API_URL = import.meta.env.VITE_BACKEND_API_URL;
+
 export const getWorkspaces = async (): Promise<Workspace[]> => {
-  let lastError: unknown;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const { data, error } = await supabase.rpc("get_projects");
-
-    if (!error) {
-      return (data ?? []) as Workspace[];
-    }
-
-    lastError = error;
-
-    if (attempt === 0) {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-    }
+  if (!session) {
+    throw new Error("User is not authenticated");
   }
 
-  throw lastError;
+  const response = await fetch(`${API_URL}/api/projects`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch workspaces: ${response.status}`);
+  }
+
+  return response.json();
 };
 
 export const createWorkspace = async (
   input: CreateWorkspaceInput,
 ): Promise<Workspace> => {
-  const { data, error } = await supabase.rpc("create_project", {
-    p_name: input.name,
-    p_color: input.color,
-  });
-  if (error) {
-    throw error;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    throw new Error("User is not authenticated");
   }
 
-  return data as Workspace;
+  const response = await fetch(`${API_URL}/api/projects`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+    },
+    body: JSON.stringify({
+      name: input.name,
+      color: input.color,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to create workspace: ${response.status}`);
+  }
+
+  return response.json();
 };

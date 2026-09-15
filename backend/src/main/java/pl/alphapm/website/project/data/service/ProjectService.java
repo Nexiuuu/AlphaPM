@@ -1,36 +1,53 @@
 package pl.alphapm.website.project.data.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import java.util.List;
-import java.util.Map;
+import pl.alphapm.website.project.data.ProjectRepository;
+import pl.alphapm.website.project.data.dto.CreateProjectRequestDTO;
+import pl.alphapm.website.project.data.dto.ProjectDTO;
+import pl.alphapm.website.project.data.entities.Project;
 
 @Service
 public class ProjectService {
-
-    private final RestClient supabaseRestClient;
-    private final String supabasePublishableKey;
+    private final ProjectRepository projectRepository;
 
     public ProjectService(
         RestClient supabaseRestClient,
-        @Value("${supabase.publishable-key}") String supabasePublishableKey
+        @Value("${supabase.publishable-key}") String supabasePublishableKey,
+        ProjectRepository projectRepository
     ) {
-        this.supabaseRestClient = supabaseRestClient;
-        this.supabasePublishableKey = supabasePublishableKey;
+        this.projectRepository = projectRepository;
     }
 
-    public int getTotalProjectsCount(Jwt jwt) {
-        List<Map<String, Object>> projects = supabaseRestClient.post()
-            .uri("/rest/v1/rpc/get_projects")
-            .header("apikey", supabasePublishableKey)
-            .header("Authorization", "Bearer " + jwt.getTokenValue())
-            .retrieve()
-            .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+    public ProjectDTO createProject(CreateProjectRequestDTO request) {
 
-        return projects != null ? projects.size() : 0;
+        Project project = projectRepository.createProject(
+            request.name(),
+            request.color()
+        );
+
+        return new ProjectDTO(
+            project.getId(),
+            project.getName(),
+            project.getColor(),
+            project.getCreatedAt()
+        );
+    }
+
+    public List<ProjectDTO> getProjects() {
+
+    return projectRepository.getProjects()
+        .stream()
+        .map(project -> new ProjectDTO(
+            project.getId(),
+            project.getName(),
+            project.getColor(),
+            project.getCreatedAt()
+        ))
+        .toList();
     }
 }

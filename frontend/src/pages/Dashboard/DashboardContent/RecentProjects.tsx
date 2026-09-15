@@ -15,11 +15,18 @@ const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
   year: "numeric",
 });
 
-export const RecentProjects = ({ workspaces, isLoading }: RecentProjectsProps) => {
+export const RecentProjects = ({
+  workspaces,
+  isLoading,
+}: RecentProjectsProps) => {
+  const parseDate = (value: string) =>
+    new Date(value.replace(/\.(\d{3})\d+Z$/, ".$1Z"));
+
   const recentWorkspaces = [...workspaces]
     .sort(
       (first, second) =>
-        new Date(second.created_at).getTime() - new Date(first.created_at).getTime(),
+        parseDate(second.createdAt).getTime() -
+        parseDate(first.createdAt).getTime(),
     )
     .slice(0, 4);
 
@@ -68,7 +75,8 @@ export const RecentProjects = ({ workspaces, isLoading }: RecentProjectsProps) =
                     {workspace.name}
                   </span>
                   <span className="mt-0.5 block text-xs text-[var(--color-text-muted)]">
-                    Utworzono {dateFormatter.format(new Date(workspace.created_at))}
+                    Utworzono{" "}
+                    {dateFormatter.format(new Date(workspace.createdAt))}
                   </span>
                 </span>
               </span>
@@ -81,7 +89,10 @@ export const RecentProjects = ({ workspaces, isLoading }: RecentProjectsProps) =
         </div>
       ) : (
         <div className="mt-6 rounded-xl border border-dashed border-[var(--color-border)] px-5 py-10 text-center">
-          <FolderKanban className="mx-auto mb-3 text-[var(--color-primary)]" size={24} />
+          <FolderKanban
+            className="mx-auto mb-3 text-[var(--color-primary)]"
+            size={24}
+          />
           <h3 className="font-medium">Nie masz jeszcze projektów</h3>
           <p className="mt-1 text-sm text-[var(--color-text-muted)]">
             Utwórz pierwszy workspace, aby zacząć planować pracę.
