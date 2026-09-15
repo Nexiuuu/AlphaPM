@@ -22,7 +22,13 @@ export const SettingsForm = () => {
   });
 
   const onSubmit = (data: SettingsFormData) => {
+    const currentTheme = getUserTheme();
+
     setTheme(data.theme);
+    if (data.theme === currentTheme) {
+      return;
+    }
+
     trigger();
   };
 
@@ -51,56 +57,6 @@ export const SettingsForm = () => {
               value={"LIGHT"}
             >
               Jasny
-            </option>
-          </Selectbar>
-          <Selectbar label="Język:" variant="form" {...register("language")}>
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"POLISH"}
-            >
-              Polski
-            </option>
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"ENGLISH"}
-            >
-              Angielski
-            </option>
-          </Selectbar>
-          <Selectbar
-            label="Powiadomienia:"
-            variant="form"
-            {...register("notificationPreference")}
-          >
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"ALL"}
-            >
-              Wszystkie
-            </option>
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"MEDIUM"}
-            >
-              Średni priorytet
-            </option>
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"HIGH"}
-            >
-              Wysoki priorytet
-            </option>
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"IMPORTANT"}
-            >
-              Bardzo wysoki priorytet
-            </option>
-            <option
-              className="bg-[var(--color-surface)] text-[var(--color-text)]"
-              value={"NOTHING"}
-            >
-              Żadne
             </option>
           </Selectbar>
         </div>
