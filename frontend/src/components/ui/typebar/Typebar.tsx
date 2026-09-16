@@ -106,6 +106,7 @@ export const Typebar = ({
   return (
     <label className={clsx(variantStyles.container, className)}>
       <input
+        autoComplete="off"
         ref={ref}
         id={inputId}
         name={name}

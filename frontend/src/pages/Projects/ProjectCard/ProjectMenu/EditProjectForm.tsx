@@ -47,7 +47,10 @@ export const EditProjectForm = ({ workspace, onClose }: EditProjectFormProps) =>
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+        <form 
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)} 
+            className="flex flex-col gap-2">
             <label
                 htmlFor={`project-name-${workspace.id}`}
                 className="text-xs font-semibold text-[var(--color-text-muted)]"
