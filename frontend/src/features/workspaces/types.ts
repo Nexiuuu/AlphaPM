@@ -10,3 +10,8 @@ export interface CreateWorkspaceInput {
   name: string;
   color: string;
 }
+
+export interface UpdateWorkspaceInput {
+  name: string;
+  color: string;
+}

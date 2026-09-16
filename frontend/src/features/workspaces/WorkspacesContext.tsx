@@ -12,9 +12,15 @@ import {
 } from "../../lib/utils/API/auth";
 import {
   createWorkspace as createWorkspaceRequest,
+  deleteWorkspace as deleteWorkspaceRequest,
   getWorkspaces,
+  updateWorkspace as updateWorkspaceRequest,
 } from "../../lib/utils/API/workspaces";
-import type { CreateWorkspaceInput, Workspace } from "./types";
+import type {
+  CreateWorkspaceInput,
+  UpdateWorkspaceInput,
+  Workspace,
+} from "./types";
 import { WorkspacesContext } from "./workspacesStore";
 
 export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
@@ -103,12 +109,37 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
     return workspace;
   };
 
+  const updateWorkspace = async (
+    projectId: number,
+    input: UpdateWorkspaceInput,
+  ) => {
+    const updatedWorkspace = await updateWorkspaceRequest(projectId, input);
+
+    setWorkspaces((current) =>
+      current.map((workspace) =>
+        workspace.id === updatedWorkspace.id ? updatedWorkspace : workspace,
+      ),
+    );
+
+    return updatedWorkspace;
+  };
+
+  const deleteWorkspace = async (projectId: number) => {
+    await deleteWorkspaceRequest(projectId);
+
+    setWorkspaces((current) =>
+      current.filter((workspace) => workspace.id !== projectId),
+    );
+  };
+
   const value = {
     workspaces,
     isLoading,
     isAuthenticated,
     error,
     createWorkspace,
+    updateWorkspace,
+    deleteWorkspace,
     reloadWorkspaces,
   };
 

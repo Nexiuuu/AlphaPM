@@ -5,7 +5,7 @@ type ButtonVariant = "primary" | "secondary" | "ghost";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const Button = ({

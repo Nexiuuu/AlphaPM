@@ -1,5 +1,6 @@
 import type {
   CreateWorkspaceInput,
+  UpdateWorkspaceInput,
   Workspace,
 } from "../../../features/workspaces/types";
 import { supabase } from "./supabase";
@@ -57,4 +58,58 @@ export const createWorkspace = async (
   }
 
   return response.json();
+};
+
+export const updateWorkspace = async (
+  projectId: number,
+  input: UpdateWorkspaceInput,
+): Promise<Workspace> => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    throw new Error("User is not authenticated");
+  }
+
+  const response = await fetch(`${API_URL}/api/projects/${projectId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+    },
+    body: JSON.stringify({
+      name: input.name,
+      color: input.color,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to update workspace: ${response.status}`);
+  }
+
+  return response.json();
+};
+
+export const deleteWorkspace = async (
+  projectId: number
+): Promise<void> => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    throw new Error("User is not authenticated");
+  }
+
+  const response = await fetch(`${API_URL}/api/projects/${projectId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete workspace: ${response.status}`);
+  }
 };
