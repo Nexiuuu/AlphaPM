@@ -119,9 +119,7 @@ export const CreateProjectForm = () => {
             </div>
 
             <div className="mt-6 flex justify-end gap-3">
-                <input type="reset" value="" />
                 <Link
-                    type="button"
                     to={"/projects"}
                     className="
                         px-2.5

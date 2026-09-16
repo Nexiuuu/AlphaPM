@@ -1,7 +1,9 @@
 import { FolderKanban, Plus } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import { useWorkspaces } from "../../features/workspaces/useWorkspaces";
+import { ProjectCard } from "./ProjectCard/ProjectCard";
+
 
 export const ProjectsPage = () => {
   const { workspaces, isLoading, isAuthenticated } = useWorkspaces();
@@ -24,11 +26,11 @@ export const ProjectsPage = () => {
         </h2>
       </div>
 
-      {isLoading && (
-        <p className="text-[var(--color-text-muted)]">
-          Pobieram workspace'y…
-        </p>
-      )}
+        {isLoading && (
+          <p className="text-[var(--color-text-muted)]">
+            Pobieram workspace'y…
+          </p>
+        )}
 
       {!isLoading && !isAuthenticated && (
         <div
@@ -68,44 +70,9 @@ export const ProjectsPage = () => {
         </div>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {workspaces.map((workspace) => (
-          <Link
-            key={workspace.id}
-            to={`/projects?workspace=${workspace.id}`}
-            className="
-              group
-              rounded-2xl
-              border
-              border-[var(--color-border)]
-              bg-[var(--color-surface)]
-              p-5
-              transition
-              hover:-translate-y-0.5
-              hover:border-[var(--color-text-disabled)]
-            "
-          >
-            <div className="mb-8 flex items-center justify-between">
-              <span
-                className="h-3 w-3 rounded-full"
-                style={{ backgroundColor: workspace.color }}
-              />
-
-              <FolderKanban
-                size={18}
-                className="
-                  text-[var(--color-text-disabled)]
-                  group-hover:text-[var(--color-text)]
-                "
-              />
-            </div>
-
-            <h3 className="font-semibold">{workspace.name}</h3>
-
-            <p className="mt-1 text-xs text-[var(--color-text-muted)]">
-              Otwórz projekty workspace'u
-            </p>
-          </Link>
+      <div className="grid items-start gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {!isLoading && isAuthenticated && workspaces.map((workspace) => (
+          <ProjectCard key={workspace.id} workspace={workspace} />
         ))}
       </div>
     </section>
