@@ -13,12 +13,13 @@ import pl.alphapm.website.project.data.entities.Project;
 
 @Service
 public class ProjectService {
+
     private final ProjectRepository projectRepository;
 
     public ProjectService(
-        RestClient supabaseRestClient,
-        @Value("${supabase.publishable-key}") String supabasePublishableKey,
-        ProjectRepository projectRepository
+            RestClient supabaseRestClient,
+            @Value("${supabase.publishable-key}") String supabasePublishableKey,
+            ProjectRepository projectRepository
     ) {
         this.projectRepository = projectRepository;
     }
@@ -26,28 +27,51 @@ public class ProjectService {
     public ProjectDTO createProject(CreateProjectRequestDTO request) {
 
         Project project = projectRepository.createProject(
-            request.name(),
-            request.color()
+                request.name(),
+                request.color()
         );
 
         return new ProjectDTO(
-            project.getId(),
-            project.getName(),
-            project.getColor(),
-            project.getCreatedAt()
+                project.getId(),
+                project.getName(),
+                project.getColor(),
+                project.getCreatedAt()
         );
     }
 
     public List<ProjectDTO> getProjects() {
 
-    return projectRepository.getProjects()
-        .stream()
-        .map(project -> new ProjectDTO(
-            project.getId(),
-            project.getName(),
-            project.getColor(),
-            project.getCreatedAt()
+        return projectRepository.getProjects()
+                .stream()
+                .map(project -> new ProjectDTO(
+                project.getId(),
+                project.getName(),
+                project.getColor(),
+                project.getCreatedAt()
         ))
-        .toList();
+                .toList();
+    }
+
+    public ProjectDTO updateProject(
+            Long projectId,
+            String name,
+            String color
+    ) {
+        Project project = projectRepository.updateProject(
+                projectId,
+                name,
+                color
+        );
+
+        return new ProjectDTO(
+                project.getId(),
+                project.getName(),
+                project.getColor(),
+                project.getCreatedAt()
+        );
+    }
+
+    public void deleteProject(Long projectId) {
+        projectRepository.deleteProject(projectId);
     }
 }

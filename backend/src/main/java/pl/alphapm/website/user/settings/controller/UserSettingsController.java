@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.alphapm.website.user.settings.dto.UserSettingsDTO;
 import pl.alphapm.website.user.settings.service.UserSettingsService;
 
-
 @RestController
 @RequestMapping("/api/me/settings")
 public class UserSettingsController {
@@ -22,8 +21,10 @@ public class UserSettingsController {
 
     @GetMapping
     public UserSettingsDTO getSettings(@AuthenticationPrincipal Jwt jwt) {
-        UserSettingsDTO settings = service.getSettings(jwt.getTokenValue(), jwt.getSubject());
-        return settings;
+        return service.getSettings(
+                jwt.getTokenValue(),
+                jwt.getSubject()
+        );
     }
-    
+
 }

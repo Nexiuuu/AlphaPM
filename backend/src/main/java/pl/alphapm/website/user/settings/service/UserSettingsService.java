@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import pl.alphapm.website.user.settings.dto.UserSettingsDTO;
+import pl.alphapm.website.user.settings.exceptions.UserSettingsUnavailableException;
 
 @Service
 public class UserSettingsService {
@@ -27,60 +28,61 @@ public class UserSettingsService {
     }
 
     public UserSettingsDTO getSettings(String token, String userId) {
-        if (token == null || userId == null)
+        if (token == null || userId == null) {
             return getSettings();
+        }
 
-
-        UserSettingsDTO result = null;
         for (int attempt = 0; attempt < MAX_RETRIES; ++attempt) {
             try {
-                result = supabaseRestClient.post()
-                    .uri("/rest/v1/rpc/get_user_settings")
-                    .header("Authorization", "Bearer " + token)
-                    .retrieve()
-                    .body(UserSettingsDTO.class);
-                
+                UserSettingsDTO result = supabaseRestClient.post()
+                        .uri("/rest/v1/rpc/get_user_settings")
+                        .header("Authorization", "Bearer " + token)
+                        .retrieve()
+                        .body(UserSettingsDTO.class);
+
+                if (result == null) {
+                    logger.atInfo()
+                            .addKeyValue("userId", userId)
+                            .addKeyValue("by", "UserSettingsService.getSettings()")
+                            .log("Settings not found, using defaults");
+
+                    return UserSettingsDTO.defaults();
+                }
+
+                return result;
+
             } catch (Exception e) {
                 logger.atError()
-                .addKeyValue("userId", userId)
-                .addKeyValue("by", "UserSettingsService.getSettings()")
-                .log("Error occurs: " + e.toString());
-
-                // Thread.sleep(100L); TODO: wait some miliseconds before retry
-                continue;
+                        .addKeyValue("userId", userId)
+                        .addKeyValue("attempt", attempt + 1)
+                        .addKeyValue("by", "UserSettingsService.getSettings()")
+                        .log("Error while retrieving settings: {}", e.toString());
             }
-
-            if (result == null) {
-                result = UserSettingsDTO.defaults();
-                logger.atInfo()
-                .addKeyValue("userId", userId)
-                .addKeyValue("by", "UserSettingsService.getSettings()")
-                .log("Settings not found, create new with defaults parameters");
-            }
-            break;
         }
-        return result;
+
+        throw new UserSettingsUnavailableException();
     }
 
     public boolean setSettings(String token, String userId, UserSettingsDTO settings) {
-        if (token == null || userId == null)
+        if (token == null || userId == null) {
             return false;
+        }
 
         try {
             supabaseRestClient.post()
-            .uri("/rest/v1/rpc/set_user_settings")
-            .header("Authorization", "Bearer " + token)
-            .body(Map.of(
-                "new_settings", settings
-            ))
-            .retrieve()
-            .body(UserSettingsDTO.class);
-            
+                    .uri("/rest/v1/rpc/set_user_settings")
+                    .header("Authorization", "Bearer " + token)
+                    .body(Map.of(
+                            "new_settings", settings
+                    ))
+                    .retrieve()
+                    .body(UserSettingsDTO.class);
+
         } catch (Exception e) {
             logger.atError()
-            .addKeyValue("userId", userId)
-            .addKeyValue("by", "UserSettingsService.setSettings()")
-            .log("Error occurs: " + e.toString());
+                    .addKeyValue("userId", userId)
+                    .addKeyValue("by", "UserSettingsService.setSettings()")
+                    .log("Error occurs: " + e.toString());
             return false;
         }
 
