@@ -1,4 +1,4 @@
-import type { Task } from "./task";
+import type { Task } from "./Task";
 import type { TaskCategory } from "./TaskCategory";
 import type { TaskGroup } from "./TaskGroup";
 

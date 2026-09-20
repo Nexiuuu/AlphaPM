@@ -1,6 +1,7 @@
 import { ArrowRight, FolderKanban } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Workspace } from "../workspaces/types";
+import { Card } from "../../components/ui/Card/Card";
 
 interface RecentProjectsProps {
   workspaces: Workspace[];
@@ -33,7 +34,7 @@ export const RecentProjects = ({
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-[var(--color-text-muted)]">
-            Projekty
+            Zadania
           </p>
           <h2 className="mt-1 text-xl font-semibold">Ostatnio utworzone</h2>
         </div>
@@ -91,15 +92,12 @@ export const RecentProjects = ({
             className="mx-auto mb-3 text-[var(--color-primary)]"
             size={24}
           />
-          <h3 className="font-medium">Nie masz jeszcze projektów</h3>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-            Utwórz pierwszy projekt, aby zacząć planować pracę.
-          </p>
+          <h3 className="font-medium">Nie masz żadnych Zadań</h3>
           <Link
             to="/projects"
             className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[var(--color-primary)] hover:underline"
           >
-            Przejdź do projektów <ArrowRight size={16} />
+            Przejdź do zadań <ArrowRight size={16} />
           </Link>
         </div>
       )}
