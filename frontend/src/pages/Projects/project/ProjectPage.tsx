@@ -11,4 +11,5 @@ export const ProjectPage = () => {
   const { workspaces, isAuthenticated, isLoading, error } = useWorkspaces();
 
   return <NotFoundPage />; //work in progress
+
 };

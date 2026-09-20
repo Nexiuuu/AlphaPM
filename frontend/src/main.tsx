@@ -7,6 +7,7 @@ import { RouterProvider } from "react-router-dom";
 
 // Styles
 import "./index.css";
+import "./animations.css";
 
 // App
 import { router } from "./app/router";
