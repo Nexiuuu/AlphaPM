@@ -3,6 +3,7 @@ import { ArrowRight, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/ui/Card/Card";
+import { LoadingText } from "../components/ui/LoadingText/LoadingText";
 import { useWorkspaces } from "../features/workspaces/useWorkspaces";
 
 interface ModulePageProps {
@@ -44,7 +45,13 @@ export const ModulePage = ({
         </p>
       </div>
 
-      {!isLoading && !isAuthenticated ? (
+      {isLoading ? (
+        <Card className="p-7 text-center">
+          <p className="text-sm text-[var(--color-text-muted)]">
+            <LoadingText label="Sprawdzanie sesji" />
+          </p>
+        </Card>
+      ) : !isAuthenticated ? (
         <Card className="p-7 text-center">
           <Icon
             className="mx-auto mb-3 text-[var(--color-primary)] [-webkit-text-stroke:4px_var(--color-surface-grid)] [paint-order:stroke_fill]"

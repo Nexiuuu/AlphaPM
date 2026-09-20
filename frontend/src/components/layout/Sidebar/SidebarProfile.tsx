@@ -15,6 +15,7 @@ import {
   logoutUser,
   subscribeToAuthChanges,
 } from "../../../lib/utils/API/auth";
+import { LoadingText } from "../../ui/LoadingText/LoadingText";
 
 const getGoogleProfile = (session: Session | null) => {
   const metadata = session?.user.user_metadata;
@@ -280,7 +281,7 @@ export const SidebarProfile = ({
           <span className={`flex min-w-0 flex-col ${isCollapsed ? "md:hidden" : ""}`}>
             <span className="truncate text-sm font-semibold text-[var(--color-text)]">
               {isSessionLoading
-                ? "Sprawdzanie sesji..."
+                ? <LoadingText label="Sprawdzanie sesji" />
                 : session
                   ? googleProfile.fullName || "Użytkownik Google"
                   : "Konto gościa"}

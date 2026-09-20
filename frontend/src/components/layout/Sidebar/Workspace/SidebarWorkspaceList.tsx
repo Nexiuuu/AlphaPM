@@ -3,6 +3,7 @@ import {
   BASIC_WORKSPACE_LIMIT,
   COLLAPSED_WORKSPACES_COUNT,
 } from "../../../../features/workspaces/constants";
+import { LoadingText } from "../../../ui/LoadingText/LoadingText";
 import { SidebarWsItem } from "./SidebarWorkspaceItem";
 
 interface SidebarWorkspaceListProps {
@@ -29,7 +30,7 @@ export const SidebarWorkspaceList = ({
         <li
           className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
         >
-          Ładowanie…
+          <LoadingText label="Ładowanie" />
         </li>
       )}
 
@@ -41,7 +42,7 @@ export const SidebarWorkspaceList = ({
         </li>
       )}
 
-      {!isAuthenticated && (
+      {!isLoading && !isAuthenticated && (
         <li
           className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
         >

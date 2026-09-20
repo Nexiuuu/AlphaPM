@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
 interface CursorOrbProps {
-  parrentRef?: React.RefObject<HTMLElement | null>;
+  parentRef?: React.RefObject<HTMLElement | null>;
 }
 
-export const CursorOrb = ({ parrentRef }: CursorOrbProps) => {
+export const CursorOrb = ({ parentRef }: CursorOrbProps) => {
   const orbRef = useRef<HTMLDivElement>(null);
 
   const mouse = useRef({ x: 0, y: 0 });
@@ -12,7 +12,7 @@ export const CursorOrb = ({ parrentRef }: CursorOrbProps) => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = parrentRef?.current?.getBoundingClientRect();
+      const rect = parentRef?.current?.getBoundingClientRect();
 
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
@@ -55,7 +55,7 @@ export const CursorOrb = ({ parrentRef }: CursorOrbProps) => {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [parentRef]);
 
   return (
     <div

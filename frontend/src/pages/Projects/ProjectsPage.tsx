@@ -1,5 +1,6 @@
 import { FolderKanban, Plus } from "lucide-react";
 
+import { LoadingText } from "../../components/ui/LoadingText/LoadingText";
 import { useWorkspaces } from "../../features/workspaces/useWorkspaces";
 import { ProjectCard } from "./ProjectCard/ProjectCard";
 
@@ -18,7 +19,9 @@ export const ProjectsPage = () => {
       </div>
 
       {isLoading && (
-        <p className="text-[var(--color-text-muted)]">Pobieram projekty…</p>
+        <p className="text-[var(--color-text-muted)]">
+          <LoadingText label="Pobieram projekty" />
+        </p>
       )}
 
       {!isLoading && !isAuthenticated && (

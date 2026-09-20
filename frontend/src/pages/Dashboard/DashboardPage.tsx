@@ -1,11 +1,12 @@
 import { CalendarDays, ListTodo } from "lucide-react";
 
+import { LoadingText } from "../../components/ui/LoadingText/LoadingText";
 import { useWorkspaces } from "../../features/workspaces/useWorkspaces";
-import { DashboardEmptyState } from "./DashboardContent/DashboardEmptyState";
-import { DashboardHeader } from "./DashboardContent/DashboardHeader";
-import { DashboardPlaceholder } from "./DashboardContent/DashboardPlaceholder";
-import { RecentProjects } from "./DashboardContent/RecentProjects";
-import { DashboardStats } from "./DashboardStats/DashboardStats";
+import { DashboardEmptyState } from "../../features/dashboard/DashboardContent/DashboardEmptyState";
+import { DashboardHeader } from "../../features/dashboard/DashboardContent/DashboardHeader";
+import { DashboardPlaceholder } from "../../features/dashboard/DashboardContent/DashboardPlaceholder";
+import { RecentProjects } from "../../features/dashboard/DashboardContent/RecentProjects";
+import { DashboardStats } from "../../features/dashboard/DashboardStats/DashboardStats";
 
 export const DashboardPage = () => {
   const { workspaces, isAuthenticated, isLoading, error } = useWorkspaces();
@@ -14,13 +15,17 @@ export const DashboardPage = () => {
     <section className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
       <DashboardHeader />
 
-      {!isLoading && !isAuthenticated ? (
+      {isLoading ? (
+        <p className="text-sm text-[var(--color-text-muted)]">
+          <LoadingText label="Sprawdzanie sesji" />
+        </p>
+      ) : !isAuthenticated ? (
         <DashboardEmptyState />
       ) : (
         <>
           <DashboardStats
             projectsCount={workspaces.length}
-            isLoading={isLoading}
+            isLoading={false}
           />
 
           {error && (
