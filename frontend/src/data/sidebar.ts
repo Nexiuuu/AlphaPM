@@ -17,37 +17,37 @@ export interface NavigationItem {
 
 export const navigation: NavigationItem[] = [
   {
-    label: "Dashboard",
+    label: "Panel Główny",
     href: "/",
     icon: LayoutDashboard,
   },
   {
-    label: "Projects",
+    label: "Projekty",
     href: "/projects",
     icon: FolderKanban,
   },
   {
-    label: "Tasks",
+    label: "Zadania",
     href: "/tasks",
     icon: CheckSquare,
   },
   {
-    label: "Calendar",
+    label: "Kalendarz",
     href: "/calendar",
     icon: CalendarDays,
   },
   {
-    label: "Team",
-    href: "/team",
+    label: "Zespoły",
+    href: "/teams",
     icon: Users,
   },
   {
-    label: "Analytics",
+    label: "Analityka",
     href: "/analytics",
     icon: ChartColumn,
   },
   {
-    label: "Settings",
+    label: "Ustawienia",
     href: "/settings",
     icon: Settings,
   },

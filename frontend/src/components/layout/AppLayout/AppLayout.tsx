@@ -6,9 +6,11 @@ import { Header } from "../Header/Header";
 import { TriangularGrid } from "../../decorations/background/triangular/TriangularGrid";
 import { useFlash } from "../../../hooks/animations/useFlash";
 import { WorkspacesProvider } from "../../../features/workspaces/WorkspacesContext";
+import { useFlow } from "../../../hooks/animations/useFlow";
 
 export const AppLayout = () => {
   const { active, finish } = useFlash();
+  const { active: activeFlow } = useFlow();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
@@ -45,6 +47,8 @@ export const AppLayout = () => {
               {active && (
                 <div className="animations-flash" onAnimationEnd={finish} />
               )}
+
+              {activeFlow && <div className="animations-flow" />}
 
               <TriangularGrid
                 gap={8}

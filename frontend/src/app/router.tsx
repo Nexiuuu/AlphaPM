@@ -14,6 +14,7 @@ import { CreateProjectPage } from "../pages/CreateProjects/CreateProjectPage";
 
 // 404
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { ProjectPage } from "../pages/Projects/project/ProjectPage";
 
 export const router = createBrowserRouter(
   [
@@ -29,42 +30,47 @@ export const router = createBrowserRouter(
         {
           index: true,
           element: <DashboardPage />,
-          handle: { title: "Dashboard" },
+          handle: { title: "Panel Główny" },
         },
         {
           path: "Analytics",
           element: <AnalyticsPage />,
-          handle: { title: "Analytics" },
+          handle: { title: "Analityka" },
         },
         {
           path: "Calendar",
           element: <CalendarPage />,
-          handle: { title: "Calendar" },
+          handle: { title: "Kalendarz" },
         },
         {
-          path: "Team",
+          path: "Teams",
           element: <TeamPage />,
-          handle: { title: "Team" },
+          handle: { title: "Zespoły" },
         },
         {
           path: "Projects",
           element: <ProjectsPage />,
-          handle: { title: "Projects" },
+          handle: { title: "Projekty" },
         },
         {
           path: "Tasks",
           element: <TaskPage />,
-          handle: { title: "Tasks" },
+          handle: { title: "Zadania" },
         },
         {
           path: "Settings",
           element: <SettingsPage />,
-          handle: { title: "Settings" },
+          handle: { title: "Ustawienia" },
         },
         {
           path: "projects/new",
           element: <CreateProjectPage />,
           handle: { title: "Nowy projekt" },
+        },
+        {
+          path: "projects/:id",
+          element: <ProjectPage />,
+          handle: { title: "Projekt" },
         },
         {
           path: "*",

@@ -1,8 +1,6 @@
 import { ArrowRight, FolderKanban } from "lucide-react";
 import { Link } from "react-router-dom";
-
-import { Card } from "../../../components/ui/Card/Card";
-import type { Workspace } from "../../../features/workspaces/types";
+import type { Workspace } from "../workspaces/types";
 
 interface RecentProjectsProps {
   workspaces: Workspace[];

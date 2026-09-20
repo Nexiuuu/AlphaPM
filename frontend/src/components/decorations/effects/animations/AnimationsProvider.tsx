@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { AnimationsContext } from "./AnimationsContext";
 
 export const AnimationsProvider = ({
@@ -7,11 +7,13 @@ export const AnimationsProvider = ({
   children: React.ReactNode;
 }) => {
   const [flash, setFlash] = useState(false);
+  const [flow, setFlow] = useState(false);
+
   const lastFlash = useRef(0);
 
   const cooldown = 1000;
 
-  const triggerFlash = () => {
+  const triggerFlash = useCallback(() => {
     const now = Date.now();
 
     if (now - lastFlash.current < cooldown) {
@@ -20,11 +22,20 @@ export const AnimationsProvider = ({
 
     lastFlash.current = now;
     setFlash(true);
-  };
+  }, []);
 
-  const finishFlash = () => {
+  const finishFlash = useCallback(() => {
     setFlash(false);
-  };
+  }, []);
+
+  const triggerFlow = useCallback(() => {
+    setFlow(true);
+  }, []);
+
+  const finishFlow = useCallback(() => {
+    setFlow(false);
+  }, []);
+
   return (
     <AnimationsContext.Provider
       value={{
@@ -33,8 +44,15 @@ export const AnimationsProvider = ({
           trigger: triggerFlash,
           finish: finishFlash,
         },
-        //TODO
-        // bottomGlow={}
+
+        flow: {
+          active: flow,
+          trigger: triggerFlow,
+          finish: finishFlow,
+        },
+
+        // TODO
+        // bottomGlow: {}
       }}
     >
       {children}

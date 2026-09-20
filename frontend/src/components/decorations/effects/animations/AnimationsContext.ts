@@ -7,7 +7,13 @@ export type AnimationsContextType = {
     finish: () => void;
   };
 
-  //TODO
+  flow: {
+    active: boolean;
+    trigger: () => void;
+    finish: () => void;
+  };
+
+  // TODO
   // bottomGlow: {
   //   active: boolean;
   //   trigger: () => void;

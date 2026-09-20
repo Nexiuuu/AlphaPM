@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface WorkspaceItemProps {
   id: number;
@@ -15,15 +15,15 @@ export const SidebarWsItem = ({
   isCollapsed,
 }: WorkspaceItemProps) => {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const isProjectsPage = location.pathname.toLowerCase() === "/projects";
-  const isSelected = searchParams.get("workspace") === String(id);
-  const isActive = isProjectsPage && isSelected;
+  const projectPath = `/projects/${id}`;
+  const isActive =
+    location.pathname === projectPath ||
+    location.pathname.startsWith(`${projectPath}/`);
 
   return (
     <li>
       <Link
-        to={`/projects?workspace=${id}`}
+        to={`/projects/${id}`}
         title={isCollapsed ? name : undefined}
         className={clsx(
           `
@@ -48,11 +48,17 @@ export const SidebarWsItem = ({
         )}
       >
         <span
-          className={isCollapsed ? "h-2 w-2 rounded-full md:h-3 md:w-3" : "h-2 w-2 rounded-full"}
+          className={
+            isCollapsed
+              ? "h-2 w-2 rounded-full md:h-3 md:w-3"
+              : "h-2 w-2 rounded-full"
+          }
           style={{ backgroundColor: color }}
         />
 
-        <span className={isCollapsed ? "truncate md:hidden" : "truncate"}>{name}</span>
+        <span className={isCollapsed ? "truncate md:hidden" : "truncate"}>
+          {name}
+        </span>
       </Link>
     </li>
   );

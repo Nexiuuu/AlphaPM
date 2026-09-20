@@ -14,13 +14,8 @@ export const SidebarWorkspaceList = ({
   isCollapsed,
   isExpanded,
 }: SidebarWorkspaceListProps) => {
-  const {
-    workspaces,
-    isLoading,
-    isAuthenticated,
-    error,
-    reloadWorkspaces,
-  } = useWorkspaces();
+  const { workspaces, isLoading, isAuthenticated, error, reloadWorkspaces } =
+    useWorkspaces();
 
   const visibleWorkspaces = isExpanded
     ? workspaces
@@ -31,25 +26,33 @@ export const SidebarWorkspaceList = ({
   return (
     <ul className="mt-1">
       {isLoading && (
-        <li className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}>
+        <li
+          className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
+        >
           Ładowanie…
         </li>
       )}
 
       {!isLoading && isAuthenticated && workspaces.length === 0 && (
-        <li className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}>
-          Nie masz jeszcze workspace'u.
+        <li
+          className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
+        >
+          Nie masz jeszcze projektu.
         </li>
       )}
 
       {!isAuthenticated && (
-        <li className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}>
+        <li
+          className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
+        >
           Zaloguj się, aby zobaczyć listę.
         </li>
       )}
 
       {error && (
-        <li className={`px-3 py-2 text-xs text-[var(--color-danger)] ${isCollapsed ? "md:hidden" : ""}`}>
+        <li
+          className={`px-3 py-2 text-xs text-[var(--color-danger)] ${isCollapsed ? "md:hidden" : ""}`}
+        >
           <p>{error}</p>
 
           <button
@@ -63,7 +66,11 @@ export const SidebarWorkspaceList = ({
       )}
 
       {visibleWorkspaces.map((workspace) => (
-        <SidebarWsItem key={workspace.id} {...workspace} isCollapsed={isCollapsed} />
+        <SidebarWsItem
+          key={workspace.id}
+          {...workspace}
+          isCollapsed={isCollapsed}
+        />
       ))}
 
       {hasReachedLimit && !isCollapsed && (

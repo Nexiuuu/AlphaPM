@@ -45,7 +45,7 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
           }
         >
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text)]">
-            Workspaces
+            Projekty
           </h2>
 
           <span className="text-xs text-[var(--color-text-disabled)]">
@@ -65,13 +65,11 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
           onClick={() => navigate("/projects/new")}
           disabled={isCreateDisabled}
           aria-label={
-            hasReachedLimit
-              ? "Osiągnięto limit 5 workspace'ów"
-              : "Utwórz workspace"
+            hasReachedLimit ? "Osiągnięto limit 5 projektów" : "Utwórz projekt"
           }
           title={
             hasReachedLimit
-              ? "Plan podstawowy pozwala utworzyć maksymalnie 5 workspace'ów"
+              ? "Plan podstawowy pozwala utworzyć maksymalnie 5 projektów"
               : undefined
           }
           className={
