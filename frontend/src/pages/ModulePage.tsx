@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowRight, Plus } from "lucide-react";
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/ui/Card/Card";
@@ -13,6 +14,7 @@ interface ModulePageProps {
   description: string;
   emptyTitle: string;
   emptyDescription: string;
+  children?: ReactNode;
 }
 
 export const ModulePage = ({
@@ -22,6 +24,7 @@ export const ModulePage = ({
   description,
   emptyTitle,
   emptyDescription,
+  children,
 }: ModulePageProps) => {
   const { isLoading, isAuthenticated } = useWorkspaces();
 
@@ -65,6 +68,8 @@ export const ModulePage = ({
             Ta sekcja jest dostępna dla zalogowanych użytkowników.
           </p>
         </Card>
+      ) : children ? (
+        children
       ) : (
         <Card className="p-7 text-center sm:p-10">
           <Icon

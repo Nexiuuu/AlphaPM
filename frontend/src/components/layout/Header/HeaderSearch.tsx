@@ -14,8 +14,17 @@ export const HeaderSearch = () => {
       <div
         ref={searchRef}
         className={`
-                    flex items-center h-10 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full overflow-hidden
-                    transition-all duration-300 ease-in-out
+                    flex 
+                    items-center 
+                    h-10 
+                    bg-[var(--color-surface)] 
+                    border 
+                    border-[var(--color-border)] 
+                    rounded-full 
+                    overflow-hidden
+                    transition-all 
+                    duration-300 
+                    ease-in-out
                     ${isOpen ? "w-[min(20rem,calc(100vw-8rem))] px-4" : "w-10 px-0 border-transparent bg-transparent"}
                 `}
       >
@@ -29,7 +38,13 @@ export const HeaderSearch = () => {
         {isOpen ? (
           <button
             onClick={() => setIsOpen(false)}
-            className="cursor-pointer text-neutral-400 hover:text-neutral-200 ml-2 shrink-0"
+            className="
+              cursor-pointer 
+              text-neutral-400 
+              hover:text-neutral-200 
+              ml-2 
+              shrink-0
+            "
             aria-label="Close Search"
           >
             <X size={18} />
@@ -37,7 +52,21 @@ export const HeaderSearch = () => {
         ) : (
           <button
             onClick={() => setIsOpen(true)}
-            className="cursor-pointer text-neutral-400 hover:text-[var(--color-text)] p-2 rounded-full hover:bg-neutral-800 shrink-0 absolute right-0"
+            className="
+              cursor-pointer 
+              text-neutral-400 
+              hover:text-[var(--color-text)] 
+              p-2 
+              rounded-full 
+              hover:bg-neutral-800 
+              shrink-0 
+              absolute 
+              right-0
+              focus:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-[var(--color-primary)]
+            "
+
             aria-label="Open Search"
           >
             <Search size={18} />

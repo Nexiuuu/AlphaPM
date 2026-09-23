@@ -7,12 +7,13 @@ export const HeaderNotificationPanel = ({ notifications }: NotificationPanelProp
         <section
             id="notifications-panel"
             className="
-                absolute
-                right-0
-                top-12
+                fixed
+                left-4
+                right-4
+                top-[calc(var(--header-height)+var(--header-height)+0.5rem)]
                 z-50
                 min-h-40
-                w-80
+                w-auto
                 overflow-hidden
                 rounded-xl
                 border
@@ -20,6 +21,11 @@ export const HeaderNotificationPanel = ({ notifications }: NotificationPanelProp
                 bg-[var(--color-surface)]
                 text-[var(--color-text)]
                 shadow-xl
+                md:absolute
+                md:left-auto
+                md:right-0
+                md:top-12
+                md:w-80
             "
         >
             <h1
@@ -34,7 +40,7 @@ export const HeaderNotificationPanel = ({ notifications }: NotificationPanelProp
                         text-[var(--color-text-muted)]
                     "
                 >
-                    {notifications} nowych
+                    {notifications}
                 </span>
             </h1>
         </section>
