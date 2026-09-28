@@ -1,4 +1,4 @@
-import type { Task } from "../../data/project/Task";
+import type { Task } from "../../data/task/Task";
 import type {
   CalendarTasksByDate,
   DayItem,
@@ -23,10 +23,8 @@ export const MONTHS: MonthOption[] = [
 
 const DAY_NAMES = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "Sb"];
 
-export const getDaysInMonthCount = (
-  year: number,
-  monthId: number,
-): number => new Date(year, monthId + 1, 0).getDate();
+export const getDaysInMonthCount = (year: number, monthId: number): number =>
+  new Date(year, monthId + 1, 0).getDate();
 
 export const getFirstDayOfMonthOffset = (
   year: number,
@@ -44,10 +42,7 @@ export const formatDateString = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-export const generateMonthData = (
-  year: number,
-  monthId: number,
-): MonthData => {
+export const generateMonthData = (year: number, monthId: number): MonthData => {
   const totalDays = getDaysInMonthCount(year, monthId);
   const days: DayItem[] = [];
 
@@ -70,11 +65,11 @@ export const generateMonthData = (
 
 export const groupTasksByDate = (tasks: Task[]): CalendarTasksByDate => {
   return tasks.reduce<CalendarTasksByDate>((tasksByDate, task) => {
-    const starts = new Date(task.starts);
-    const deadline = new Date(task.deadline);
+    const starts = new Date(task.startsAt);
+    const endsAt = new Date(task.endsAt);
 
-    const firstDate = starts <= deadline ? starts : deadline;
-    const lastDate = starts <= deadline ? deadline : starts;
+    const firstDate = starts <= endsAt ? starts : endsAt;
+    const lastDate = starts <= endsAt ? endsAt : starts;
     const currentDate = new Date(
       firstDate.getFullYear(),
       firstDate.getMonth(),

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Project {
 
-    private Long id;
+    private UUID id;
 
     @JsonProperty("owner_id")
     private UUID userId;
@@ -18,7 +18,7 @@ public class Project {
     private OffsetDateTime createdAt;
 
     public Project(
-            Long id,
+            UUID id,
             UUID userId,
             String name,
             String color,
@@ -31,13 +31,14 @@ public class Project {
         this.createdAt = createdAt;
     }
 
-    protected Project() {}
+    protected Project() {
+    }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

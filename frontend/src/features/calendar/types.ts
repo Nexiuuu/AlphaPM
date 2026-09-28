@@ -1,4 +1,4 @@
-import type { Task } from "../../data/project/Task";
+import type { Task } from "../../data/task/Task";
 
 export interface MonthOption {
   id: number;

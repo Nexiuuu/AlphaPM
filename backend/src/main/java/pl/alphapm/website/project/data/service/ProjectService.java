@@ -1,6 +1,7 @@
 package pl.alphapm.website.project.data.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class ProjectService {
     }
 
     public ProjectDTO updateProject(
-            Long projectId,
+            UUID projectId,
             String name,
             String color
     ) {
@@ -71,7 +72,7 @@ public class ProjectService {
         );
     }
 
-    public void deleteProject(Long projectId) {
+    public void deleteProject(UUID projectId) {
         projectRepository.deleteProject(projectId);
     }
 }

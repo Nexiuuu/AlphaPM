@@ -137,7 +137,7 @@
 }
 
 .search-lens {
-  opacity: 1;
+  opacity: 1; /* animation: blink-reversed 10s steps(1) infinite; */
 }
 
 @keyframes inspect {
@@ -166,6 +166,7 @@
   85% {
     opacity: 0;
   }
+
   55%,
   65%,
   75% {
@@ -173,25 +174,36 @@
   }
 }
 
-@keyframes search-move {
-  0% {
-  }
-  20% {
-    translate: 0 0;
-    transform: rotateX(0deg) rotateY(0deg);
-  }
-  45% {
-    translate: -9px 18px;
-    transform: rotateX(25deg) rotateY(15deg);
-  }
+@keyframes blink-reversed {
+  0%,
+  60%,
+  70%,
+  80%,
   85% {
-    translate: 18px 18px;
-    transform: rotateX(25deg) rotateY(-15deg);
+    opacity: 1;
   }
-  95% {
-    transform: rotateX(0deg) rotateY(0deg);
+
+  55%,
+  65%,
+  75% {
+    opacity: 0;
   }
+}
+
+@keyframes search-move {
+  20% {
+    transform: translate(0, 0) rotateX(0deg) rotateY(0deg);
+  }
+
+  45% {
+    transform: translate(-8px, 16px) rotateX(25deg) rotateY(15deg);
+  }
+
+  85% {
+    transform: translate(18px, 16px) rotateX(25deg) rotateY(-15deg);
+  }
+
   100% {
-    translate: 0 0;
+    transform: translate(0, 0) rotateX(0deg) rotateY(0deg);
   }
 }

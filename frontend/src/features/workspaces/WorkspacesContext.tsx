@@ -53,9 +53,10 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
     } catch (caughtError) {
       if (currentRequestId !== requestId.current) return;
 
-      const message = caughtError instanceof Error
-        ? caughtError.message
-        : "Nie udało się pobrać workspace'ów.";
+      const message =
+        caughtError instanceof Error
+          ? caughtError.message
+          : "Nie udało się pobrać workspace'ów.";
 
       setError(message);
     } finally {
@@ -70,9 +71,10 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
       const session = await getCurrentSession();
       await load(Boolean(session));
     } catch (caughtError) {
-      const message = caughtError instanceof Error
-        ? caughtError.message
-        : "Nie udało się sprawdzić sesji użytkownika.";
+      const message =
+        caughtError instanceof Error
+          ? caughtError.message
+          : "Nie udało się sprawdzić sesji użytkownika.";
 
       setError(message);
       setIsLoading(false);
@@ -85,9 +87,10 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
         void load(Boolean(session));
       })
       .catch((caughtError: unknown) => {
-        const message = caughtError instanceof Error
-          ? caughtError.message
-          : "Nie udało się sprawdzić sesji użytkownika.";
+        const message =
+          caughtError instanceof Error
+            ? caughtError.message
+            : "Nie udało się sprawdzić sesji użytkownika.";
 
         setError(message);
         setIsLoading(false);
@@ -110,7 +113,7 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
   };
 
   const updateWorkspace = async (
-    projectId: number,
+    projectId: string,
     input: UpdateWorkspaceInput,
   ) => {
     const updatedWorkspace = await updateWorkspaceRequest(projectId, input);
@@ -124,7 +127,7 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
     return updatedWorkspace;
   };
 
-  const deleteWorkspace = async (projectId: number) => {
+  const deleteWorkspace = async (projectId: string) => {
     await deleteWorkspaceRequest(projectId);
 
     setWorkspaces((current) =>

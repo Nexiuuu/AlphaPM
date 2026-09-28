@@ -23,10 +23,7 @@ export const DashboardPage = () => {
         <DashboardEmptyState />
       ) : (
         <>
-          <DashboardStats
-            projectsCount={workspaces.length}
-            isLoading={false}
-          />
+          <DashboardStats projectsCount={workspaces.length} isLoading={false} />
 
           {error && (
             <p className="mt-4 rounded-xl border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 px-4 py-3 text-sm">

@@ -1,6 +1,7 @@
 package pl.alphapm.website.project.data.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class ProjectController {
 
     @PatchMapping("/{projectId}")
     public ProjectDTO updateProject(
-            @PathVariable Long projectId,
+            @PathVariable UUID projectId,
             @Valid @RequestBody UpdateProjectRequestDTO request
     ) {
         return projectService.updateProject(
@@ -53,7 +54,7 @@ public class ProjectController {
 
     @DeleteMapping("/{projectId}")
     public void deleteProject(
-            @PathVariable Long projectId
+            @PathVariable UUID projectId
     ) {
         projectService.deleteProject(projectId);
     }

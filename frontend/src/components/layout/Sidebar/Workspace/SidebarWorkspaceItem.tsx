@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Link, useLocation } from "react-router-dom";
 
 interface WorkspaceItemProps {
-  id: number;
+  id: string;
   name: string;
   color: string;
   isCollapsed: boolean;

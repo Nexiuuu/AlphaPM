@@ -1,9 +1,9 @@
 import { createContext } from "react";
 
-import type { 
-  CreateWorkspaceInput, 
-  UpdateWorkspaceInput, 
-  Workspace 
+import type {
+  CreateWorkspaceInput,
+  UpdateWorkspaceInput,
+  Workspace,
 } from "./types";
 
 export interface WorkspacesContextValue {
@@ -12,8 +12,11 @@ export interface WorkspacesContextValue {
   isAuthenticated: boolean;
   error: string | null;
   createWorkspace: (input: CreateWorkspaceInput) => Promise<Workspace>;
-  updateWorkspace: (projectId: number, input: UpdateWorkspaceInput) => Promise<Workspace>;
-  deleteWorkspace: (projectId: number) => Promise<void>;
+  updateWorkspace: (
+    projectId: string,
+    input: UpdateWorkspaceInput,
+  ) => Promise<Workspace>;
+  deleteWorkspace: (projectId: string) => Promise<void>;
   reloadWorkspaces: () => Promise<void>;
 }
 

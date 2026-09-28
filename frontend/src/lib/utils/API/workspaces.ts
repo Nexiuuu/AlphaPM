@@ -61,7 +61,7 @@ export const createWorkspace = async (
 };
 
 export const updateWorkspace = async (
-  projectId: number,
+  projectId: string,
   input: UpdateWorkspaceInput,
 ): Promise<Workspace> => {
   const {
@@ -91,9 +91,7 @@ export const updateWorkspace = async (
   return response.json();
 };
 
-export const deleteWorkspace = async (
-  projectId: number
-): Promise<void> => {
+export const deleteWorkspace = async (projectId: string): Promise<void> => {
   const {
     data: { session },
   } = await supabase.auth.getSession();

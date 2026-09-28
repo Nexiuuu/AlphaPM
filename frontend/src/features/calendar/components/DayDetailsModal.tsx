@@ -1,7 +1,7 @@
 import { CalendarDays, Clock, X } from "lucide-react";
 import { useEffect } from "react";
 
-import type { Task } from "../../../data/project/Task";
+import type { Task } from "../../../data/task/Task";
 import type { DayItem } from "../types";
 
 interface DayDetailsModalProps {
@@ -23,9 +23,9 @@ const timeFormatter = new Intl.DateTimeFormat("pl-PL", {
 });
 
 const getTaskTime = (task: Task) => {
-  if (task.allday) return "Cały dzień";
+  if (task.allDay) return "Cały dzień";
 
-  return `${timeFormatter.format(new Date(task.starts))}–${timeFormatter.format(new Date(task.deadline))}`;
+  return `${timeFormatter.format(new Date(task.startsAt))}–${timeFormatter.format(new Date(task.endsAt))}`;
 };
 
 export const DayDetailsModal = ({

@@ -1,7 +1,7 @@
 import { CalendarDays } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
-import type { Task } from "../data/project/Task";
+import type { Task } from "../data/task/Task";
 import { CalendarGrid } from "../features/calendar/components/CalendarGrid";
 import { CalendarHeader } from "../features/calendar/components/CalendarHeader";
 import { DayDetailsModal } from "../features/calendar/components/DayDetailsModal";
@@ -72,7 +72,9 @@ export const CalendarPage = () => {
 
       <DayDetailsModal
         day={selectedDay}
-        tasks={selectedDay ? tasksByDate[selectedDay.formattedDate] ?? [] : []}
+        tasks={
+          selectedDay ? (tasksByDate[selectedDay.formattedDate] ?? []) : []
+        }
         onClose={closeDayDetails}
       />
     </ModulePage>

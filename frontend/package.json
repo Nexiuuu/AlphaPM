@@ -19,7 +19,8 @@
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.85.0",
     "react-router-dom": "^7.18.2",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "uuid": "^14.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",

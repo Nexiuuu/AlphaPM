@@ -1,6 +1,7 @@
 package pl.alphapm.website.project.data;
 
 import java.util.List;
+import java.util.UUID;
 
 import pl.alphapm.website.project.data.entities.Project;
 
@@ -10,7 +11,7 @@ public interface ProjectRepository {
 
     List<Project> getProjects();
 
-    void deleteProject(Long projectId);
+    void deleteProject(UUID projectId);
 
-    Project updateProject(Long projectId, String name, String color);
+    Project updateProject(UUID projectId, String name, String color);
 }

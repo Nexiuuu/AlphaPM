@@ -10,12 +10,10 @@ public class SupabaseConfig {
 
     @Bean
     public RestClient supabaseRestClient(
-        @Value("${supabase.url}") String supabaseUrl,
-        @Value("${supabase.secret-key}") String serviceRoleKey
+            @Value("${supabase.url}") String supabaseUrl
     ) {
         return RestClient.builder()
-            .baseUrl(supabaseUrl)
-            .defaultHeader("apikey", serviceRoleKey)
-            .build();
+                .baseUrl(supabaseUrl)
+                .build();
     }
 }

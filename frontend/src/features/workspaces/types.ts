@@ -1,5 +1,5 @@
 export interface Workspace {
-  id: number;
+  id: string;
   owner_id: string | null;
   name: string;
   color: string;
