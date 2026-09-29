@@ -7,15 +7,12 @@ import {
 } from "react";
 
 import {
-  getCurrentSession,
-  subscribeToAuthChanges,
-} from "../../lib/utils/API/auth";
-import {
   createWorkspace as createWorkspaceRequest,
   deleteWorkspace as deleteWorkspaceRequest,
   getWorkspaces,
   updateWorkspace as updateWorkspaceRequest,
 } from "../../lib/utils/API/workspaces";
+import { useAuth } from "../auth/useAuth";
 import type {
   CreateWorkspaceInput,
   UpdateWorkspaceInput,
@@ -26,14 +23,14 @@ import { WorkspacesContext } from "./workspacesStore";
 export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const requestId = useRef(0);
+  const { session, isLoading: isAuthLoading } = useAuth();
+  const isAuthenticated = Boolean(session);
 
   const load = useCallback(async (authenticated: boolean) => {
     const currentRequestId = ++requestId.current;
 
-    setIsAuthenticated(authenticated);
     setError(null);
 
     if (!authenticated) {
@@ -67,43 +64,18 @@ export const WorkspacesProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const reloadWorkspaces = useCallback(async () => {
-    try {
-      const session = await getCurrentSession();
-      await load(Boolean(session));
-    } catch (caughtError) {
-      const message =
-        caughtError instanceof Error
-          ? caughtError.message
-          : "Nie udało się sprawdzić sesji użytkownika.";
+    if (isAuthLoading) return;
 
-      setError(message);
-      setIsLoading(false);
-    }
-  }, [load]);
+    await load(isAuthenticated);
+  }, [isAuthLoading, isAuthenticated, load]);
 
   useEffect(() => {
-    getCurrentSession()
-      .then((session) => {
-        void load(Boolean(session));
-      })
-      .catch((caughtError: unknown) => {
-        const message =
-          caughtError instanceof Error
-            ? caughtError.message
-            : "Nie udało się sprawdzić sesji użytkownika.";
+    if (isAuthLoading) return;
 
-        setError(message);
-        setIsLoading(false);
-      });
-
-    const subscription = subscribeToAuthChanges((event, session) => {
-      if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
-        void load(Boolean(session));
-      }
+    queueMicrotask(() => {
+      void load(isAuthenticated);
     });
-
-    return () => subscription.unsubscribe();
-  }, [load]);
+  }, [isAuthLoading, isAuthenticated, load]);
 
   const createWorkspace = async (input: CreateWorkspaceInput) => {
     const workspace = await createWorkspaceRequest(input);

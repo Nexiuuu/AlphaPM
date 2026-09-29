@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useWorkspaces } from "../../features/workspaces/useWorkspaces";
+import { WorkspaceColorPicker } from "../../features/workspaces/components/WorkspaceColorPicker";
 import { Typebar } from "../../components/ui/typebar/Typebar";
 
 interface ProjectForm {
@@ -17,6 +18,7 @@ export const CreateProjectForm = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ProjectForm>({
@@ -25,6 +27,7 @@ export const CreateProjectForm = () => {
       color: "#27f580",
     },
   });
+  const selectedColor = useWatch({ control, name: "color" });
 
   const onSubmit = handleSubmit(async (values) => {
     setCreateError(null);
@@ -81,35 +84,21 @@ export const CreateProjectForm = () => {
       )}
 
       <div className="mt-6">
-        <label htmlFor="project-color" className="text-sm font-medium">
+        <p className="text-sm font-medium">
           Kolor projektu
-        </label>
+        </p>
 
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
           Kolor pomoże Ci szybko rozpoznać projekt w sidebarze.
         </p>
 
-        <div className="mt-3 flex items-center gap-3">
-          <input
-            type="color"
+        <div className="mt-3">
+          <WorkspaceColorPicker
             id="project-color"
-            className="
-                            h-11
-                            w-11
-                            cursor-pointer
-                            overflow-hidden
-                            rounded-lg
-                            border
-                            border-[var(--color-border)]
-                            bg-transparent
-                            p-0
-                        "
-            {...register("color")}
+            color={selectedColor}
+            description="Kliknij próbkę, aby wybrać kolor"
+            registration={register("color")}
           />
-
-          <p className="text-sm text-[var(--color-text-muted)]">
-            Kliknij, aby wybrać kolor
-          </p>
         </div>
       </div>
 

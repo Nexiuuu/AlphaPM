@@ -5,6 +5,7 @@ import {
 } from "../../../../features/workspaces/constants";
 import { LoadingText } from "../../../ui/LoadingText/LoadingText";
 import { SidebarWsItem } from "./SidebarWorkspaceItem";
+import { AuthenticatedContent } from "../../../../features/auth/components/AuthenticatedContent";
 
 interface SidebarWorkspaceListProps {
   isCollapsed: boolean;
@@ -15,7 +16,7 @@ export const SidebarWorkspaceList = ({
   isCollapsed,
   isExpanded,
 }: SidebarWorkspaceListProps) => {
-  const { workspaces, isLoading, isAuthenticated, error, reloadWorkspaces } =
+  const { workspaces, isLoading, error, reloadWorkspaces } =
     useWorkspaces();
 
   const visibleWorkspaces = isExpanded
@@ -34,19 +35,13 @@ export const SidebarWorkspaceList = ({
         </li>
       )}
 
-      {!isLoading && isAuthenticated && workspaces.length === 0 && (
+      {!isLoading && workspaces.length === 0 && (
         <li
           className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
         >
-          Nie masz jeszcze projektu.
-        </li>
-      )}
-
-      {!isLoading && !isAuthenticated && (
-        <li
-          className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
-        >
-          Zaloguj się, aby zobaczyć listę.
+          <AuthenticatedContent fallback="Lista dostępna po zalogowaniu.">
+            Brak projektów.
+          </AuthenticatedContent>
         </li>
       )}
 

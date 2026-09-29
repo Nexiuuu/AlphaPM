@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/ui/Card/Card";
-import { LoadingText } from "../components/ui/LoadingText/LoadingText";
-import { useWorkspaces } from "../features/workspaces/useWorkspaces";
+import { AuthenticatedContent } from "../features/auth/components/AuthenticatedContent";
+import { GuestPreviewMessage } from "../features/auth/components/GuestPreviewMessage";
 
 interface ModulePageProps {
   icon: LucideIcon;
@@ -26,8 +26,6 @@ export const ModulePage = ({
   emptyDescription,
   children,
 }: ModulePageProps) => {
-  const { isLoading, isAuthenticated } = useWorkspaces();
-
   return (
     <section className="mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
       <div className="mb-7">
@@ -48,43 +46,43 @@ export const ModulePage = ({
         </p>
       </div>
 
-      {isLoading ? (
-        <Card className="p-7 text-center">
-          <p className="text-sm text-[var(--color-text-muted)]">
-            <LoadingText label="Sprawdzanie sesji" />
-          </p>
-        </Card>
-      ) : !isAuthenticated ? (
-        <Card className="p-7 text-center">
-          <Icon
-            className="mx-auto mb-3 text-[var(--color-primary)] [-webkit-text-stroke:4px_var(--color-surface-grid)] [paint-order:stroke_fill]"
-            size={28}
-          />
-          <h3 className="text-lg font-semibold">
-            Zaloguj się, aby kontynuować
-          </h3>
-
-          <p className="mt-2 text-sm text-[var(--color-text-muted)]">
-            Ta sekcja jest dostępna dla zalogowanych użytkowników.
-          </p>
-        </Card>
-      ) : children ? (
-        children
+      {children ? (
+        <AuthenticatedContent
+          showChildrenToGuests
+          fallback={
+            <div className="mb-4">
+              <GuestPreviewMessage
+                title={`${title} nie pokazuje danych konta w podglądzie`}
+                description="Zaloguj się, aby zobaczyć informacje powiązane z Twoimi projektami i zadaniami."
+              />
+            </div>
+          }
+        >
+          {children}
+        </AuthenticatedContent>
       ) : (
-        <Card className="p-7 text-center sm:p-10">
-          <Icon
-            className="mx-auto mb-4 text-[var(--color-primary)] [-webkit-text-stroke:4px_var(--color-surface-grid)] [paint-order:stroke_fill]"
-            size={28}
-          />
-          <h3 className="text-lg font-semibold">{emptyTitle}</h3>
+        <AuthenticatedContent
+          fallback={
+            <GuestPreviewMessage
+              title={`Podgląd: ${title}`}
+              description="Po zalogowaniu ta sekcja będzie korzystać z danych Twoich projektów i zadań."
+            />
+          }
+        >
+          <Card className="p-7 text-center sm:p-10">
+            <Icon
+              className="mx-auto mb-4 text-[var(--color-primary)] [-webkit-text-stroke:4px_var(--color-surface-grid)] [paint-order:stroke_fill]"
+              size={28}
+            />
+            <h3 className="text-lg font-semibold">{emptyTitle}</h3>
 
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[var(--color-text-muted)]">
-            {emptyDescription}
-          </p>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[var(--color-text-muted)]">
+              {emptyDescription}
+            </p>
 
-          <Link
-            to="/projects"
-            className="
+            <Link
+              to="/projects"
+              className="
               mt-5 
               inline-flex 
               items-center 
@@ -98,11 +96,12 @@ export const ModulePage = ({
               text-[var(--color-primary-foreground)]
               focus:outline-none
             "
-          >
-            <Plus size={17} /> Otwórz projekty
-            <ArrowRight size={16} />
-          </Link>
-        </Card>
+              >
+              <Plus size={17} /> Otwórz projekty
+              <ArrowRight size={16} />
+            </Link>
+          </Card>
+        </AuthenticatedContent>
       )}
     </section>
   );

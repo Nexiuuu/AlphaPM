@@ -1,8 +1,10 @@
 import { CalendarDays, Clock, X } from "lucide-react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import type { Task } from "../../../data/task/Task";
 import type { DayItem } from "../types";
+import { useAuth } from "../../auth/useAuth";
 
 interface DayDetailsModalProps {
   day: DayItem | null;
@@ -44,6 +46,8 @@ export const DayDetailsModal = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [day, onClose]);
 
+  const { session } = useAuth();
+
   if (!day) return null;
 
   return (
@@ -83,7 +87,22 @@ export const DayDetailsModal = ({
         </header>
 
         <div className="max-h-[60dvh] overflow-y-auto p-4 sm:p-5">
-          {tasks.length === 0 ? (
+          {!session ? (
+            <div className="rounded-xl border border-dashed border-[var(--color-border)] px-5 py-8 text-center">
+              <p className="font-medium text-[var(--color-text)]">
+                Zadania są ukryte w podglądzie
+              </p>
+              <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+                Zaloguj się, aby sprawdzić zadania przypisane do tego dnia.
+              </p>
+              <Link
+                to="/login"
+                className="mt-4 inline-flex rounded-lg bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-primary-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+              >
+                Zaloguj się
+              </Link>
+            </div>
+          ) : tasks.length === 0 ? (
             <div className="rounded-xl border border-dashed border-[var(--color-border)] px-5 py-8 text-center">
               <p className="font-medium text-[var(--color-text)]">
                 Spokojny dzień

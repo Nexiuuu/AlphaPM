@@ -32,16 +32,16 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
   return (
     <article
       className={`
-                group
-                relative
-                rounded-2xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-surface)]
-                transition
-                ${!editMode ? "hover:-translate-y-0.5 hover:border-[var(--color-text-disabled)]" : ""}
-                ${isOpen || editMode ? "z-20" : "z-0"}
-            `}
+        group
+        relative
+        rounded-2xl
+        border
+        border-[var(--color-border)]
+        bg-[var(--color-surface)]
+        transition
+        ${!editMode ? "hover:-translate-y-0.5 hover:border-[var(--color-text-disabled)]" : ""}
+        ${isOpen || editMode ? "z-20" : "z-0"}
+      `}
     >
       {editMode ? (
         <div className="p-5 flex flex-col gap-3">
@@ -71,16 +71,16 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
           <Link
             to={`/projects/${workspace.id}`}
             className="
-                            block
-                            h-full
-                            w-full
-                            p-5
-                            pr-14
-                            focus:outline-none
-                            focus-visible:ring-2
-                            focus-visible:ring-inset
-                            focus-visible:ring-[var(--color-primary)]
-                        "
+              block
+              h-full
+              w-full
+              p-5
+              pr-14
+              focus:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-inset
+              focus-visible:ring-[var(--color-primary)]
+            "
           >
             <span
               className="mb-8 block h-3 w-3 rounded-full"
@@ -91,9 +91,9 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
               <FolderKanban
                 size={18}
                 className="
-                                    text-[var(--color-text-disabled)]
-                                    group-hover:text-[var(--color-text)]
-                                "
+                  text-[var(--color-text-disabled)]
+                  group-hover:text-[var(--color-text)]
+                "
               />
 
               <h3 className="font-semibold">{workspace.name}</h3>
@@ -113,15 +113,15 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
               aria-controls={`project-menu-${workspace.id}`}
               title="Zarządzaj projektem"
               className="
-                                cursor-pointer
-                                rounded-lg
-                                p-2
-                                text-[var(--color-text-disabled)]
-                                transition-colors
-                                hover:bg-[var(--color-surface-hover)]
-                                hover:text-[var(--color-text)]
-                                focus:outline-none
-                            "
+                cursor-pointer
+                rounded-lg
+                p-2
+                text-[var(--color-text-disabled)]
+                transition-colors
+                hover:bg-[var(--color-surface-hover)]
+                hover:text-[var(--color-text)]
+                focus:outline-none
+              "
             >
               {isOpen ? <X size={18} /> : <Ellipsis size={18} />}
             </button>
@@ -130,38 +130,38 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
               <div
                 id={`project-menu-${workspace.id}`}
                 className="
-                                    absolute
-                                    right-0
-                                    top-10
-                                    z-30
-                                    flex
-                                    w-48
-                                    flex-col
-                                    whitespace-nowrap
-                                    rounded-lg
-                                    border
-                                    border-[var(--color-border)]
-                                    bg-[var(--color-surface)]
-                                    p-3
-                                    text-[var(--color-text)]
-                                    shadow-lg
-                                    gap-1
-                                "
+                  absolute
+                  right-0
+                  top-10
+                  z-30
+                  flex
+                  w-48
+                  flex-col
+                  whitespace-nowrap
+                  rounded-lg
+                  border
+                  border-[var(--color-border)]
+                  bg-[var(--color-surface)]
+                  p-3
+                  text-[var(--color-text)]
+                  shadow-lg
+                  gap-1
+                "
               >
                 <button
                   type="button"
                   onClick={() => setEditMode("name")}
                   className="
-                                        cursor-pointer
-                                        rounded-lg
-                                        text-[var(--color-text-disabled)]
-                                        transition-colors
-                                        hover:bg-[var(--color-surface-hover)]
-                                        hover:text-[var(--color-text)]
-                                        focus:outline-none
-                                        focus-visible:ring-2
-                                        focus-visible:ring-[var(--color-primary)]
-                                    "
+                    cursor-pointer
+                    rounded-lg
+                    text-[var(--color-text-disabled)]
+                    transition-colors
+                    hover:bg-[var(--color-surface-hover)]
+                    hover:text-[var(--color-text)]
+                    focus:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-[var(--color-primary)]
+                  "
                 >
                   Edytuj projekt
                 </button>
@@ -170,16 +170,16 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
                   type="button"
                   onClick={() => setEditMode("color")}
                   className="
-                                        cursor-pointer
-                                        rounded-lg
-                                        text-[var(--color-text-disabled)]
-                                        transition-colors
-                                        hover:bg-[var(--color-surface-hover)]
-                                        hover:text-[var(--color-text)]
-                                        focus:outline-none
-                                        focus-visible:ring-2
-                                        focus-visible:ring-[var(--color-primary)]
-                                    "
+                    cursor-pointer
+                    rounded-lg
+                    text-[var(--color-text-disabled)]
+                    transition-colors
+                    hover:bg-[var(--color-surface-hover)]
+                    hover:text-[var(--color-text)]
+                    focus:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-[var(--color-primary)]
+                  "
                 >
                   Zmień kolor
                 </button>
@@ -188,17 +188,17 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
                   type="button"
                   onClick={() => setEditMode("delete")}
                   className="
-                                        cursor-pointer
-                                        rounded-lg
-                                        text-[var(--color-text-muted)]
-                                        transition-colors
-                                        bg-[#ef4444]
-                                        hover:bg-[#eb5c5c]
-                                        hover:text-[var(--color-text)]
-                                        focus:outline-none
-                                        focus-visible:ring-2
-                                        focus-visible:ring-[var(--color-primary)]
-                                    "
+                    cursor-pointer
+                    rounded-lg
+                    text-[var(--color-text-muted)]
+                    transition-colors
+                    bg-[#ef4444]
+                    hover:bg-[#eb5c5c]
+                    hover:text-[var(--color-text)]
+                    focus:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-[var(--color-primary)]
+                  "
                 >
                   Usuń projekt
                 </button>

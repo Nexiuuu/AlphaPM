@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 
 import type { Workspace } from "../../../../features/workspaces/types";
+import { WorkspaceColorPicker } from "../../../../features/workspaces/components/WorkspaceColorPicker";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
 
 interface ColorProjectFormProps {
@@ -20,6 +21,7 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
 
     const {
         register,
+        control,
         handleSubmit,
         formState: { isSubmitting, isDirty },
     } = useForm<IColorWorkspaceInput>({
@@ -27,6 +29,7 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
             color: workspace.color,
         },
     });
+    const selectedColor = useWatch({ control, name: "color" });
 
     const onSubmit: SubmitHandler<IColorWorkspaceInput> = async (data) => {
         setUpdateError(null);
@@ -49,32 +52,17 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-            <label
-                htmlFor={`project-color-${workspace.id}`}
-                className="text-xs font-semibold text-[var(--color-text-muted)]"
-            >
+            <p className="text-xs font-semibold text-[var(--color-text-muted)]">
                 Wybierz kolor projektu
-            </label>
+            </p>
             
-            <div className="flex items-center gap-3 my-1">
-                <input
+            <div className="my-1">
+                <WorkspaceColorPicker
                     id={`project-color-${workspace.id}`}
-                    type="color"
-                    {...register("color")}
-                    className="
-                        h-8
-                        w-12
-                        cursor-pointer
-                        rounded-md
-                        border
-                        border-[var(--color-border)]
-                        bg-[var(--color-surface-hover)]
-                        p-1
-                    "
+                    color={selectedColor}
+                    description="Kliknij próbkę, aby zmienić"
+                    registration={register("color")}
                 />
-                <span className="text-xs text-[var(--color-text)]">
-                    Wybierz nową barwę
-                </span>
             </div>
 
             {updateError && (

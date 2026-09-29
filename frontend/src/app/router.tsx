@@ -15,6 +15,7 @@ import { CreateProjectPage } from "../pages/CreateProjects/CreateProjectPage";
 // 404
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProjectPage } from "../pages/Projects/project/ProjectPage";
+import { AuthGuard } from "../features/auth/components/AuthGuard";
 
 export const router = createBrowserRouter(
   [
@@ -24,58 +25,63 @@ export const router = createBrowserRouter(
       handle: { title: "Logowanie" },
     },
     {
-      path: "/",
-      element: <AppLayout />,
+      element: <AuthGuard />,
       children: [
         {
-          index: true,
-          element: <DashboardPage />,
-          handle: { title: "Panel Główny" },
-        },
-        {
-          path: "Analytics",
-          element: <AnalyticsPage />,
-          handle: { title: "Analityka" },
-        },
-        {
-          path: "Calendar",
-          element: <CalendarPage />,
-          handle: { title: "Kalendarz" },
-        },
-        {
-          path: "Teams",
-          element: <TeamPage />,
-          handle: { title: "Zespoły" },
-        },
-        {
-          path: "Projects",
-          element: <ProjectsPage />,
-          handle: { title: "Projekty" },
-        },
-        {
-          path: "Tasks",
-          element: <TaskPage />,
-          handle: { title: "Zadania" },
-        },
-        {
-          path: "Settings",
-          element: <SettingsPage />,
-          handle: { title: "Ustawienia" },
-        },
-        {
-          path: "projects/new",
-          element: <CreateProjectPage />,
-          handle: { title: "Nowy projekt" },
-        },
-        {
-          path: "projects/:id",
-          element: <ProjectPage />,
-          handle: { title: "Projekt" },
-        },
-        {
-          path: "*",
-          element: <NotFoundPage />,
-          handle: { title: "Nie znaleziono" },
+          path: "/",
+          element: <AppLayout />,
+          children: [
+            {
+              index: true,
+              element: <DashboardPage />,
+              handle: { title: "Panel Główny" },
+            },
+            {
+              path: "Analytics",
+              element: <AnalyticsPage />,
+              handle: { title: "Analityka" },
+            },
+            {
+              path: "Calendar",
+              element: <CalendarPage />,
+              handle: { title: "Kalendarz" },
+            },
+            {
+              path: "Teams",
+              element: <TeamPage />,
+              handle: { title: "Zespoły" },
+            },
+            {
+              path: "Projects",
+              element: <ProjectsPage />,
+              handle: { title: "Projekty" },
+            },
+            {
+              path: "Tasks",
+              element: <TaskPage />,
+              handle: { title: "Zadania" },
+            },
+            {
+              path: "Settings",
+              element: <SettingsPage />,
+              handle: { title: "Ustawienia" },
+            },
+            {
+              path: "projects/new",
+              element: <CreateProjectPage />,
+              handle: { title: "Nowy projekt" },
+            },
+            {
+              path: "projects/:id",
+              element: <ProjectPage />,
+              handle: { title: "Projekt" },
+            },
+            {
+              path: "*",
+              element: <NotFoundPage />,
+              handle: { title: "Nie znaleziono" },
+            },
+          ],
         },
       ],
     },
