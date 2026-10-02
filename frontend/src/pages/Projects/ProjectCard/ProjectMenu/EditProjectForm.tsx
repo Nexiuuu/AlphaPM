@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { Workspace } from "../../../../features/workspaces/types";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
+import { useTranslation } from "react-i18next";
 
 interface EditProjectFormProps {
     workspace: Workspace;
@@ -14,8 +15,10 @@ interface IEditWorkspaceInput {
 
 export const EditProjectForm = ({ workspace, onClose }: EditProjectFormProps) => {
     const [updateError, setUpdateError] = useState<string | null>(null);
-    
+
     const { updateWorkspace } = useWorkspaces();
+
+    const { t } = useTranslation("projects");
 
     const {
         register,
@@ -40,35 +43,35 @@ export const EditProjectForm = ({ workspace, onClose }: EditProjectFormProps) =>
         } catch (error) {
             const message = error instanceof Error
                 ? error.message
-                : "Wystąpił błąd podczas aktualizacji projektu.";
+                : t("editProjectForm.errorMsg");
 
             setUpdateError(message);
         }
     };
 
     return (
-        <form 
+        <form
             autoComplete="off"
-            onSubmit={handleSubmit(onSubmit)} 
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-2">
             <label
                 htmlFor={`project-name-${workspace.id}`}
                 className="text-xs font-semibold text-[var(--color-text-muted)]"
             >
-                Nowa nazwa projektu
+                {t("editProjectForm.newName")}
             </label>
-            
+
             <input
                 id={`project-name-${workspace.id}`}
                 type="text"
                 aria-invalid={Boolean(errors.name)}
                 {...register("name", {
-                    required: "Nazwa projektu jest wymagana",
+                    required: t("editProjectForm.name"),
                     validate: (value) =>
-                        value.trim().length >= 2 || "Minimum 2 znaki",
+                        value.trim().length >= 2 || t("editProjectForm.charMin"),
                     maxLength: {
                         value: 60,
-                        message: "Maksymalnie 60 znaków",
+                        message: t("editProjectForm.charLimit"),
                     },
                 })}
                 className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-surface-hover)] px-2 py-1 text-sm text-[var(--color-text)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
@@ -81,7 +84,7 @@ export const EditProjectForm = ({ workspace, onClose }: EditProjectFormProps) =>
             {updateError && (
                 <p className="text-xs text-red-500 font-medium">{updateError}</p>
             )}
-    
+
             <button
                 type="submit"
                 disabled={isSubmitting || !isDirty}
@@ -100,7 +103,7 @@ export const EditProjectForm = ({ workspace, onClose }: EditProjectFormProps) =>
                     focus:outline-none
                 "
             >
-                {isSubmitting ? "Zapisuję…" : "Zapisz nazwę"}
+                {isSubmitting ? t("editProjectForm.savingName") : t("editProjectForm.saveName")}
             </button>
         </form>
     );

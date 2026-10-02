@@ -1,0 +1,33 @@
+{
+  "dashboard": "Dashboard",
+  "projects": "Projects",
+  "tasks": "Tasks",
+  "calendar": "Calendar",
+  "teams": "Teams",
+  "analytics": "Analytics",
+  "settings": "Settings",
+  "projectsSection": "PROJECTS",
+  "pm": "Project Management",
+
+  "aria": {
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "userPanel": "User panel",
+    "openUserPanel": "Open the user panel",
+    "basicPlan": "The Basic Plan allows you to create up to 5 projects"
+  },
+
+  "profile": {
+    "title": "Your space awaits",
+    "subtitle": "Log in to sync your projects, team, and settings.",
+    "session": "Active session",
+    "settings": "Account settings",
+    "logout": "Log out",
+    "login": "Log in",
+    "googleAcc": "Google account",
+    "guest": "Guest account",
+    "loginGoogle": "Log in with Google"
+  }
+}

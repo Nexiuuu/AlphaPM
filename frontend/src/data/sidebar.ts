@@ -1,3 +1,4 @@
+import type { ParseKeys } from "i18next";
 import {
   ChartColumn,
   CheckSquare,
@@ -10,44 +11,44 @@ import {
 } from "lucide-react";
 
 export interface NavigationItem {
-  label: string;
+  label: ParseKeys<"sidebar">;
   href: string;
   icon: LucideIcon;
 }
 
 export const navigation: NavigationItem[] = [
   {
-    label: "Panel Główny",
+    label: "dashboard",
     href: "/",
     icon: LayoutDashboard,
   },
   {
-    label: "Projekty",
+    label: "projects",
     href: "/projects",
     icon: FolderKanban,
   },
   {
-    label: "Zadania",
+    label: "tasks",
     href: "/tasks",
     icon: CheckSquare,
   },
   {
-    label: "Kalendarz",
+    label: "calendar",
     href: "/calendar",
     icon: CalendarDays,
   },
   {
-    label: "Zespoły",
+    label: "teams",
     href: "/teams",
     icon: Users,
   },
   {
-    label: "Analityka",
+    label: "analytics",
     href: "/analytics",
     icon: ChartColumn,
   },
   {
-    label: "Ustawienia",
+    label: "settings",
     href: "/settings",
     icon: Settings,
   },

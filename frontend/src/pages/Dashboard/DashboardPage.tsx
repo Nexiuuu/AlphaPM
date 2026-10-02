@@ -7,9 +7,11 @@ import { RecentProjects } from "../../features/dashboard/DashboardContent/Recent
 import { DashboardStats } from "../../features/dashboard/DashboardStats/DashboardStats";
 import { AuthenticatedContent } from "../../features/auth/components/AuthenticatedContent";
 import { GuestPreviewMessage } from "../../features/auth/components/GuestPreviewMessage";
+import { useTranslation } from "react-i18next";
 
 export const DashboardPage = () => {
   const { workspaces, isLoading, error } = useWorkspaces();
+  const { t } = useTranslation(["dashboard", "common"]);
 
   return (
     <section className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
@@ -27,7 +29,7 @@ export const DashboardPage = () => {
       <AuthenticatedContent>
         {error && (
           <p className="mt-4 rounded-xl border border-[var(--color-danger)]/40 bg-[var(--color-danger)]/10 px-4 py-3 text-sm">
-            Nie udało się pobrać projektów: {error}
+            {t("common:projectsError")} {error}
           </p>
         )}
       </AuthenticatedContent>
@@ -38,27 +40,27 @@ export const DashboardPage = () => {
         <AuthenticatedContent
           fallback={
             <GuestPreviewMessage
-              title="Zadania i terminy są częścią Twojego konta"
-              description="Po zalogowaniu zobaczysz tu swoje priorytety i nadchodzące terminy."
+              title={t("common:guest.tasks")}
+              description={t("common:guest.priorities")}
             />
           }
         >
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
             <DashboardPlaceholder
               icon={<ListTodo size={19} />}
-              label="Moje priorytety"
-              title="Zadania pojawią się tutaj"
-              description="Gdy moduł zadań będzie gotowy, Dashboard pokaże najbliższe i zaległe elementy pracy."
-              linkLabel="Przejdź do zadań"
+              label={t("priorities.badge")}
+              title={t("priorities.title")}
+              description={t("priorities.description")}
+              linkLabel={t("priorities.goToTasks")}
               to="/tasks"
             />
 
             <DashboardPlaceholder
               icon={<CalendarDays size={19} />}
-              label="Najbliższe terminy"
-              title="Brak terminów do wyświetlenia"
-              description="Terminy z projektów i zadań będą zebrane w jednym miejscu."
-              linkLabel="Otwórz kalendarz"
+              label={t("deadlines.badge")}
+              title={t("deadlines.title")}
+              description={t("deadlines.description")}
+              linkLabel={t("deadlines.openCalendar")}
               to="/calendar"
             />
           </div>

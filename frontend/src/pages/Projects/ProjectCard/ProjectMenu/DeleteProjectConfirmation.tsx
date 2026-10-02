@@ -2,16 +2,18 @@ import { useState } from "react";
 
 import type { Workspace } from "../../../../features/workspaces/types";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
+import { useTranslation } from "react-i18next";
 
 interface DeleteProjectConfirmationProps {
     workspace: Workspace;
-    onClose: () => void;   
+    onClose: () => void;
 }
 
 export const DeleteProjectConfirmation = ({ workspace, onClose }: DeleteProjectConfirmationProps) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState<string | null>(null);
     const { deleteWorkspace } = useWorkspaces();
+    const { t } = useTranslation("projects");
 
     const handleDelete = async () => {
         setDeleteError(null);
@@ -23,7 +25,7 @@ export const DeleteProjectConfirmation = ({ workspace, onClose }: DeleteProjectC
         } catch (error) {
             const message = error instanceof Error
                 ? error.message
-                : "Nie udało się usunąć projektu.";
+                : t("deleteProjectConfirm.errorMsg")
 
             setDeleteError(message);
         } finally {
@@ -34,7 +36,7 @@ export const DeleteProjectConfirmation = ({ workspace, onClose }: DeleteProjectC
     return (
         <div className="flex flex-col gap-2">
             <p className="text-xs text-red-500 whitespace-normal">
-                Czy na pewno chcesz usunąć projekt <strong>{workspace.name}</strong>?
+                {t("deleteProjectConfirm.deleteConfirm")} <strong>{workspace.name}</strong>?
             </p>
 
             {deleteError && (
@@ -63,7 +65,7 @@ export const DeleteProjectConfirmation = ({ workspace, onClose }: DeleteProjectC
                     focus:outline-none
                 "
             >
-                {isDeleting ? "Usuwam…" : "Usuń bezpowrotnie"}
+                {isDeleting ? t("deleteProjectConfirm.deleting") : t("deleteProjectConfirm.delete")}
             </button>
         </div>
     );

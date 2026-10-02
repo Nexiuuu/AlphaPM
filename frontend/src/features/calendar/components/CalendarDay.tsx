@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { Task } from "../../../data/task/Task";
 import type { DayItem } from "../types";
 
@@ -18,12 +19,13 @@ export const CalendarDay = ({
 }: CalendarDayProps) => {
   const visibleTasks = tasks.slice(0, 3);
   const hiddenTasksCount = tasks.length - visibleTasks.length;
+  const { t } = useTranslation("calendar");
 
   return (
     <button
       type="button"
       onClick={() => onClick?.(day)}
-      aria-label={`Otwórz ${day.formattedDate}${tasks.length ? `, liczba zadań: ${tasks.length}` : ""}`}
+      aria-label={`${t("aria.open")} ${day.formattedDate}${tasks.length ? `, ${t("aria.taskCount")}: ${tasks.length}` : ""}`}
       className={`
         group
         flex
@@ -65,12 +67,11 @@ export const CalendarDay = ({
           sm:min-w-7
           sm:px-1.5
           sm:text-sm
-          ${
-            isToday
-              ? "bg-[var(--color-primary)] font-bold text-[var(--color-primary-foreground)]"
-              : day.isWeekend
-                ? "text-[var(--color-text-muted)]"
-                : "text-[var(--color-text)]"
+          ${isToday
+            ? "bg-[var(--color-primary)] font-bold text-[var(--color-primary-foreground)]"
+            : day.isWeekend
+              ? "text-[var(--color-text-muted)]"
+              : "text-[var(--color-text)]"
           }
         `}
       >

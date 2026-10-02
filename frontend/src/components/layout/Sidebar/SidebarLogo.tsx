@@ -1,4 +1,5 @@
 import { ArrowRightFromLine } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface SidebarLogoProps {
   isCollapsed: boolean;
@@ -9,6 +10,8 @@ export const SidebarLogo = ({
   isCollapsed,
   onCollapseToggle,
 }: SidebarLogoProps) => {
+  const { t } = useTranslation("sidebar");
+
   return (
     <div
       className={`
@@ -31,14 +34,29 @@ export const SidebarLogo = ({
 
         <div className={isCollapsed ? "md:hidden" : ""}>
           <h1 className="font-semibold text-[var(--color-text)]">AlphaPM</h1>
-          <p className="text-sm text-[var(--color-text-muted)]">Project Management</p>
+          <p className="text-sm text-[var(--color-text-muted)]">{t("pm")}</p>
         </div>
       </div>
 
       <button
         type="button"
-        className="absolute right-0 top-4 z-10 hidden translate-x-1/2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-2 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)] md:inline-flex"
-        aria-label={isCollapsed ? "Rozwiń sidebar" : "Zwiń sidebar"}
+        className="
+          absolute 
+          right-0 
+          top-4 
+          z-10 
+          hidden 
+          translate-x-1/2 
+          rounded-lg 
+          border 
+          border-[var(--color-border)] 
+          bg-[var(--color-surface)] 
+          p-2 
+          text-[var(--color-text-muted)] 
+          transition-colors 
+          hover:text-[var(--color-primary)] 
+          md:inline-flex"
+        aria-label={isCollapsed ? t("aria.expandSidebar") : t("aria.collapseSidebar")}
         onClick={onCollapseToggle}
       >
         <ArrowRightFromLine

@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import type { Task } from "../../data/task/Task";
 import type {
   CalendarTasksByDate,
@@ -21,7 +22,27 @@ export const MONTHS: MonthOption[] = [
   { id: 11, name: "Grudzień" },
 ];
 
-const DAY_NAMES = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "Sb"];
+export const getMonths = (locale = i18next.language): MonthOption[] => {
+  const formatter = new Intl.DateTimeFormat(locale, { month: "long" });
+
+  return Array.from({ length: 12 }, (_, monthId) => {
+    const date = new Date(2026, monthId, 1);
+    const rawName = formatter.format(date);
+
+    const name = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+
+    return { id: monthId, name };
+  });
+};
+
+export const getDaysNames = (locale = i18next.language): string[] => {
+  const formatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+
+  return Array.from({ length: 7 }, (_, dayIndex) => {
+    const date = new Date(2026, 9, 4 + dayIndex);
+    return formatter.format(date);
+  });
+};
 
 export const getDaysInMonthCount = (year: number, monthId: number): number =>
   new Date(year, monthId + 1, 0).getDate();
@@ -42,8 +63,13 @@ export const formatDateString = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-export const generateMonthData = (year: number, monthId: number): MonthData => {
+export const generateMonthData = (
+  year: number,
+  monthId: number,
+  locale = i18next.language,
+): MonthData => {
   const totalDays = getDaysInMonthCount(year, monthId);
+  const dayNames = getDaysNames(locale);
   const days: DayItem[] = [];
 
   for (let dayNumber = 1; dayNumber <= totalDays; dayNumber++) {
@@ -54,7 +80,7 @@ export const generateMonthData = (year: number, monthId: number): MonthData => {
       dayNumber,
       date,
       dayOfWeek,
-      dayOfWeekName: DAY_NAMES[dayOfWeek],
+      dayOfWeekName: dayNames[dayOfWeek],
       isWeekend: dayOfWeek === 0 || dayOfWeek === 6,
       formattedDate: formatDateString(date),
     });

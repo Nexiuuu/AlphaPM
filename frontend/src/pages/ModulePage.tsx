@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Card } from "../components/ui/Card/Card";
 import { AuthenticatedContent } from "../features/auth/components/AuthenticatedContent";
 import { GuestPreviewMessage } from "../features/auth/components/GuestPreviewMessage";
+import { useTranslation } from "react-i18next";
 
 interface ModulePageProps {
   icon: LucideIcon;
@@ -26,6 +27,8 @@ export const ModulePage = ({
   emptyDescription,
   children,
 }: ModulePageProps) => {
+  const { t } = useTranslation("common");
+
   return (
     <section className="mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
       <div className="mb-7">
@@ -52,8 +55,8 @@ export const ModulePage = ({
           fallback={
             <div className="mb-4">
               <GuestPreviewMessage
-                title={`${title} nie pokazuje danych konta w podglądzie`}
-                description="Zaloguj się, aby zobaczyć informacje powiązane z Twoimi projektami i zadaniami."
+                title={`${title} ${t("guest.accInfo")}`}
+                description={t("guest.loginProject")}
               />
             </div>
           }
@@ -65,7 +68,7 @@ export const ModulePage = ({
           fallback={
             <GuestPreviewMessage
               title={`Podgląd: ${title}`}
-              description="Po zalogowaniu ta sekcja będzie korzystać z danych Twoich projektów i zadań."
+              description={t("guest.onceLogin")}
             />
           }
         >
@@ -96,8 +99,8 @@ export const ModulePage = ({
               text-[var(--color-primary-foreground)]
               focus:outline-none
             "
-              >
-              <Plus size={17} /> Otwórz projekty
+            >
+              <Plus size={17} /> {t("openProj")}
               <ArrowRight size={16} />
             </Link>
           </Card>

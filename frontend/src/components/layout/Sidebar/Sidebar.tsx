@@ -1,5 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { SidebarLogo } from "./SidebarLogo";
 import { SidebarNav } from "./Navigation/SidebarNavigation";
@@ -22,6 +23,8 @@ export const Sidebar = ({
     ? "max-h-[900px] opacity-100"
     : "pointer-events-none max-h-0 opacity-0";
 
+  const { t } = useTranslation("sidebar");
+
   return (
     <aside
       className="
@@ -41,8 +44,23 @@ export const Sidebar = ({
 
       <button
         type="button"
-        className="absolute right-4 top-5 z-10 rounded-lg p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] md:hidden"
-        aria-label={isMobileMenuOpen ? "Zamknij menu" : "Otwórz menu"}
+        className="
+        absolute 
+        right-4 
+        top-5 
+        z-10 
+        rounded-lg 
+        p-2 
+        text-[var(--color-text-muted)] 
+        transition-colors 
+        hover:bg-[var(--color-surface-hover)] 
+        hover:text-[var(--color-text)] 
+        md:hidden"
+        aria-label={
+          isMobileMenuOpen
+            ? t("aria.closeMenu")
+            : t("aria.openMenu")
+        }
         aria-expanded={isMobileMenuOpen}
         onClick={() => setIsMobileMenuOpen((current) => !current)}
       >
@@ -50,19 +68,48 @@ export const Sidebar = ({
       </button>
 
       <div
-        className={`${mobileMenuClass} order-1 overflow-hidden transition-[max-height,opacity] duration-300 ease-out md:pointer-events-auto md:order-4 md:mt-auto md:max-h-none md:overflow-visible md:opacity-100`}
+        className={`${mobileMenuClass} 
+        order-1 
+        overflow-hidden 
+        transition-[max-height,opacity] 
+        duration-300 
+        ease-out 
+        md:pointer-events-auto 
+        md:order-4 
+        md:mt-auto 
+        md:max-h-none 
+        md:overflow-visible 
+        md:opacity-100`}
       >
         <SidebarProfile isCollapsed={isCollapsed} onExpand={onExpand} />
       </div>
 
       <div
-        className={`${mobileMenuClass} order-2 overflow-hidden transition-[max-height,opacity] delay-75 duration-300 ease-out md:pointer-events-auto md:max-h-none md:opacity-100`}
+        className={`${mobileMenuClass} 
+        order-2 
+        overflow-hidden 
+        transition-[max-height,opacity] 
+        delay-75 
+        duration-300 
+        ease-out 
+        md:pointer-events-auto 
+        md:max-h-none 
+        md:opacity-100`}
       >
         <SidebarNav isCollapsed={isCollapsed} />
       </div>
 
       <div
-        className={`${mobileMenuClass} order-3 overflow-hidden transition-[max-height,opacity] delay-100 duration-300 ease-out md:pointer-events-auto md:max-h-none md:opacity-100`}
+        className={`${mobileMenuClass} 
+        order-3 
+        overflow-hidden 
+        transition-[max-height,opacity] 
+        delay-100 
+        duration-300 
+        ease-out 
+        md:pointer-events-auto 
+        md:max-h-none 
+        md:opacity-100`}
       >
         <SidebarWS isCollapsed={isCollapsed} />
       </div>

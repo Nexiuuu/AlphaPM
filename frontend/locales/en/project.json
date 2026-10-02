@@ -1,0 +1,11 @@
+{
+  "workspace": "Your workspace",
+  "title": "Project",
+  "description": "Manage project",
+  "emptyTitle": "The reports will appear here",
+  "emptyDescription": "Once tasks start being assigned to projects, we'll display progress and team workload charts.",
+
+  "errors": {
+    "retrieve": "Unable to retrieve project data"
+  }
+}

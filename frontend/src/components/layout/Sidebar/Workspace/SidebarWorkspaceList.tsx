@@ -6,6 +6,7 @@ import {
 import { LoadingText } from "../../../ui/LoadingText/LoadingText";
 import { SidebarWsItem } from "./SidebarWorkspaceItem";
 import { AuthenticatedContent } from "../../../../features/auth/components/AuthenticatedContent";
+import { useTranslation } from "react-i18next";
 
 interface SidebarWorkspaceListProps {
   isCollapsed: boolean;
@@ -16,6 +17,8 @@ export const SidebarWorkspaceList = ({
   isCollapsed,
   isExpanded,
 }: SidebarWorkspaceListProps) => {
+  const { t } = useTranslation("common");
+
   const { workspaces, isLoading, error, reloadWorkspaces } =
     useWorkspaces();
 
@@ -31,7 +34,7 @@ export const SidebarWorkspaceList = ({
         <li
           className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
         >
-          <LoadingText label="Ładowanie" />
+          <LoadingText label={t("loading")} />
         </li>
       )}
 
@@ -39,8 +42,8 @@ export const SidebarWorkspaceList = ({
         <li
           className={`px-3 py-2 text-sm text-[var(--color-text-disabled)] ${isCollapsed ? "md:hidden" : ""}`}
         >
-          <AuthenticatedContent fallback="Lista dostępna po zalogowaniu.">
-            Brak projektów.
+          <AuthenticatedContent fallback={t("list")}>
+            {t("noProjects")}
           </AuthenticatedContent>
         </li>
       )}
@@ -56,7 +59,7 @@ export const SidebarWorkspaceList = ({
             onClick={() => void reloadWorkspaces()}
             className="mt-1 cursor-pointer underline"
           >
-            Spróbuj ponownie
+            {t("tryAgain")}
           </button>
         </li>
       )}
@@ -71,7 +74,7 @@ export const SidebarWorkspaceList = ({
 
       {hasReachedLimit && !isCollapsed && (
         <li className="px-3 pt-2 text-xs text-[var(--color-text-disabled)]">
-          Osiągnięto limit planu podstawowego.
+          {t("limit")}
         </li>
       )}
     </ul>

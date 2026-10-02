@@ -1,8 +1,11 @@
 import { Settings } from "lucide-react";
 
 import { SettingsForm } from "../features/settings/components/SettingsForm";
+import { useTranslation } from "react-i18next";
 
 export const SettingsPage = () => {
+  const { t } = useTranslation("settings");
+
   return (
     <section className="mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
       <div className="mb-7">
@@ -11,7 +14,7 @@ export const SettingsPage = () => {
             size={16}
             className="[-webkit-text-stroke:4px_var(--color-surface-grid)] [paint-order:stroke_fill]"
           />
-          Ustawienia
+          {t("pageTitle")}
         </p>
       </div>
       <SettingsForm></SettingsForm>

@@ -16,6 +16,7 @@ import {
   subscribeToAuthChanges,
 } from "../../../lib/utils/API/auth";
 import { LoadingText } from "../../ui/LoadingText/LoadingText";
+import { useTranslation } from "react-i18next";
 
 const getGoogleProfile = (session: Session | null) => {
   const metadata = session?.user.user_metadata;
@@ -55,6 +56,7 @@ export const SidebarProfile = ({
   const [session, setSession] = useState<Session | null>(null);
   const [isSessionLoading, setIsSessionLoading] = useState(true);
   const [logoutError, setLogoutError] = useState<string | null>(null);
+  const { t } = useTranslation(["sidebar", "common"]);
 
   const closePanel = useCallback(() => setIsOpen(false), []);
   useClickOutside(profileRef, closePanel);
@@ -95,7 +97,7 @@ export const SidebarProfile = ({
       navigate("/login");
     } catch (error) {
       setLogoutError(
-        error instanceof Error ? error.message : "Nie udało się wylogować.",
+        error instanceof Error ? error.message : t("common:unableLogout"),
       );
     }
   };
@@ -114,12 +116,12 @@ export const SidebarProfile = ({
               <div className="border-b border-[var(--color-border)] bg-[linear-gradient(135deg,var(--color-surface-hover),var(--color-surface))] p-4">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[color-mix(in_srgb,var(--color-primary)_12%,transparent)] px-2.5 py-1 text-xs font-medium text-[var(--color-primary)]">
-                    <ShieldCheck size={14} /> Aktywna sesja
+                    <ShieldCheck size={14} /> {t("profile.session")}
                   </span>
                   <span className="h-2 w-2 rounded-full bg-[var(--color-success)] shadow-[0_0_10px_var(--color-success)]" />
                 </div>
                 <p className="truncate font-semibold text-[var(--color-text)]">
-                  {googleProfile.fullName || "Użytkownik AlphaPM"}
+                  {googleProfile.fullName || t("common:user")}
                 </p>
                 <p className="truncate text-xs text-[var(--color-text-muted)]">
                   {session.user.email}
@@ -132,7 +134,7 @@ export const SidebarProfile = ({
                   className="flex w-full cursor-pointer items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5 text-left text-sm text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)]"
                   onClick={() => openPage("/Settings")}
                 >
-                  <Settings size={17} /> Ustawienia konta
+                  <Settings size={17} /> {t("profile.settings")}
                 </button>
                 <button
                   type="button"
@@ -154,7 +156,7 @@ export const SidebarProfile = ({
                   "
                   onClick={() => void handleLogout()}
                 >
-                  <LogOut size={17} /> Wyloguj się
+                  <LogOut size={17} /> {t("profile.logout")}
                 </button>
                 {logoutError ? (
                   <p className="px-3 py-2 text-xs text-[var(--color-danger)]">
@@ -175,10 +177,10 @@ export const SidebarProfile = ({
                   </span>
                 </div>
                 <p className="font-semibold text-[var(--color-text)]">
-                  Twoja przestrzeń czeka
+                  {t("profile.title")}
                 </p>
                 <p className="mt-1 text-xs leading-5 text-[var(--color-text-muted)]">
-                  Zaloguj się, aby synchronizować projekty, zespół i ustawienia.
+                  {t("profile.subtitle")}
                 </p>
               </div>
 
@@ -205,7 +207,7 @@ export const SidebarProfile = ({
                   "
                   onClick={() => openPage("/login")}
                 >
-                  Zaloguj się
+                  {t("profile.login")}
                 </button>
               </div>
             </>
@@ -231,8 +233,8 @@ export const SidebarProfile = ({
           hover:bg-[var(--color-surface-hover)] 
           ${isCollapsed ? "md:justify-center " : "focus:outline-none"}`}
         aria-expanded={isOpen}
-        aria-label="Otwórz panel użytkownika"
-        title={isCollapsed ? "Panel użytkownika" : undefined}
+        aria-label={t("aria.openUserPanel")}
+        title={isCollapsed ? t("aria.userPanel") : undefined}
         onClick={() => {
           if (isCollapsed) {
             onExpand();
@@ -281,13 +283,13 @@ export const SidebarProfile = ({
           <span className={`flex min-w-0 flex-col ${isCollapsed ? "md:hidden" : ""}`}>
             <span className="truncate text-sm font-semibold text-[var(--color-text)]">
               {isSessionLoading
-                ? <LoadingText label="Sprawdzanie sesji" />
+                ? <LoadingText label={t("common:checkSession")} />
                 : session
-                  ? googleProfile.fullName || "Użytkownik Google"
-                  : "Konto gościa"}
+                  ? googleProfile.fullName || t("profile.googleAcc")
+                  : t("profile.guest")}
             </span>
             <span className="truncate text-xs text-[var(--color-text-muted)]">
-              {session?.user.email ?? "Zaloguj się przez Google"}
+              {session?.user.email ?? t("profile.loginGoogle")}
             </span>
           </span>
         </span>

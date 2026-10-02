@@ -14,10 +14,12 @@
     "@tailwindcss/vite": "^4.3.3",
     "clsx": "^2.1.1",
     "framer-motion": "^12.43.0",
+    "i18next": "^26.4.2",
     "lucide-react": "^1.28.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.85.0",
+    "react-i18next": "^17.0.15",
     "react-router-dom": "^7.18.2",
     "tailwindcss": "^4.3.3",
     "uuid": "^14.0.2"

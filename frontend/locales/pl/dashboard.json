@@ -1,0 +1,41 @@
+{
+  "pageTitle": "Panel Główny",
+  "badge": "Centrum pracy",
+  "heroTitle": "Dobry plan zaczyna się tutaj.",
+  "heroSubtitle": "Zobacz najważniejsze informacje o swojej przestrzeni pracy.",
+  "seeProjects": "Zobacz projekty",
+
+  "stats": {
+    "activeProjects": "Aktywne projekty",
+    "workspacesCount": "Twoje projekty",
+    "tasksForToday": "Zadania na dziś",
+    "overdueTasks": "Zaległe zadania",
+    "completedThisWeek": "Ukończone w tym tygodniu",
+    "inPreparation": "Moduł zadań w przygotowaniu",
+    "hiddenData": "Dane konta są ukryte"
+  },
+
+  "projectsSection": {
+    "title": "Projekty",
+    "recentlyCreated": "Ostatnio utworzone",
+    "seeAll": "Wszystkie",
+    "createdOn": "Utworzono",
+    "noProjects": "Nie masz jeszcze projektów",
+    "createFirstProject": "Utwórz pierwszy projekt, aby zacząć planować pracę.",
+    "goToProjects": "Przejdź do projektów"
+  },
+
+  "priorities": {
+    "badge": "Moje priorytety",
+    "title": "Zadania pojawią się tutaj",
+    "description": "Gdy moduł zadań będzie gotowy, Dashboard pokaże najbliższe i zaległe elementy pracy.",
+    "goToTasks": "Przejdź do zadań"
+  },
+
+  "deadlines": {
+    "badge": "Najbliższe terminy",
+    "title": "Brak terminów do wyświetlenia",
+    "description": "Terminy z projektów i zadań będą zebrane w jednym miejscu.",
+    "openCalendar": "Otwórz kalendarz"
+  }
+}

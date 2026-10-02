@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import type { LucideIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import type { ParseKeys } from "i18next";
 
 interface SidebarNavItemProps {
-  label: string;
+  label: ParseKeys<"sidebar">;
   href: string;
   icon: LucideIcon;
   isCollapsed: boolean;
@@ -15,6 +17,8 @@ export const SidebarNavItem = ({
   icon,
   isCollapsed,
 }: SidebarNavItemProps) => {
+  const { t } = useTranslation("sidebar");
+  const translatedLabel = t(label);
   const Icon = icon;
 
   // const handleClick = () => {
@@ -25,7 +29,7 @@ export const SidebarNavItem = ({
     <li>
       <NavLink
         to={href}
-        title={isCollapsed ? label : undefined}
+        title={isCollapsed ? translatedLabel : undefined}
         // onClick={handleClick}
         className={({ isActive }) =>
           clsx(
@@ -39,7 +43,9 @@ export const SidebarNavItem = ({
       >
         <Icon size={18} aria-hidden="true" />
 
-        <span className={isCollapsed ? "md:hidden" : ""}>{label}</span>
+        <span className={isCollapsed ? "md:hidden" : ""}>
+          {translatedLabel}
+        </span>
       </NavLink>
     </li>
   );

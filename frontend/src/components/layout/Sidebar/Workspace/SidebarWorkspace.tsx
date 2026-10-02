@@ -8,6 +8,7 @@ import {
 } from "../../../../features/workspaces/constants";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
 import { SidebarWorkspaceList } from "./SidebarWorkspaceList";
+import { useTranslation } from "react-i18next";
 
 interface SidebarWorkspaceProps {
   isCollapsed: boolean;
@@ -17,6 +18,7 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
   const [isListExpanded, setIsListExpanded] = useState(true);
   const { isAuthenticated, workspaces } = useWorkspaces();
   const navigate = useNavigate();
+  const { t } = useTranslation(["sidebar", "common"]);
 
   const canCollapseList = workspaces.length > COLLAPSED_WORKSPACES_COUNT;
   const hasReachedLimit = workspaces.length >= BASIC_WORKSPACE_LIMIT;
@@ -45,7 +47,7 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
           }
         >
           <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text)]">
-            Projekty
+            {t("sidebar:projectsSection")}
           </h2>
 
           <span className="text-xs text-[var(--color-text-disabled)]">
@@ -65,11 +67,11 @@ export const SidebarWS = ({ isCollapsed }: SidebarWorkspaceProps) => {
           onClick={() => navigate("/projects/new")}
           disabled={isCreateDisabled}
           aria-label={
-            hasReachedLimit ? "Osiągnięto limit 5 projektów" : "Utwórz projekt"
+            hasReachedLimit ? t("common:limit") : t("common:create")
           }
           title={
             hasReachedLimit
-              ? "Plan podstawowy pozwala utworzyć maksymalnie 5 projektów"
+              ? t("aria.basicPlan")
               : undefined
           }
           className={

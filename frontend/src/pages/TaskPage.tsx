@@ -1,11 +1,17 @@
 import { ListTodo } from "lucide-react";
 import { ModulePage } from "./ModulePage";
+import { useTranslation } from "react-i18next";
 
-export const TaskPage = () => 
-    <ModulePage icon={ListTodo} 
-        eyebrow="Plan pracy" 
-        title="Zadania" 
-        description="Zarządzaj tym, co jest do zrobienia." 
-        emptyTitle="Twoja lista zadań jest gotowa" 
-        emptyDescription="Utwórz projekt, aby zacząć dodawać zadania i ustalać ich priorytety." 
-    />;
+export const TaskPage = () => {
+    const { t } = useTranslation("tasks");
+
+    return (
+        <ModulePage icon={ListTodo}
+            eyebrow={t("workPlan")}
+            title={t("tasks")}
+            description={t("description")}
+            emptyTitle={t("emptyTitle")}
+            emptyDescription={t("emptyDesc")}
+        />
+    );
+};

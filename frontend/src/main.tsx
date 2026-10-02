@@ -1,6 +1,7 @@
 // React
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import "./i18n";
 
 // Router
 import { RouterProvider } from "react-router-dom";
@@ -17,12 +18,14 @@ import { AuthProvider } from "./features/auth/AuthProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <AnimationsProvider>
-        <AuthProvider>
-          <RouterProvider router={router} />
-        </AuthProvider>
-      </AnimationsProvider>
-    </ThemeProvider>
+    <Suspense fallback={<div>Ładowanie tłumaczeń...</div>}>
+      <ThemeProvider>
+        <AnimationsProvider>
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
+        </AnimationsProvider>
+      </ThemeProvider>
+    </Suspense>
   </React.StrictMode>,
 );

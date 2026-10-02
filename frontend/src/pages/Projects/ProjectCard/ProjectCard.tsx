@@ -5,6 +5,7 @@ import type { Workspace } from "../../../features/workspaces/types";
 import { useRef, useState } from "react";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { ProjectEditorPopover } from "./ProjectMenu/ProjectCardEditor";
+import { useTranslation } from "react-i18next";
 
 interface ProjectCardProps {
   workspace: Workspace;
@@ -15,6 +16,7 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
   const [editMode, setEditMode] = useState<"name" | "color" | "delete" | null>(
     null,
   );
+  const { t } = useTranslation("projects");
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -47,16 +49,16 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
         <div className="p-5 flex flex-col gap-3">
           <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
-              {editMode === "name" && "Edycja nazwy"}
-              {editMode === "color" && "Zmiana koloru"}
-              {editMode === "delete" && "Usuwanie projektu"}
+              {editMode === "name" && t("projectCard.changeName")}
+              {editMode === "color" && t("projectCard.changeColor")}
+              {editMode === "delete" && t("projectCard.deleteProject")}
             </span>
             <button
               type="button"
               onClick={() => setEditMode(null)}
               className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] cursor-pointer"
             >
-              <ArrowLeft size={14} /> Wróć
+              <ArrowLeft size={14} /> {t("projectCard.back")}
             </button>
           </div>
 
@@ -100,7 +102,7 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
             </div>
 
             <p className="mt-1 text-xs text-[var(--color-text-muted)]">
-              Otwórz projekty workspace'u
+              {t("projectCard.openProject")}
             </p>
           </Link>
 
@@ -108,10 +110,10 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
             <button
               type="button"
               onClick={() => setIsOpen((current) => !current)}
-              aria-label={`Otwórz menu projektu ${workspace.name}`}
+              aria-label={`${t("projectCard.aria.openMenu")} ${workspace.name}`}
               aria-expanded={isOpen}
               aria-controls={`project-menu-${workspace.id}`}
-              title="Zarządzaj projektem"
+              title={t("projectCard.manageProject")}
               className="
                 cursor-pointer
                 rounded-lg
@@ -163,7 +165,7 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
                     focus-visible:ring-[var(--color-primary)]
                   "
                 >
-                  Edytuj projekt
+                  {t("projectCard.changeName")}
                 </button>
 
                 <button
@@ -181,7 +183,7 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
                     focus-visible:ring-[var(--color-primary)]
                   "
                 >
-                  Zmień kolor
+                  {t("projectCard.changeColor")}
                 </button>
 
                 <button
@@ -200,7 +202,7 @@ export const ProjectCard = ({ workspace }: ProjectCardProps) => {
                     focus-visible:ring-[var(--color-primary)]
                   "
                 >
-                  Usuń projekt
+                  {t("projectCard.deleteProject")}
                 </button>
               </div>
             )}

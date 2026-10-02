@@ -16,13 +16,16 @@ import { CreateProjectPage } from "../pages/CreateProjects/CreateProjectPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProjectPage } from "../pages/Projects/project/ProjectPage";
 import { AuthGuard } from "../features/auth/components/AuthGuard";
+import type { AppTitleKey } from "../hooks/usePageTitle";
+
+const pageTitle = (titleKey: AppTitleKey) => ({ titleKey });
 
 export const router = createBrowserRouter(
   [
     {
       path: "/login",
       element: <LoginPage />,
-      handle: { title: "Logowanie" },
+      handle: pageTitle("common:pageTitles.login"),
     },
     {
       element: <AuthGuard />,
@@ -34,52 +37,52 @@ export const router = createBrowserRouter(
             {
               index: true,
               element: <DashboardPage />,
-              handle: { title: "Panel Główny" },
+              handle: pageTitle("dashboard:pageTitle"),
             },
             {
               path: "Analytics",
               element: <AnalyticsPage />,
-              handle: { title: "Analityka" },
+              handle: pageTitle("analytics:pageTitle"),
             },
             {
               path: "Calendar",
               element: <CalendarPage />,
-              handle: { title: "Kalendarz" },
+              handle: pageTitle("calendar:pageTitle"),
             },
             {
               path: "Teams",
               element: <TeamPage />,
-              handle: { title: "Zespoły" },
+              handle: pageTitle("teams:pageTitle"),
             },
             {
               path: "Projects",
               element: <ProjectsPage />,
-              handle: { title: "Projekty" },
+              handle: pageTitle("projects:pageTitle"),
             },
             {
               path: "Tasks",
               element: <TaskPage />,
-              handle: { title: "Zadania" },
+              handle: pageTitle("tasks:pageTitle"),
             },
             {
               path: "Settings",
               element: <SettingsPage />,
-              handle: { title: "Ustawienia" },
+              handle: pageTitle("settings:pageTitle"),
             },
             {
               path: "projects/new",
               element: <CreateProjectPage />,
-              handle: { title: "Nowy projekt" },
+              handle: pageTitle("common:pageTitles.createProject"),
             },
             {
               path: "projects/:id",
               element: <ProjectPage />,
-              handle: { title: "Projekt" },
+              handle: pageTitle("common:pageTitles.project"),
             },
             {
               path: "*",
               element: <NotFoundPage />,
-              handle: { title: "Nie znaleziono" },
+              handle: pageTitle("common:pageTitles.notFound"),
             },
           ],
         },

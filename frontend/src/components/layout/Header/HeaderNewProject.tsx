@@ -1,8 +1,10 @@
 import { Plus } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Link } from "react-router-dom";
 
 export const HeaderNewProject = () => {
+  const { t } = useTranslation("header");
   return (
     <Link
       to={"/projects/new"}
@@ -30,7 +32,7 @@ export const HeaderNewProject = () => {
       "
     >
       <Plus size={18} />
-      <span className="hidden sm:inline">New Project</span>
+      <span className="hidden sm:inline">{t("newProject")}</span>
     </Link>
   );
 };

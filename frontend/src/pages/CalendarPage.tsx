@@ -8,6 +8,7 @@ import { DayDetailsModal } from "../features/calendar/components/DayDetailsModal
 import type { DayItem } from "../features/calendar/types";
 import { groupTasksByDate } from "../features/calendar/utils";
 import { ModulePage } from "./ModulePage";
+import { useTranslation } from "react-i18next";
 
 const tasks: Task[] = [];
 
@@ -20,6 +21,8 @@ export const CalendarPage = () => {
   const currentYear = visibleMonth.getFullYear();
   const currentMonthId = visibleMonth.getMonth();
   const tasksByDate = useMemo(() => groupTasksByDate(tasks), []);
+
+  const { t } = useTranslation("calendar");
 
   const showPreviousMonth = () => {
     setVisibleMonth(
@@ -46,11 +49,11 @@ export const CalendarPage = () => {
   return (
     <ModulePage
       icon={CalendarDays}
-      eyebrow="Terminy"
-      title="Kalendarz"
-      description="Zbierz ważne daty i plan pracy w jednym miejscu."
-      emptyTitle="Nie masz jeszcze terminów"
-      emptyDescription="Terminy z projektów i zadań pojawią się tutaj, gdy moduł zadań będzie gotowy."
+      eyebrow={t("deadlines")}
+      title={t("pageTitle")}
+      description={t("description")}
+      emptyTitle={t("emptyTitle")}
+      emptyDescription={t("emptyDescription")}
     >
       <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-sm)] sm:rounded-2xl">
         <CalendarHeader

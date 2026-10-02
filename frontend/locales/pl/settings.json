@@ -1,0 +1,12 @@
+{
+  "pageTitle": "Ustawienia",
+
+  "langLabel": "Język",
+
+  "themeLabel": "Motyw",
+  "themeDark": "Ciemny",
+  "themeLight": "Jasny",
+
+  "apply": "Zastosuj",
+  "undo": "Cofnij"
+}

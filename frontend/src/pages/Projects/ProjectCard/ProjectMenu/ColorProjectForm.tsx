@@ -4,6 +4,7 @@ import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import type { Workspace } from "../../../../features/workspaces/types";
 import { WorkspaceColorPicker } from "../../../../features/workspaces/components/WorkspaceColorPicker";
 import { useWorkspaces } from "../../../../features/workspaces/useWorkspaces";
+import { useTranslation } from "react-i18next";
 
 interface ColorProjectFormProps {
     workspace: Workspace;
@@ -18,6 +19,7 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
     const [updateError, setUpdateError] = useState<string | null>(null);
 
     const { updateWorkspace } = useWorkspaces();
+    const { t } = useTranslation("projects");
 
     const {
         register,
@@ -44,7 +46,7 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
         } catch (error) {
             const message = error instanceof Error
                 ? error.message
-                : "Wystąpił błąd podczas zmiany koloru projektu.";
+                : t("colorProjectForm.errorMsg");
 
             setUpdateError(message);
         }
@@ -53,14 +55,14 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
             <p className="text-xs font-semibold text-[var(--color-text-muted)]">
-                Wybierz kolor projektu
+                {t("colorProjectForm.selectColor")}
             </p>
-            
+
             <div className="my-1">
                 <WorkspaceColorPicker
                     id={`project-color-${workspace.id}`}
                     color={selectedColor}
-                    description="Kliknij próbkę, aby zmienić"
+                    description={t("colorProjectForm.sample")}
                     registration={register("color")}
                 />
             </div>
@@ -89,7 +91,7 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
                     focus:outline-none
                 "
             >
-                {isSubmitting ? "Zapisuję…" : "Zapisz kolor"}
+                {isSubmitting ? t("colorProjectForm.savingColor") : t("colorProjectForm.saveColor")}
             </button>
         </form>
     );

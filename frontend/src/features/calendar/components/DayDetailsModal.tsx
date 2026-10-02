@@ -1,10 +1,11 @@
 import { CalendarDays, Clock, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import type { Task } from "../../../data/task/Task";
 import type { DayItem } from "../types";
 import { useAuth } from "../../auth/useAuth";
+import { useTranslation } from "react-i18next";
 
 interface DayDetailsModalProps {
   day: DayItem | null;
@@ -12,29 +13,40 @@ interface DayDetailsModalProps {
   onClose: () => void;
 }
 
-const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-});
 
-const timeFormatter = new Intl.DateTimeFormat("pl-PL", {
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
-const getTaskTime = (task: Task) => {
-  if (task.allDay) return "Cały dzień";
-
-  return `${timeFormatter.format(new Date(task.startsAt))}–${timeFormatter.format(new Date(task.endsAt))}`;
-};
 
 export const DayDetailsModal = ({
   day,
   tasks,
   onClose,
 }: DayDetailsModalProps) => {
+
+
+  const { session } = useAuth();
+
+
+  const { t, i18n } = useTranslation(["calendar", "common"]);
+
+  const dateFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(i18n.language, {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    [i18n.language]
+  );
+
+  const timeFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(i18n.language, {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    [i18n.language]
+  );
+
   useEffect(() => {
     if (!day) return;
 
@@ -46,9 +58,13 @@ export const DayDetailsModal = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [day, onClose]);
 
-  const { session } = useAuth();
-
   if (!day) return null;
+
+  const getTaskTime = (task: Task) => {
+    if (task.allDay) return t("dayDetailsModal.allDay");
+
+    return `${timeFormatter.format(new Date(task.startsAt))}–${timeFormatter.format(new Date(task.endsAt))}`;
+  };
 
   return (
     <div
@@ -66,7 +82,7 @@ export const DayDetailsModal = ({
         <header className="flex items-start justify-between gap-3 border-b border-[var(--color-border)] p-4 sm:gap-4 sm:p-5">
           <div>
             <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-primary)]">
-              <CalendarDays size={15} /> Szczegóły dnia
+              <CalendarDays size={15} /> {t("dayDetailsModal.dayDetails")}
             </p>
             <h3
               id="day-details-title"
@@ -79,8 +95,19 @@ export const DayDetailsModal = ({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Zamknij szczegóły dnia"
-            className="cursor-pointer rounded-lg p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            aria-label={t("dayDetailsModal.closeDetails")}
+            className="
+              cursor-pointer 
+              rounded-lg 
+              p-2 
+              text-[var(--color-text-muted)] 
+              transition-colors 
+              hover:bg-[var(--color-surface-hover)] 
+              hover:text-[var(--color-text)] 
+              focus:outline-none 
+              focus-visible:ring-2 
+              focus-visible:ring-[var(--color-primary)]
+            "
           >
             <X size={18} />
           </button>
@@ -90,25 +117,41 @@ export const DayDetailsModal = ({
           {!session ? (
             <div className="rounded-xl border border-dashed border-[var(--color-border)] px-5 py-8 text-center">
               <p className="font-medium text-[var(--color-text)]">
-                Zadania są ukryte w podglądzie
+                {t("common:guest.taskDayDetail")}
               </p>
               <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                Zaloguj się, aby sprawdzić zadania przypisane do tego dnia.
+                {t("common:guest.taskLoginAssigned")}
               </p>
               <Link
                 to="/login"
-                className="mt-4 inline-flex rounded-lg bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-primary-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+                className="
+                  mt-4 
+                  inline-flex 
+                  rounded-lg 
+                  bg-[var(--color-primary)] 
+                  px-4 
+                  py-2 
+                  text-sm 
+                  font-medium 
+                  text-[var(--color-primary-foreground)] 
+                  transition-colors 
+                  hover:bg-[var(--color-primary-hover)] 
+                  focus:outline-none 
+                  focus-visible:ring-2 
+                  focus-visible:ring-[var(--color-primary)] 
+                  focus-visible:ring-offset-2
+                "
               >
-                Zaloguj się
+                {t("common:guest.taskLogin")}
               </Link>
             </div>
           ) : tasks.length === 0 ? (
             <div className="rounded-xl border border-dashed border-[var(--color-border)] px-5 py-8 text-center">
               <p className="font-medium text-[var(--color-text)]">
-                Spokojny dzień
+                {t("dayDetailsModal.peacefulDay")}
               </p>
               <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                Nie ma jeszcze żadnych zadań dla tej daty.
+                {t("dayDetailsModal.noTasks")}
               </p>
             </div>
           ) : (

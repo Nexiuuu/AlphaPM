@@ -1,0 +1,41 @@
+{
+  "pageTitle": "Dashboard",
+  "badge": "Work hub",
+  "heroTitle": "A good plan starts here.",
+  "heroSubtitle": "See the most important information about your workspace.",
+  "seeProjects": "View projects",
+
+  "stats": {
+    "activeProjects": "Active projects",
+    "workspacesCount": "Your projects",
+    "tasksForToday": "Tasks for today",
+    "overdueTasks": "Overdue tasks",
+    "completedThisWeek": "Completed this week",
+    "inPreparation": "Task module in preparation",
+    "hiddenData": "Account details are hidden"
+  },
+
+  "projectsSection": {
+    "title": "Projects",
+    "recentlyCreated": "Recently created",
+    "seeAll": "See all",
+    "createdOn": "Created at",
+    "noProjects": "You don't have any projects yet",
+    "createFirstProject": "Create your first project to start planning your work.",
+    "goToProjects": "Go to projects"
+  },
+
+  "priorities": {
+    "badge": "My priorities",
+    "title": "Tasks will appear here",
+    "description": "When the task module is ready, the Dashboard will show upcoming and overdue work items.",
+    "goToTasks": "Go to tasks"
+  },
+
+  "deadlines": {
+    "badge": "Upcoming deadlines",
+    "title": "No deadlines to display",
+    "description": "Deadlines from projects and tasks will be gathered in one place.",
+    "openCalendar": "Open calendar"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "pageTitle": "Settings",
+
+  "langLabel": "Language",
+
+  "themeLabel": "Theme",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+
+  "apply": "Apply",
+  "undo": "Undo"
+}

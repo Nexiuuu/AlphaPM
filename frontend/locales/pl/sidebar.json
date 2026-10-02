@@ -1,0 +1,33 @@
+{
+  "dashboard": "Panel Główny",
+  "projects": "Projekty",
+  "tasks": "Zadania",
+  "calendar": "Kalendarz",
+  "teams": "Zespoły",
+  "analytics": "Analityka",
+  "settings": "Ustawienia",
+  "projectsSection": "PROJEKTY",
+  "pm": "Zarządzanie Projektami",
+
+  "aria": {
+    "closeMenu": "Zamknij menu",
+    "openMenu": "Otwórz menu",
+    "expandSidebar": "Rozwiń sidebar",
+    "collapseSidebar": "Zwiń sidebar",
+    "userPanel": "Panel użytkownika",
+    "openUserPanel": "Otwórz panel użytkownika",
+    "basicPlan": "Plan podstawowy pozwala utworzyć maksymalnie 5 projektów"
+  },
+
+  "profile": {
+    "title": "Twoja przestrzeń czeka",
+    "subtitle": "Zaloguj się, aby synchronizować projekty, zespół i ustawienia.",
+    "session": "Aktywna sesja",
+    "settings": "Ustawienia konta",
+    "logout": "Wyloguj się",
+    "login": "Zaloguj się",
+    "googleAcc": "Użytkownik Google",
+    "guest": "Konto gościa",
+    "loginGoogle": "Zaloguj się przez Google"
+  }
+}

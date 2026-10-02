@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ArrowRight, FolderKanban } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -5,17 +6,13 @@ import { Card } from "../../../components/ui/Card/Card";
 import { AuthenticatedContent } from "../../auth/components/AuthenticatedContent";
 import { GuestPreviewMessage } from "../../auth/components/GuestPreviewMessage";
 import type { Workspace } from "../../workspaces/types";
+import { useTranslation } from "react-i18next";
 
 interface RecentProjectsProps {
   workspaces: Workspace[];
   isLoading: boolean;
 }
 
-const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-});
 
 export const RecentProjects = ({
   workspaces,
@@ -23,6 +20,18 @@ export const RecentProjects = ({
 }: RecentProjectsProps) => {
   const parseDate = (value: string) =>
     new Date(value.replace(/\.(\d{3})\d+Z$/, ".$1Z"));
+
+  const { t, i18n } = useTranslation(["dashboard", "common"]);
+
+  const dateFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(i18n.language, {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
+    [i18n.language]
+  );
 
   const recentWorkspaces = [...workspaces]
     .sort(
@@ -37,16 +46,16 @@ export const RecentProjects = ({
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-[var(--color-text-muted)]">
-            Projekty
+            {t("dashboard:projectsSection.title")}
           </p>
-          <h2 className="mt-1 text-xl font-semibold">Ostatnio utworzone</h2>
+          <h2 className="mt-1 text-xl font-semibold">{t("projectsSection.recentlyCreated")}</h2>
         </div>
 
         <Link
           to="/projects"
           className="inline-flex items-center gap-1 text-sm text-[var(--color-primary)] hover:underline"
         >
-          Wszystkie <ArrowRight size={16} />
+          {t("projectsSection.seeAll")} <ArrowRight size={16} />
         </Link>
       </div>
 
@@ -54,8 +63,8 @@ export const RecentProjects = ({
         fallback={
           <div className="mt-5">
             <GuestPreviewMessage
-              title="Twoje projekty są ukryte w podglądzie gościa"
-              description="Po zalogowaniu zobaczysz tu ostatnio utworzone projekty."
+              title={t("common:guest.seeProjects")}
+              description={t("common:guest.seeProjectsDesc")}
             />
           </div>
         }
@@ -87,7 +96,7 @@ export const RecentProjects = ({
                       {workspace.name}
                     </span>
                     <span className="mt-0.5 block text-xs text-[var(--color-text-muted)]">
-                      Utworzono{" "}
+                      {t("projectsSection.createdOn")}{" "}
                       {dateFormatter.format(new Date(workspace.createdAt))}
                     </span>
                   </span>
@@ -105,15 +114,15 @@ export const RecentProjects = ({
               className="mx-auto mb-3 text-[var(--color-primary)]"
               size={24}
             />
-            <h3 className="font-medium">Nie masz jeszcze projektów</h3>
+            <h3 className="font-medium">{t("projectsSection.noProjects")}</h3>
             <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-              Utwórz pierwszy projekt, aby zacząć planować pracę.
+              {t("projectsSection.createFirstProject")}
             </p>
             <Link
               to="/projects"
               className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[var(--color-primary)] hover:underline"
             >
-              Przejdź do projektów <ArrowRight size={16} />
+              {t("projectsSection.goToProjects")} <ArrowRight size={16} />
             </Link>
           </div>
         )}

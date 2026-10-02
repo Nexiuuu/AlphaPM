@@ -1,0 +1,12 @@
+{
+  "newProject": "New project",
+  "notifications": "Notifications",
+  "search": "Search...",
+
+  "aria": {
+    "closeNoti": "Close notifications",
+    "openNoti": "Open notifications",
+    "openSearch": "Open Search",
+    "closeSearch": "Close Search"
+  }
+}

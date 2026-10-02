@@ -1,0 +1,41 @@
+{
+  "loading": "Loading",
+  "noProjects": "No projects.",
+  "tryAgain": "Try again",
+  "limit": "The basic plan limit has been reached.",
+  "create": "Create project",
+  "checkSession": "Checking Sessions",
+  "user": "AlphaPM User",
+  "unableLogout": "Unable to log out.",
+  "list": "The list is available after log in.",
+  "projectsError": "Failed to load projects:",
+  "loadingProj": "Loading projects",
+  "openProj": "Open projects",
+
+  "pageTitles": {
+    "login": "Log in",
+    "createProject": "New project",
+    "project": "Project",
+    "notFound": "Not found"
+  },
+
+  "guest": {
+    "guestPrev": "Guest preview",
+
+    "priorities": "After logging in, you'll see your priorities and upcoming deadlines here.",
+
+    "seeProjects": "Your projects are hidden in guest view",
+    "seeProjectsDesc": "After logging in, you'll see your most recently created projects here.",
+    "projectList": "The list of projects in your account is hidden",
+    "projectListDesc": "After logging in, you'll see your projects here. Now you can familiarize yourself with the layout of this page.",
+    "loginProject": "Sign in to view information related to your projects and tasks.",
+
+    "accInfo": "does not display account information in the preview",
+    "onceLogin": "Once you log in, this section will use data from your projects and tasks.",
+
+    "tasks": "Tasks and deadlines are part of your account",
+    "taskDayDetail": "The tasks are hidden in the preview",
+    "taskLoginAssigned": "Log in to view the tasks assigned for today.",
+    "taskLogin": "Log in"
+  }
+}

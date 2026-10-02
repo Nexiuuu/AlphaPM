@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Calendar",
+  "deadlines": "Deadlines",
+  "description": "Keep track of important dates and your work schedule all in one place.",
+  "emptyTitle": "You don't have any deadlines yet",
+  "emptyDescription": "Deadlines for projects and tasks will appear here once the tasks module is ready.",
+  "calendarHeader": "Current month",
+  "today": "Today",
+  "nextMonth": "Next month",
+  "lastMonth": "Last month",
+
+  "aria": {
+    "open": "Open",
+    "taskCount": "Task count"
+  },
+
+  "dayDetailsModal": {
+    "allDay": "All day",
+    "dayDetails": "Details of the Day",
+    "closeDetails": "Close day details",
+    "peacefulDay": "A peaceful day",
+    "noTasks": "There are no tasks scheduled for this date yet."
+  },
+
+  "calendarGrid": {
+    "weekDays": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+  }
+}

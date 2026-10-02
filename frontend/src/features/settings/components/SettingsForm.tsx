@@ -4,7 +4,9 @@ import { useTheme } from "../../../hooks/useTheme";
 import type { Language, NotificationPreference, Theme } from "../types";
 import { Button } from "../../../components/ui/Button/Button";
 import { useFlash } from "../../../hooks/animations/useFlash";
-import { getUserTheme } from "../LocalStorageSettings";
+import { getUserSettings, getUserTheme, updateUserSetting } from "../LocalStorageSettings";
+import i18n from "../../../i18n";
+import { useTranslation } from "react-i18next";
 
 type SettingsFormData = {
   theme: Theme;
@@ -18,25 +20,35 @@ export const SettingsForm = () => {
   const { register, handleSubmit, reset } = useForm<SettingsFormData>({
     defaultValues: {
       theme: getUserTheme(),
+      language: getUserSettings().language,
     },
   });
 
   const onSubmit = (data: SettingsFormData) => {
-    const currentTheme = getUserTheme();
+    const currentSettings = getUserSettings();
+
+    const hasChanges =
+      data.theme !== currentSettings.theme ||
+      data.language !== currentSettings.language;
 
     setTheme(data.theme);
-    if (data.theme === currentTheme) {
-      return;
-    }
 
-    trigger();
+    updateUserSetting("language", data.language);
+    void i18n.changeLanguage(data.language.toLowerCase())
+
+    if (hasChanges) {
+      trigger();
+    }
   };
 
   const handleCancel = () => {
     reset({
       theme: getUserTheme(),
+      language: getUserSettings().language,
     });
   };
+
+  const { t } = useTranslation("settings");
 
   return (
     <div>
@@ -45,24 +57,40 @@ export const SettingsForm = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-4">
-          <Selectbar label="Motyw:" variant="form" {...register("theme")}>
+          <Selectbar label={t("themeLabel")} variant="form" {...register("theme")}>
             <option
               className="bg-[var(--color-surface)] text-[var(--color-text)]"
               value={"DARK"}
             >
-              Ciemny
+              {t("themeDark")}
             </option>
             <option
               className="bg-[var(--color-surface)] text-[var(--color-text)]"
               value={"LIGHT"}
             >
-              Jasny
+              {t("themeLight")}
+            </option>
+          </Selectbar>
+
+          <Selectbar label={t("langLabel")} variant="form" {...register("language")}>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"PL"}
+            >
+              Polski
+            </option>
+            <option
+              className="bg-[var(--color-surface)] text-[var(--color-text)]"
+              value={"EN"}
+            >
+              English
             </option>
           </Selectbar>
         </div>
+
         <div className="flex justify-center mt-2">
           <Button variant="primary" type="submit" className="ml-auto mr-3">
-            Zastosuj
+            {t("apply")}
           </Button>
           <Button
             variant="secondary"
@@ -70,7 +98,7 @@ export const SettingsForm = () => {
             onClick={handleCancel}
             className="ml-3 mr-auto"
           >
-            Cofnij
+            {t("undo")}
           </Button>
         </div>
       </form>

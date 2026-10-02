@@ -1,0 +1,44 @@
+{
+  "pageTitle": "Projects",
+  "workspace": "Your Workspace",
+  "noProjects": "Click the plus sign next to Projects in the left panel or in the upper-right corner.",
+  "firstProj": "The first project is waiting to be created",
+
+  "projectCard": {
+    "changeName": "Change name",
+    "changeColor": "Change color",
+    "deleteProject": "Delete project",
+    "back": "Back",
+    "manageProject": "Manage project",
+    "openProject": "Open project",
+
+    "aria": {
+      "openMenu": "Open project menu"
+    }
+  },
+
+  "editProjectForm": {
+    "newName": "New project name",
+    "charLimit": "Up to 60 characters",
+    "charMin": "At least 2 characters",
+    "name": "The project name is required",
+    "saveName": "Save name",
+    "savingName": "Saving name",
+    "errorMsg": "An error occurred while updating the project."
+  },
+
+  "colorProjectForm": {
+    "selectColor": "Select a color for your project",
+    "sample": "Click a sample to change color",
+    "saveColor": "Save the color",
+    "savingColor": "Saving...",
+    "errorMsg": "An error occurred while changing the color project."
+  },
+
+  "deleteProjectConfirm": {
+    "deleteConfirm": "Are you sure you want to delete the project",
+    "delete": "Delete permanently",
+    "deleting": "Deleting...",
+    "errorMsg": "The project could not be deleted."
+  }
+}

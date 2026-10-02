@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-import { MONTHS } from "../utils";
+import { getMonths } from "../utils";
 
 interface CalendarHeaderProps {
   year: number;
@@ -17,14 +19,20 @@ export const CalendarHeader = ({
   onNextMonth,
   onToday,
 }: CalendarHeaderProps) => {
+  const { t, i18n } = useTranslation("calendar");
+
+  const months = useMemo(() => getMonths(i18n.language), [i18n.language]);
+
+  const currentMonthName = months[monthId]?.name;
+
   return (
     <div className="flex flex-col gap-3 border-b border-[var(--color-border)] p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:p-4 sm:px-5">
       <div>
         <p className="text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-          Wyświetlany miesiąc
+          {t("calendarHeader")}
         </p>
         <h3 className="mt-1 text-xl font-semibold text-[var(--color-text)]">
-          {MONTHS[monthId].name} {year}
+          {currentMonthName} {year}
         </h3>
       </div>
 
@@ -32,16 +40,43 @@ export const CalendarHeader = ({
         <button
           type="button"
           onClick={onToday}
-          className="cursor-pointer rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          className="
+            cursor-pointer 
+            rounded-lg 
+            border 
+            border-[var(--color-border)] 
+            px-3 
+            py-2 
+            text-sm 
+            text-[var(--color-text-muted)] 
+            transition-colors 
+            hover:bg-[var(--color-surface-hover)] 
+            hover:text-[var(--color-text)] 
+            focus:outline-none 
+            focus-visible:ring-2 
+            focus-visible:ring-[var(--color-primary)]
+          "
         >
-          Dzisiaj
+          {t("today")}
         </button>
 
         <button
           type="button"
           onClick={onPreviousMonth}
-          aria-label="Poprzedni miesiąc"
-          className="cursor-pointer rounded-lg border border-[var(--color-border)] p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          aria-label={t("lastMonth")}
+          className="
+            cursor-pointer 
+            rounded-lg 
+            border border-[var(--color-border)] 
+            p-2 
+            text-[var(--color-text-muted)] 
+            transition-colors 
+            hover:bg-[var(--color-surface-hover)] 
+            hover:text-[var(--color-text)] 
+            focus:outline-none 
+            focus-visible:ring-2 
+            focus-visible:ring-[var(--color-primary)]
+          "
         >
           <ChevronLeft size={18} />
         </button>
@@ -49,8 +84,21 @@ export const CalendarHeader = ({
         <button
           type="button"
           onClick={onNextMonth}
-          aria-label="Następny miesiąc"
-          className="cursor-pointer rounded-lg border border-[var(--color-border)] p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          aria-label={t("nextMonth")}
+          className="
+            cursor-pointer 
+            rounded-lg 
+            border 
+            border-[var(--color-border)] 
+            p-2 
+            text-[var(--color-text-muted)] 
+            transition-colors 
+            hover:bg-[var(--color-surface-hover)] 
+            hover:text-[var(--color-text)] 
+            focus:outline-none 
+            focus-visible:ring-2 
+            focus-visible:ring-[var(--color-primary)]
+          "
         >
           <ChevronRight size={18} />
         </button>

@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 interface NotificationPanelProps {
     notifications: number;
 }
 
 export const HeaderNotificationPanel = ({ notifications }: NotificationPanelProps) => {
+    const { t } = useTranslation("header");
     return (
         <section
             id="notifications-panel"
@@ -32,7 +35,7 @@ export const HeaderNotificationPanel = ({ notifications }: NotificationPanelProp
                 className="flex items-center justify-between p-4 font-semibold"
             >
                 <span>
-                    Powiadomienia
+                    {t("notifications")}
                 </span>
                 <span
                     className="

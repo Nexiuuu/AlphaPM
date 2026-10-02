@@ -2,10 +2,12 @@ import { Search, X } from "lucide-react";
 import { useState, useRef } from "react";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { Typebar } from "../../ui/typebar/Typebar";
+import { useTranslation } from "react-i18next";
 
 export const HeaderSearch = () => {
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation("header");
 
   useClickOutside(searchRef, () => setIsOpen(false));
 
@@ -30,7 +32,7 @@ export const HeaderSearch = () => {
       >
         <Typebar
           type="text"
-          placeholder="Search..."
+          placeholder={t("search")}
           autoFocus={isOpen}
           variant={isOpen ? "search" : "hidden"}
         />
@@ -45,7 +47,7 @@ export const HeaderSearch = () => {
               ml-2 
               shrink-0
             "
-            aria-label="Close Search"
+            aria-label={t("aria.openSearch")}
           >
             <X size={18} />
           </button>
@@ -67,7 +69,7 @@ export const HeaderSearch = () => {
               focus-visible:ring-[var(--color-primary)]
             "
 
-            aria-label="Open Search"
+            aria-label={t("aria.closeSearch")}
           >
             <Search size={18} />
           </button>

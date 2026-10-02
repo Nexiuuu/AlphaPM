@@ -1,0 +1,41 @@
+{
+  "loading": "Ładowanie",
+  "noProjects": "Brak projektów.",
+  "tryAgain": "Spróbuj ponownie",
+  "limit": "Osiągnięto limit planu podstawowego.",
+  "create": "Utwórz projekt",
+  "checkSession": "Sprawdzanie sesji",
+  "user": "Użytkownik AlphaPM",
+  "unableLogout": "Nie udało się wylogować.",
+  "list": "Lista dostępna po zalogowaniu.",
+  "projectsError": "Nie udało się pobrać projektów:",
+  "loadingProj": "Pobieram projekty",
+  "openProj": "Otwórz projekty",
+
+  "pageTitles": {
+    "login": "Logowanie",
+    "createProject": "Nowy projekt",
+    "project": "Projekt",
+    "notFound": "Nie znaleziono"
+  },
+
+  "guest": {
+    "guestPrev": "Podgląd gościa",
+
+    "priorities": "Po zalogowaniu zobaczysz tu swoje priorytety i nadchodzące terminy.",
+
+    "seeProjects": "Twoje projekty są ukryte w podglądzie gościa",
+    "seeProjectsDesc": "Po zalogowaniu zobaczysz tu ostatnio utworzone projekty.",
+    "projectList": "Lista projektów z Twojego konta jest ukryta",
+    "projectListDesc": "Po zalogowaniu zobaczysz tutaj swoje projekty. Teraz możesz zapoznać się z układem tej strony.",
+    "loginProject": "Zaloguj się, aby zobaczyć informacje powiązane z Twoimi projektami i zadaniami.",
+
+    "accInfo": "nie pokazuje danych konta w podglądzie",
+    "onceLogin": "Po zalogowaniu ta sekcja będzie korzystać z danych Twoich projektów i zadań.",
+
+    "tasks": "Zadania i terminy są częścią Twojego konta",
+    "taskDayDetail": "Zadania są ukryte w podglądzie",
+    "taskLoginAssigned": "Zaloguj się, aby sprawdzić zadania przypisane do tego dnia.",
+    "taskLogin": "Zaloguj się"
+  }
+}

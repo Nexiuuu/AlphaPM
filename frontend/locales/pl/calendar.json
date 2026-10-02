@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Kalendarz",
+  "deadlines": "Terminy",
+  "description": "Zbierz ważne daty i plan pracy w jednym miejscu.",
+  "emptyTitle": "Nie masz jeszcze terminów",
+  "emptyDescription": "Terminy z projektów i zadań pojawią się tutaj, gdy moduł zadań będzie gotowy.",
+  "calendarHeader": "Wyświetlany miesiąc",
+  "today": "Dzisiaj",
+  "nextMonth": "Następny miesiąc",
+  "lastMonth": "Poprzedni miesiąc",
+
+  "aria": {
+    "open": "Otwórz",
+    "taskCount": "Liczba zadań"
+  },
+
+  "dayDetailsModal": {
+    "allDay": "Cały dzień",
+    "dayDetails": "Szczegóły dnia",
+    "closeDetails": "Zamknij szczegóły dnia",
+    "peacefulDay": "Spokojny dzień",
+    "noTasks": "Nie ma jeszcze żadnych zadań dla tej daty."
+  },
+
+  "calendarGrid": {
+    "weekDays": ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"]
+  }
+}

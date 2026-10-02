@@ -1,0 +1,44 @@
+{
+  "pageTitle": "Projekty",
+  "workspace": "Twoja przestrzeń pracy",
+  "noProjects": "Użyj plusa obok napisu Projekty w lewym panelu.",
+  "firstProj": "Pierwszy projekt czeka na utworzenie",
+
+  "projectCard": {
+    "changeName": "Edycja nazwy",
+    "changeColor": "Zmiana koloru",
+    "deleteProject": "Usuwanie projektu",
+    "back": "Wróć",
+    "manageProject": "Zarządzaj projektem",
+    "openProject": "Otwórz projekt",
+
+    "aria": {
+      "openMenu": "Otwórz menu projektu"
+    }
+  },
+
+  "editProjectForm": {
+    "newName": "Nowa nazwa projektu",
+    "charLimit": "Maksymalnie 60 znaków",
+    "charMin": "Co najmniej 2 znaki",
+    "name": "Nazwa projektu jest wymagana",
+    "saveName": "Zapisz nazwę",
+    "savingName": "Zapisuję nazwę",
+    "errorMsg": "Wystąpił błąd podczas aktualizacji projektu."
+  },
+
+  "colorProjectForm": {
+    "selectColor": "Wybierz kolor projektu",
+    "sample": "Kliknij próbkę aby zmienić kolor",
+    "saveColor": "Zapisz kolor",
+    "savingColor": "Zapisuję...",
+    "errorMsg": "Wystąpił błąd podczas zmiany koloru projektu."
+  },
+
+  "deleteProjectConfirm": {
+    "deleteConfirm": "Czy na pewno chcesz usunąć projekt",
+    "delete": "Usuń bezpowrotnie",
+    "deleting": "Usuwam...",
+    "errorMsg": "Nie udało się usunąć projektu."
+  }
+}

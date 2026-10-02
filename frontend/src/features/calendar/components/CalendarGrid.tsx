@@ -7,6 +7,7 @@ import {
   getFirstDayOfMonthOffset,
 } from "../utils";
 import { CalendarDay } from "./CalendarDay";
+import { useTranslation } from "react-i18next";
 
 interface CalendarGridProps {
   year: number;
@@ -15,8 +16,6 @@ interface CalendarGridProps {
   tasksByDate?: CalendarTasksByDate;
   onDayClick?: (day: DayItem) => void;
 }
-
-const WEEK_DAYS = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
 
 export const CalendarGrid = ({
   year,
@@ -37,10 +36,15 @@ export const CalendarGrid = ({
   const usedCells = offset + monthData.totalDays;
   const trailingCells = Math.ceil(usedCells / 7) * 7 - usedCells;
 
+  const { t } = useTranslation("calendar");
+  const weekDays = t("calendarGrid.weekDays", {
+    returnObjects: true,
+  }) as string[];
+
   return (
     <div>
       <div className="grid grid-cols-7 border-b border-[var(--color-border)] bg-[var(--color-surface-hover)]/60">
-        {WEEK_DAYS.map((dayName) => (
+        {weekDays.map((dayName) => (
           <div
             key={dayName}
             className="py-2 text-center text-[10px] font-semibold uppercase text-[var(--color-text-muted)] sm:py-3 sm:text-xs sm:tracking-wider"
