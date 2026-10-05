@@ -103,7 +103,7 @@ export const EditProjectForm = ({ workspace, onClose }: EditProjectFormProps) =>
                     focus:outline-none
                 "
             >
-                {isSubmitting ? t("editProjectForm.savingName") : t("editProjectForm.saveName")}
+                {isSubmitting ? t("colorProjectForm.savingColor") : t("colorProjectForm.saveColor")}
             </button>
         </form>
     );

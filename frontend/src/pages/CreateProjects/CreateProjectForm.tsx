@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useWorkspaces } from "../../features/workspaces/useWorkspaces";
 import { WorkspaceColorPicker } from "../../features/workspaces/components/WorkspaceColorPicker";
 import { Typebar } from "../../components/ui/typebar/Typebar";
+import { useTranslation } from "react-i18next";
 
 interface ProjectForm {
   name: string;
@@ -15,6 +16,7 @@ export const CreateProjectForm = () => {
   const [createError, setCreateError] = useState<string | null>(null);
   const { createWorkspace } = useWorkspaces();
   const navigate = useNavigate();
+  const { t } = useTranslation("createproject");
 
   const {
     register,
@@ -27,7 +29,6 @@ export const CreateProjectForm = () => {
       color: "#27f580",
     },
   });
-  const selectedColor = useWatch({ control, name: "color" });
 
   const onSubmit = handleSubmit(async (values) => {
     setCreateError(null);
@@ -39,7 +40,7 @@ export const CreateProjectForm = () => {
       const message =
         error instanceof Error
           ? error.message
-          : "Nie udało się utworzyć projektu.";
+          : t("unable");
 
       setCreateError(message);
     }
@@ -49,25 +50,25 @@ export const CreateProjectForm = () => {
     <form
       onSubmit={onSubmit}
       className="
-                mb-2
-                rounded-xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-6
-              "
+        mb-2
+        rounded-xl
+        border
+        border-[var(--color-border)]
+        bg-[var(--color-background)]
+        p-6
+      "
     >
       <Typebar
         autoFocus
         id="project-name"
         variant="form"
-        label="Nazwa projektu"
+        label={t("label.projectName")}
         placeholder=" "
         {...register("name", {
-          required: "Podaj nazwę",
+          required: t("enterName"),
           minLength: {
             value: 2,
-            message: "Minimum 2 znaki",
+            message: t("min"),
           },
           maxLength: 60,
         })}
@@ -85,19 +86,25 @@ export const CreateProjectForm = () => {
 
       <div className="mt-6">
         <p className="text-sm font-medium">
-          Kolor projektu
+          {t("color")}
         </p>
 
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-          Kolor pomoże Ci szybko rozpoznać projekt w sidebarze.
+          {t("colorDesc")}
         </p>
 
         <div className="mt-3">
-          <WorkspaceColorPicker
-            id="project-color"
-            color={selectedColor}
-            description="Kliknij próbkę, aby wybrać kolor"
-            registration={register("color")}
+          <Controller
+            name="color"
+            control={control}
+            render={({ field }) => (
+              <WorkspaceColorPicker
+                id="project-color"
+                value={field.value}
+                onChange={field.onChange}
+                description={t("sample")}
+              />
+            )}
           />
         </div>
       </div>
@@ -106,42 +113,42 @@ export const CreateProjectForm = () => {
         <Link
           to={"/projects"}
           className="
-                        px-2.5
-                        py-1.5
-                        rounded-lg
-                        bg-transparent
-                        border-1
-                        border-[var(--color-primary)]
-                        cursor-pointer
-                        text-xs
-                        font-semibold
-                        text-[var(--color-primary)]
-                        hover:border-[var(--color-primary-hover)]
-                        hover:text-[var(--color-primary-hover)]
-                        focus:outline-none
-                    "
+            px-2.5
+            py-1.5
+            rounded-lg
+            bg-transparent
+            border-1
+            border-[var(--color-primary)]
+            cursor-pointer
+            text-xs
+            font-semibold
+            text-[var(--color-primary)]
+            hover:border-[var(--color-primary-hover)]
+            hover:text-[var(--color-primary-hover)]
+            focus:outline-none
+          "
         >
-          Anuluj
+          {t("cancel")}
         </Link>
 
         <button
           type="submit"
           disabled={isSubmitting}
           className="
-                        cursor-pointer
-                        rounded-lg
-                        bg-[var(--color-primary)]
-                        px-2.5
-                        py-1.5
-                        text-xs
-                        font-semibold
-                        text-[var(--color-primary-foreground)]
-                        disabled:cursor-not-allowed
-                        disabled:opacity-50
-                        focus:outline-none
-                    "
+              cursor-pointer
+              rounded-lg
+              bg-[var(--color-primary)]
+              px-2.5
+              py-1.5
+              text-xs
+              font-semibold
+              text-[var(--color-primary-foreground)]
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+              focus:outline-none
+            "
         >
-          {isSubmitting ? "Tworzę…" : "Utwórz projekt"}
+          {isSubmitting ? t("creating") : t("create")}
         </button>
       </div>
     </form>

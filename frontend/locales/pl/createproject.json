@@ -1,1 +1,19 @@
-{}
+{
+  "unable": "Nie udało się utworzyć projektu.",
+  "min": "Minimum 2 znaki",
+  "enterName": "Podaj nazwę",
+  "color": "Kolor projektu",
+  "colorDesc": "Kolor pomoże Ci szybko rozpoznać projekt w sidebarze.",
+  "sample": "Kliknij próbkę, aby wybrać kolor",
+  "creating": "Tworzę…",
+  "create": "Utwórz projekt",
+  "cancel": "Anuluj",
+  "fallback": "Podgląd formularza tworzenia projektu pojawi się po zalogowaniu.",
+  "back": "Wróć do projektów",
+  "createNewProject": "Utwórz nowy projekt",
+  "desc": "Nadaj projektowi nazwę i wybierz kolor, po którym łatwo rozpoznasz go na liście.",
+
+  "label": {
+    "projectName": "Nazwa projektu"
+  }
+}

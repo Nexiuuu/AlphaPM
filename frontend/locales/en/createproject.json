@@ -1,1 +1,19 @@
-{}
+{
+  "unable": "The project could not be created.",
+  "min": "At least 2 characters",
+  "enterName": "Enter a name",
+  "color": "Project color",
+  "colorDesc": "The color will help you quickly identify the project in the sidebar.",
+  "sample": "Click on a sample to select a color",
+  "creating": "Creating...",
+  "create": "Create a project",
+  "cancel": "Cancel",
+  "fallback": "A preview of the project creation form will appear after logging in.",
+  "back": "Back to Projects",
+  "createNewProject": "Create a new project",
+  "desc": "Give your project a name and choose a color so you can easily recognize it in the list.",
+
+  "label": {
+    "projectName": "Project name"
+  }
+}

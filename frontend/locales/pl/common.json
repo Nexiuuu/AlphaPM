@@ -11,6 +11,8 @@
   "projectsError": "Nie udało się pobrać projektów:",
   "loadingProj": "Pobieram projekty",
   "openProj": "Otwórz projekty",
+  "accept": "Akceptuj",
+  "cancel": "Anuluj",
 
   "pageTitles": {
     "login": "Logowanie",

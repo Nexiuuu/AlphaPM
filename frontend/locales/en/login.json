@@ -1,1 +1,8 @@
-{}
+{
+  "continue": "Continue with Google",
+  "useGoogle": "Use your Google account. When you log in for the first time, an AlphaPM account will be created automatically.",
+  "redirect": "Redirect...",
+  "terms": "By logging in, you agree to AlphaPM's Terms of Use.",
+  "login": "Log in",
+  "unable": "We were unable to sign in with Google."
+}

@@ -72,7 +72,21 @@ export const NotFoundPage = () => {
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Link
             to="/"
-            className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-primary-hover)]"
+            className="
+              inline-flex 
+              items-center 
+              justify-center 
+              gap-2 
+              rounded-[var(--radius-sm)] 
+              bg-[var(--color-primary)] 
+              px-5 
+              py-3 
+              text-sm 
+              font-semibold 
+              text-[var(--color-primary-foreground)] 
+              transition-colors 
+              hover:bg-[var(--color-primary-hover)]
+            "
           >
             <Home size={17} />
             {t("backDashboard")}

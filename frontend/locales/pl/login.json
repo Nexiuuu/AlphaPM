@@ -1,1 +1,8 @@
-{}
+{
+  "continue": "Kontynuuj z Google",
+  "useGoogle": "Użyj konta Google. Przy pierwszym logowaniu konto AlphaPM zostanie utworzone automatycznie.",
+  "redirect": "Przekierowywanie...",
+  "terms": "Logując się, akceptujesz zasady korzystania z AlphaPM.",
+  "login": "Zaloguj się",
+  "unable": "Nie udało się rozpocząć logowania przez Google."
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 
 import type { Workspace } from "../../../../features/workspaces/types";
 import { WorkspaceColorPicker } from "../../../../features/workspaces/components/WorkspaceColorPicker";
@@ -22,7 +22,6 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
     const { t } = useTranslation("projects");
 
     const {
-        register,
         control,
         handleSubmit,
         formState: { isSubmitting, isDirty },
@@ -31,7 +30,6 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
             color: workspace.color,
         },
     });
-    const selectedColor = useWatch({ control, name: "color" });
 
     const onSubmit: SubmitHandler<IColorWorkspaceInput> = async (data) => {
         setUpdateError(null);
@@ -59,11 +57,17 @@ export const ColorProjectForm = ({ workspace, onClose }: ColorProjectFormProps) 
             </p>
 
             <div className="my-1">
-                <WorkspaceColorPicker
-                    id={`project-color-${workspace.id}`}
-                    color={selectedColor}
-                    description={t("colorProjectForm.sample")}
-                    registration={register("color")}
+                <Controller
+                    name="color"
+                    control={control}
+                    render={({ field }) => (
+                        <WorkspaceColorPicker
+                            id={`project-color-${workspace.id}`}
+                            value={field.value}
+                            onChange={field.onChange}
+                            description={t("colorProjectForm.sample")}
+                        />
+                    )}
                 />
             </div>
 

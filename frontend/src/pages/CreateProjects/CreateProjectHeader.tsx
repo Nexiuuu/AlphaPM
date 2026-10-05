@@ -1,28 +1,31 @@
 import { ArrowLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 
 export const CreateProjectHeader = () => {
+    const { t } = useTranslation("createproject");
+
     return (
-        <header 
+        <header
             className="py-6"
         >
             <Link
                 to="/projects"
                 className="mb-4 inline-flex items-center gap-1 text-sm text-[var(--color-primary)] hover:underline"
             >
-                <ArrowLeft size={19}/> 
-                Wróć do projektów
+                <ArrowLeft size={19} />
+                {t("back")}
             </Link>
 
             <h1
                 className="text-2xl font-semibold tracking-tight sm:text-3xl"
             >
-                Utwórz nowy projekt
+                {t("createNewProject")}
             </h1>
 
             <p className="mt-2 text-sm text-[var(--color-text-muted)]">
-                Nadaj projektowi nazwę i wybierz kolor, po którym łatwo rozpoznasz go na liście.
+                {t("desc")}
             </p>
         </header>
     );

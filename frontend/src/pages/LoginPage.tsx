@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { loginWithGoogle } from "../lib/utils/API/auth";
+import { useTranslation } from "react-i18next";
 
 export const LoginPage = () => {
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const { t } = useTranslation("login");
 
   const handleGoogleLogin = async () => {
     setLoginError(null);
@@ -18,7 +20,7 @@ export const LoginPage = () => {
       setLoginError(
         error instanceof Error
           ? error.message
-          : "Nie udało się rozpocząć logowania przez Google.",
+          : t("unable"),
       );
     }
   };
@@ -33,15 +35,35 @@ export const LoginPage = () => {
           <span className="font-semibold">AlphaPM</span>
         </Link>
 
-        <h1 className="text-2xl font-semibold">Zaloguj się</h1>
+        <h1 className="text-2xl font-semibold">{t("login")}</h1>
         <p className="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
-          Użyj konta Google. Przy pierwszym logowaniu konto AlphaPM zostanie
-          utworzone automatycznie.
+          {t("useGoogle")}
         </p>
 
         <button
           type="button"
-          className="mt-7 flex w-full cursor-pointer items-center justify-center gap-3 rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-white px-4 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-100 disabled:cursor-wait disabled:opacity-60"
+          className="
+            mt-7 
+            flex 
+            w-full 
+            cursor-pointer 
+            items-center 
+            justify-center 
+            gap-3 
+            rounded-[var(--radius-sm)] 
+            border 
+            border-[var(--color-border)] 
+            bg-white 
+            px-4 
+            py-3 
+            text-sm 
+            font-medium 
+            text-neutral-900 
+            transition-colors 
+            hover:bg-neutral-100 
+            disabled:cursor-wait 
+            disabled:opacity-60
+          "
           disabled={isRedirecting}
           onClick={() => void handleGoogleLogin()}
         >
@@ -51,7 +73,7 @@ export const LoginPage = () => {
           >
             G
           </span>
-          {isRedirecting ? "Przekierowywanie..." : "Kontynuuj z Google"}
+          {isRedirecting ? t("redirect") : t("continue")}
         </button>
 
         {loginError ? (
@@ -64,7 +86,7 @@ export const LoginPage = () => {
         ) : null}
 
         <p className="mt-6 border-t border-[var(--color-border)] pt-5 text-center text-xs leading-5 text-[var(--color-text-muted)]">
-          Logując się, akceptujesz zasady korzystania z AlphaPM.
+          {t("terms")}
         </p>
       </section>
     </main>

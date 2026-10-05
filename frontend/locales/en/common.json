@@ -11,6 +11,8 @@
   "projectsError": "Failed to load projects:",
   "loadingProj": "Loading projects",
   "openProj": "Open projects",
+  "accept": "Accept",
+  "cancel": "Cancel",
 
   "pageTitles": {
     "login": "Log in",
