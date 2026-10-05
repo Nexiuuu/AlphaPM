@@ -125,16 +125,19 @@ export const WorkspaceColorPicker = ({
                 type="button"
                 onClick={handleCancel}
                 className="
-                  px-3 
-                  py-1.5 
+                  px-2.5
+                  py-1.5  
                   text-xs 
-                  font-medium 
+                  font-semibold 
+                  text-[var(--color-text)]
                   rounded-md 
                   border 
                   border-[var(--color-border)]
-                  hover:bg-black/5 
-                  dark:hover:bg-white/5 
+                  bg-[var(--color-surface)]
+                  cursor-pointer
                   transition-colors
+                  hover:opacity-65
+                  focus:outline-none
                 "
               >
                 {t("cancel")}
@@ -143,15 +146,18 @@ export const WorkspaceColorPicker = ({
                 type="button"
                 onClick={handleAccept}
                 className="
-                  px-3 
+                  px-2.5
                   py-1.5 
                   text-xs 
                   font-medium 
                   rounded-md 
-                  bg-[var(--color-text)] 
-                  text-[var(--color-surface)] 
-                  hover:opacity-90 
+                  cursor-pointer
+                  bg-[var(--color-primary)]
+                  text-[var(--color-primary-foreground)] 
+                  hover:opacity-65
                   transition-opacity
+                  hover:border-[var(--color-primary-hover)]
+                  focus:outline-none
                 "
               >
                 {t("accept")}

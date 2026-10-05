@@ -114,17 +114,17 @@ export const CreateProjectForm = () => {
           to={"/projects"}
           className="
             px-2.5
-            py-1.5
-            rounded-lg
+            py-1.5  
+            text-xs 
+            font-semibold 
+            text-[var(--color-text)]
+            rounded-md 
+            border 
+            border-[var(--color-border)]
             bg-transparent
-            border-1
-            border-[var(--color-primary)]
             cursor-pointer
-            text-xs
-            font-semibold
-            text-[var(--color-primary)]
-            hover:border-[var(--color-primary-hover)]
-            hover:text-[var(--color-primary-hover)]
+            transition-colors
+            hover:opacity-65
             focus:outline-none
           "
         >
@@ -135,16 +135,17 @@ export const CreateProjectForm = () => {
           type="submit"
           disabled={isSubmitting}
           className="
-              cursor-pointer
-              rounded-lg
-              bg-[var(--color-primary)]
               px-2.5
-              py-1.5
-              text-xs
-              font-semibold
-              text-[var(--color-primary-foreground)]
-              disabled:cursor-not-allowed
-              disabled:opacity-50
+              py-1.5 
+              text-xs 
+              font-medium 
+              rounded-md 
+              cursor-pointer
+              bg-[var(--color-primary)]
+              text-[var(--color-primary-foreground)] 
+              hover:opacity-65
+              transition-opacity
+              hover:border-[var(--color-primary-hover)]
               focus:outline-none
             "
         >
