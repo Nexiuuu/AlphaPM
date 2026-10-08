@@ -7,6 +7,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -16,39 +17,45 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(Customizer.withDefaults())
-            .authorizeHttpRequests(
-                auth -> auth
-                    .requestMatchers(
-                        "/",
-                        "/frontend/**",
-                        "/api/public/**",
-                        "/api/auth/**"
-                    )
-                    .permitAll()
-                    .requestMatchers(
-                        org.springframework.http.HttpMethod.OPTIONS,
-                        "/**"
-                    )
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated()
-            )
-            .oauth2ResourceServer(
-                oauth2 -> oauth2.jwt(Customizer.withDefaults())
-            );
+                .cors(Customizer.withDefaults())
+                .authorizeHttpRequests(
+                        auth -> auth
+                                .requestMatchers(
+                                        "/",
+                                        "/frontend/**",
+                                        "/api/public/**",
+                                        "/api/auth/**"
+                                )
+                                .permitAll()
+                                .requestMatchers(
+                                        org.springframework.http.HttpMethod.OPTIONS,
+                                        "/**"
+                                )
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
+                .oauth2ResourceServer(
+                        oauth2 -> oauth2.jwt(Customizer.withDefaults())
+                );
 
         return http.build();
     }
 
     @Bean
     public JwtDecoder jwtDecoder(
-            @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
-            String jwkSetUri
+            @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri,
+            @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") String issuer
     ) {
-        return NimbusJwtDecoder
+        NimbusJwtDecoder decoder = NimbusJwtDecoder
                 .withJwkSetUri(jwkSetUri)
                 .jwsAlgorithm(SignatureAlgorithm.ES256)
                 .build();
+
+        decoder.setJwtValidator(
+                JwtValidators.createDefaultWithIssuer(issuer)
+        );
+
+        return decoder;
     }
 }
