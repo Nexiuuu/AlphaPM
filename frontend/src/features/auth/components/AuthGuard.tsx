@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 
 import { LoadingText } from "../../../components/ui/LoadingText/LoadingText";
-import { GuestSessionNotice } from "./GuestSessionNotice";
 import { useAuth } from "../useAuth";
 
 export const AuthGuard = () => {
@@ -17,7 +16,7 @@ export const AuthGuard = () => {
 
     return (
         <>
-            {!session && <GuestSessionNotice />}
+            {!session}
             <Outlet />
         </>
     );
