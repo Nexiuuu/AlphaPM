@@ -22,7 +22,7 @@ export const SearchPage = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-6 space-y-8">
-            {isAuthenticated ? (
+            {(isAuthenticated && isLoading) ? (
                 <div>
 
                 </div>
