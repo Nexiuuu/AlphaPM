@@ -12,7 +12,8 @@ export type AppTitleKey =
   | "settings:pageTitle"
   | "tasks:pageTitle"
   | "analytics:pageTitle"
-  | "teams:pageTitle";
+  | "teams:pageTitle"
+  | "search:pageTitle";
 
 interface RouteHandle {
   titleKey?: AppTitleKey;
@@ -29,6 +30,7 @@ export const usePageTitle = (): string => {
     "tasks",
     "analytics",
     "teams",
+    "search",
   ]);
 
   // We retrieve the last (most nested) matching route
