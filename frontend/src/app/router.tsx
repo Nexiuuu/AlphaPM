@@ -11,7 +11,6 @@ import { TeamPage } from "../pages/TeamPage";
 import { TaskPage } from "../pages/TaskPage";
 import { LoginPage } from "../pages/LoginPage";
 import { CreateProjectPage } from "../pages/CreateProjects/CreateProjectPage";
-import { SearchPage } from "../pages/SearchPage";
 
 // 404
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -79,11 +78,6 @@ export const router = createBrowserRouter(
               path: "projects/:id",
               element: <ProjectPage />,
               handle: pageTitle("common:pageTitles.project"),
-            },
-            {
-              path: "Search",
-              element: <SearchPage />,
-              handle: pageTitle("search:pageTitle"),
             },
             {
               path: "*",

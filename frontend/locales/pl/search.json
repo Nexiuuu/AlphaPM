@@ -1,5 +1,7 @@
 {
   "pageTitle": "Szukaj",
+  "search": "Szukam...",
+  "noResult": "Brak wyników dla",
 
   "projects": {
     "noProject": "Brak projektów spełniających kryteria wyszukiwania."

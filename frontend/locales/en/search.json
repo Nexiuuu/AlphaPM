@@ -1,5 +1,7 @@
 {
   "pageTitle": "Search",
+  "search": "Searching...",
+  "noResult": "No results found for",
 
   "projects": {
     "noProject": "No projects match the search criteria."
