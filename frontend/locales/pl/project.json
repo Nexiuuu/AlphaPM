@@ -5,6 +5,23 @@
   "emptyTitle": "Raporty pojawią się tutaj",
   "emptyDescription": "Gdy zadania zaczną trafiać do projektów, pokażemy wykresy postępu i obciążenia zespołu.",
 
+  "activeTasks": {
+    "label": "Aktywne zadania",
+    "description": "Aktywne zadania w tym projekcie"
+  },
+  "overdueTasks": {
+    "label": "Zaległe zadania",
+    "description": "Zaległe zadania w tym projekcie"
+  },
+  "todaysTasks": {
+    "label": "Zadania na dziś",
+    "description": "Zadania na dziś w tym projekcie"
+  },
+  "completedThisWeek": {
+    "label": "Ukończone w tym tygodniu",
+    "description": "Zadania z tego projektu ukończone w tym tygodniu"
+  },
+
   "errors": {
     "retrieve": "Nie udało się pobrać danych projektu"
   }

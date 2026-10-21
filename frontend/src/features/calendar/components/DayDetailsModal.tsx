@@ -6,6 +6,7 @@ import type { Task } from "../../../data/task/Task";
 import type { DayItem } from "../types";
 import { useAuth } from "../../auth/useAuth";
 import { useTranslation } from "react-i18next";
+import { Button } from "../../../components/ui/Button/Button";
 
 interface DayDetailsModalProps {
   day: DayItem | null;
@@ -13,17 +14,12 @@ interface DayDetailsModalProps {
   onClose: () => void;
 }
 
-
-
 export const DayDetailsModal = ({
   day,
   tasks,
   onClose,
 }: DayDetailsModalProps) => {
-
-
   const { session } = useAuth();
-
 
   const { t, i18n } = useTranslation(["calendar", "common"]);
 
@@ -35,7 +31,7 @@ export const DayDetailsModal = ({
         month: "long",
         year: "numeric",
       }),
-    [i18n.language]
+    [i18n.language],
   );
 
   const timeFormatter = useMemo(
@@ -44,7 +40,7 @@ export const DayDetailsModal = ({
         hour: "2-digit",
         minute: "2-digit",
       }),
-    [i18n.language]
+    [i18n.language],
   );
 
   useEffect(() => {
@@ -66,6 +62,11 @@ export const DayDetailsModal = ({
     return `${timeFormatter.format(new Date(task.startsAt))}–${timeFormatter.format(new Date(task.endsAt))}`;
   };
 
+  const openTaskPopup = () => {
+    onClose();
+    //TODO: open CreateTaskPopup
+  };
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-2 backdrop-blur-sm sm:items-center sm:p-4"
@@ -79,24 +80,26 @@ export const DayDetailsModal = ({
         aria-labelledby="day-details-title"
         className="max-h-[calc(100dvh-1rem)] w-full max-w-md overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-2xl sm:max-h-[calc(100dvh-2rem)] sm:rounded-2xl"
       >
-        <header className="flex items-start justify-between gap-3 border-b border-[var(--color-border)] p-4 sm:gap-4 sm:p-5">
-          <div>
-            <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-primary)]">
-              <CalendarDays size={15} /> {t("dayDetailsModal.dayDetails")}
-            </p>
-            <h3
-              id="day-details-title"
-              className="mt-2 text-lg font-semibold capitalize text-[var(--color-text)] sm:text-xl"
-            >
-              {dateFormatter.format(day.date)}
-            </h3>
-          </div>
+        <header className="relative">
+          <div className="flex items-start justify-between gap-3 border-b border-[var(--color-border)] p-4 sm:gap-4 sm:p-5">
+            <div>
+              <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-primary)]">
+                <CalendarDays size={15} /> {t("dayDetailsModal.dayDetails")}
+              </p>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={t("dayDetailsModal.closeDetails")}
-            className="
+              <h3
+                id="day-details-title"
+                className="mt-2 text-lg font-semibold capitalize text-[var(--color-text)] sm:text-xl"
+              >
+                {dateFormatter.format(day.date)}
+              </h3>
+            </div>
+
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t("dayDetailsModal.closeDetails")}
+              className="
               cursor-pointer 
               rounded-lg 
               p-2 
@@ -108,9 +111,21 @@ export const DayDetailsModal = ({
               focus-visible:ring-2 
               focus-visible:ring-[var(--color-primary)]
             "
-          >
-            <X size={18} />
-          </button>
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          <div className="absolute w-full">
+            <Button
+              className="relative -top-4 left-3/4"
+              variant="primary"
+              type="button"
+              onClick={openTaskPopup}
+            >
+              Add Task
+            </Button>
+          </div>
         </header>
 
         <div className="max-h-[60dvh] overflow-y-auto p-4 sm:p-5">

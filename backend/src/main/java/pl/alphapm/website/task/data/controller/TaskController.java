@@ -1,8 +1,10 @@
 package pl.alphapm.website.task.data.controller;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,9 +41,13 @@ public class TaskController {
 
     @GetMapping
     public List<TaskDTO> getTasks(
-            @RequestParam UUID projectId
+            @RequestParam(required = false) UUID projectId,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime from,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime to
     ) {
-        return taskService.getTasks(projectId);
+        return taskService.getTasks(projectId, from, to);
     }
 
     @GetMapping("/{taskId}")

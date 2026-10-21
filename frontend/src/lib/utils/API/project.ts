@@ -9,11 +9,13 @@ import { apiFetch } from "./apiFetch";
 
 const API_URL = import.meta.env.VITE_BACKEND_API_URL;
 
-export const getProjectTasksRequest = async (id: string): Promise<Task[]> => {
+export const getProjectTasksRequest = async (
+  projectId: string,
+): Promise<Task[]> => {
   const session = await getAuthenticatedSession();
 
   const response = await apiFetch(
-    `${API_URL}/api/projects/${id}/tasks`,
+    `${API_URL}/api/tasks?projectId=${projectId}`,
     {
       method: "GET",
     },
@@ -22,7 +24,7 @@ export const getProjectTasksRequest = async (id: string): Promise<Task[]> => {
 
   if (!response.ok)
     throw new ApiError(
-      `Failed to fetch tasks in project: ${id}`,
+      `Failed to fetch tasks in project: ${projectId}`,
       response.status,
     );
 

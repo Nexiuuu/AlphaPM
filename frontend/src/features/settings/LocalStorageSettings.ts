@@ -12,6 +12,9 @@ type UserSettings = {
 
 const SETTINGS_STORAGE_NAME = "user_settings";
 
+const getSystemTheme = () =>
+  window.matchMedia("(prefers-color-scheme: light)").matches ? "LIGHT" : "DARK";
+
 const DEFAULT_SETTINGS: UserSettings = {
   theme: Settings.DEFAULT_THEME,
   language: Settings.DEFAULT_LANGUAGE,
@@ -24,7 +27,11 @@ export function saveUserSettings(settings: UserSettings) {
 
 export function getUserSettings(): UserSettings {
   const raw = getLocalStorage(SETTINGS_STORAGE_NAME);
-  if (!raw) return DEFAULT_SETTINGS;
+  if (!raw)
+    return {
+      ...DEFAULT_SETTINGS,
+      theme: getSystemTheme(),
+    };
 
   try {
     const parsed = JSON.parse(raw);
@@ -42,7 +49,10 @@ export function getUserSettings(): UserSettings {
         : DEFAULT_SETTINGS.notificationPreference,
     };
   } catch {
-    return DEFAULT_SETTINGS;
+    return {
+      ...DEFAULT_SETTINGS,
+      theme: getSystemTheme(),
+    };
   }
 }
 

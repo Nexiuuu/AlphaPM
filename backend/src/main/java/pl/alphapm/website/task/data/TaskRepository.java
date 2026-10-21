@@ -1,5 +1,6 @@
 package pl.alphapm.website.task.data;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,9 @@ public interface TaskRepository {
 
     List<Task> getTasks(
             UUID projectId,
-            UUID userId
+            UUID userId,
+            OffsetDateTime from,
+            OffsetDateTime to
     );
 
     TaskDetails getTask(

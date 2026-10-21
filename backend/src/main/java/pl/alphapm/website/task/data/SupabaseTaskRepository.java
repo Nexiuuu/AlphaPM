@@ -1,6 +1,7 @@
 package pl.alphapm.website.task.data;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -267,48 +268,139 @@ public class SupabaseTaskRepository implements TaskRepository {
     @Override
     public List<Task> getTasks(
             UUID projectId,
-            UUID userId
+            UUID userId,
+            OffsetDateTime fromInclusive,
+            OffsetDateTime toExclusive
     ) {
-        String sql = """
-            SELECT
-                t.id,
-                t.name,
-                t.author_id,
-                t.project_id,
-                t.color,
-                t.starts_at,
-                t.ends_at,
-                t.all_day,
-                t.description,
-                t.created_at,
-                t.last_update
-            FROM private.tasks t
-            JOIN private.project_members pm
-                ON pm.project_id = t.project_id
-            AND pm.user_id = ?
-            WHERE t.project_id = ?
-            AND pm.permissions >= t.visible_to
-            ORDER BY t.starts_at
-        """;
+        if (projectId == null) {
+            throw new BadRequestException("Project ID is required");
+        }
 
-        return jdbcTemplate.query(
-                sql,
-                (s, rowNum) -> new Task(
-                        s.getObject("id", UUID.class),
-                        s.getString("name"),
-                        s.getObject("author_id", UUID.class),
-                        s.getObject("project_id", UUID.class),
-                        s.getString("color"),
-                        s.getObject("starts_at", OffsetDateTime.class),
-                        s.getObject("ends_at", OffsetDateTime.class),
-                        s.getBoolean("all_day"),
-                        s.getString("description"),
-                        s.getObject("created_at", OffsetDateTime.class),
-                        s.getObject("last_update", OffsetDateTime.class)
-                ),
-                userId,
-                projectId
+        StringBuilder sql = new StringBuilder("""
+        WITH requested_project AS (
+            SELECT
+                p.id,
+                p.owner_id,
+                CASE
+                    WHEN p.owner_id = ? THEN TRUE
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM private.project_members pm
+                        WHERE pm.project_id = p.id
+                          AND pm.user_id = ?
+                    ) THEN TRUE
+                    ELSE FALSE
+                END AS has_access
+            FROM private.projects p
+            WHERE p.id = ?
+        )
+        SELECT
+            rp.id AS requested_project_id,
+            rp.has_access,
+            t.id,
+            t.name,
+            t.author_id,
+            t.project_id,
+            t.color,
+            t.starts_at,
+            t.ends_at,
+            t.all_day,
+            t.description,
+            t.created_at,
+            t.last_update
+        FROM requested_project rp
+        LEFT JOIN private.tasks t
+            ON t.project_id = rp.id
+           AND (
+                rp.owner_id = ?
+                OR EXISTS (
+                    SELECT 1
+                    FROM private.project_members pm
+                    WHERE pm.project_id = rp.id
+                      AND pm.user_id = ?
+                      AND pm.permissions >= t.visible_to
+                )
+           )
+        """);
+
+        List<Object> params = new ArrayList<>();
+        params.add(userId);
+        params.add(userId);
+        params.add(projectId);
+        params.add(userId);
+        params.add(userId);
+
+        if (fromInclusive != null) {
+            sql.append(" AND t.ends_at > ?");
+            params.add(fromInclusive);
+        }
+
+        if (toExclusive != null) {
+            sql.append(" AND t.starts_at < ?");
+            params.add(toExclusive);
+        }
+
+        sql.append(" ORDER BY t.starts_at");
+
+        List<Task> tasks = new ArrayList<>();
+
+        String status = jdbcTemplate.query(
+                sql.toString(),
+                rs -> {
+                    if (!rs.next()) {
+                        return "NOT_FOUND";
+                    }
+
+                    if (!rs.getBoolean("has_access")) {
+                        return "FORBIDDEN";
+                    }
+
+                    do {
+                        UUID taskId = rs.getObject("id", UUID.class);
+
+                        if (taskId == null) {
+                            continue;
+                        }
+
+                        tasks.add(new Task(
+                                taskId,
+                                rs.getString("name"),
+                                rs.getObject("author_id", UUID.class),
+                                rs.getObject("project_id", UUID.class),
+                                rs.getString("color"),
+                                rs.getObject("starts_at", OffsetDateTime.class),
+                                rs.getObject("ends_at", OffsetDateTime.class),
+                                rs.getBoolean("all_day"),
+                                rs.getString("description"),
+                                rs.getObject("created_at", OffsetDateTime.class),
+                                rs.getObject("last_update", OffsetDateTime.class)
+                        ));
+                    } while (rs.next());
+
+                    return "ACCESSIBLE";
+                },
+                params.toArray()
         );
+
+        if ("NOT_FOUND".equals(status)) {
+            throw new ResourceNotFoundException(
+                    "Project couldn't be found"
+            );
+        }
+
+        if ("FORBIDDEN".equals(status)) {
+            logger.warn(
+                    "Unauthorized project access attempt: userId={}, projectId={}",
+                    userId,
+                    projectId
+            );
+
+            throw new ResourceNotFoundException(
+                    "Project couldn't be found"
+            );
+        }
+
+        return tasks;
     }
 
     @Override

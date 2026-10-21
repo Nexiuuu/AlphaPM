@@ -1,5 +1,6 @@
 package pl.alphapm.website.task.data.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,9 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(
+            TaskRepository taskRepository
+    ) {
         this.taskRepository = taskRepository;
     }
 
@@ -38,8 +41,12 @@ public class TaskService {
     public TaskDetailsDTO createTask(
             CreateTaskRequestDTO request
     ) {
-        if (request.endsAt().isBefore(request.startsAt().plusMinutes(1))) {
-            throw new BadRequestException("Starts date can't be after ends date");
+        if (request.endsAt().isBefore(
+                request.startsAt().plusMinutes(1)
+        )) {
+            throw new BadRequestException(
+                    "Starts date can't be after ends date"
+            );
         }
 
         UUID userId = getCurrentUserId();
@@ -84,10 +91,25 @@ public class TaskService {
         );
     }
 
-    public List<TaskDTO> getTasks(UUID projectId) {
+    public List<TaskDTO> getTasks(
+            UUID projectId,
+            OffsetDateTime from,
+            OffsetDateTime to
+    ) {
         UUID userId = getCurrentUserId();
 
-        List<Task> tasks = taskRepository.getTasks(projectId, userId);
+        if (from != null && to != null && !from.isBefore(to)) {
+            throw new BadRequestException(
+                    "'from' must be before 'to'"
+            );
+        }
+
+        List<Task> tasks = taskRepository.getTasks(
+                projectId,
+                userId,
+                from,
+                to
+        );
 
         return tasks.stream()
                 .map(this::toDTO)
@@ -97,7 +119,10 @@ public class TaskService {
     public TaskDetailsDTO getTask(UUID taskId) {
         UUID userId = getCurrentUserId();
 
-        TaskDetails task = taskRepository.getTask(taskId, userId);
+        TaskDetails task = taskRepository.getTask(
+                taskId,
+                userId
+        );
 
         return toDTO(task);
     }

@@ -7,8 +7,8 @@ import {
 import { ThemeContext } from "./ThemeContext";
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const userTheme = getUserTheme();
-  const [theme, setThemeState] = useState(userTheme);
+  const [theme, setThemeState] = useState<Theme>(() => getUserTheme());
+
   useEffect(() => {
     document.documentElement.classList.toggle("light", theme === "LIGHT");
     updateUserSetting("theme", theme);

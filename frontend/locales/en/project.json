@@ -5,6 +5,23 @@
   "emptyTitle": "The reports will appear here",
   "emptyDescription": "Once tasks start being assigned to projects, we'll display progress and team workload charts.",
 
+  "activeTasks": {
+    "label": "Active tasks",
+    "description": "Active tasks in this project"
+  },
+  "overdueTasks": {
+    "label": "Overdue tasks",
+    "description": "Overdue tasks in this project"
+  },
+  "todaysTasks": {
+    "label": "Today's tasks",
+    "description": "Today's tasks in this project"
+  },
+  "completedThisWeek": {
+    "label": "Completed this week",
+    "description": "Tasks from this project completed this week"
+  },
+
   "errors": {
     "retrieve": "Unable to retrieve project data"
   }

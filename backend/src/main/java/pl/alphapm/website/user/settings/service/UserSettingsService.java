@@ -1,91 +1,92 @@
 package pl.alphapm.website.user.settings.service;
 
-import java.util.Map;
+import java.time.DateTimeException;
+import java.time.ZoneId;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
+import pl.alphapm.website.user.settings.SupabaseSettingRepository;
 import pl.alphapm.website.user.settings.dto.UserSettingsDTO;
-import pl.alphapm.website.user.settings.exceptions.UserSettingsUnavailableException;
 
 @Service
 public class UserSettingsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserSettingsService.class);
+    private static final Logger logger
+            = LoggerFactory.getLogger(UserSettingsService.class);
 
-    private static final int MAX_RETRIES = 3;
+    private final SupabaseSettingRepository repository;
 
-    private final RestClient supabaseRestClient;
-
-    public UserSettingsService(RestClient supabaseRestClient) {
-        this.supabaseRestClient = supabaseRestClient;
+    public UserSettingsService(
+            SupabaseSettingRepository repository
+    ) {
+        this.repository = repository;
     }
 
     public UserSettingsDTO getSettings() {
         return UserSettingsDTO.defaults();
     }
 
-    public UserSettingsDTO getSettings(String token, String userId) {
-        if (token == null || userId == null) {
+    public UserSettingsDTO getSettings(String userId) {
+        if (userId == null) {
             return getSettings();
         }
 
-        for (int attempt = 0; attempt < MAX_RETRIES; ++attempt) {
-            try {
-                UserSettingsDTO result = supabaseRestClient.post()
-                        .uri("/rest/v1/rpc/get_user_settings")
-                        .header("Authorization", "Bearer " + token)
-                        .retrieve()
-                        .body(UserSettingsDTO.class);
+        UUID id = UUID.fromString(userId);
 
-                if (result == null) {
-                    logger.atInfo()
-                            .addKeyValue("userId", userId)
-                            .addKeyValue("by", "UserSettingsService.getSettings()")
-                            .log("Settings not found, using defaults");
+        UserSettingsDTO settings = repository.findByUserId(id);
 
-                    return UserSettingsDTO.defaults();
-                }
+        if (settings == null) {
+            logger.atInfo()
+                    .addKeyValue("userId", userId)
+                    .log("Settings not found, using defaults");
 
-                return result;
-
-            } catch (Exception e) {
-                logger.atError()
-                        .addKeyValue("userId", userId)
-                        .addKeyValue("attempt", attempt + 1)
-                        .addKeyValue("by", "UserSettingsService.getSettings()")
-                        .log("Error while retrieving settings: {}", e.toString());
-            }
+            return getSettings();
         }
 
-        throw new UserSettingsUnavailableException();
+        return settings;
     }
 
-    public boolean setSettings(String token, String userId, UserSettingsDTO settings) {
-        if (token == null || userId == null) {
+    public boolean setSettings(
+            String userId,
+            UserSettingsDTO settings
+    ) {
+        if (userId == null || settings == null) {
             return false;
         }
 
         try {
-            supabaseRestClient.post()
-                    .uri("/rest/v1/rpc/set_user_settings")
-                    .header("Authorization", "Bearer " + token)
-                    .body(Map.of(
-                            "new_settings", settings
-                    ))
-                    .retrieve()
-                    .body(UserSettingsDTO.class);
+            UUID id = UUID.fromString(userId);
+
+            if (settings.theme() == null
+                    || settings.language() == null
+                    || settings.notificationPreference() == null
+                    || settings.timeZone() == null) {
+                return false;
+            }
+
+            ZoneId.of(settings.timeZone());
+
+            repository.save(id, settings);
+            return true;
+
+        } catch (DateTimeException e) {
+            logger.warn(
+                    "Invalid time zone supplied for user {}",
+                    userId
+            );
+            return false;
 
         } catch (Exception e) {
             logger.atError()
                     .addKeyValue("userId", userId)
-                    .addKeyValue("by", "UserSettingsService.setSettings()")
-                    .log("Error occurs: " + e.toString());
+                    .log(
+                            "Error while saving user settings: {}",
+                            e.toString()
+                    );
             return false;
         }
-
-        return true;
     }
 }

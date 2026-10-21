@@ -67,11 +67,12 @@ export const CalendarDay = ({
           sm:min-w-7
           sm:px-1.5
           sm:text-sm
-          ${isToday
-            ? "bg-[var(--color-primary)] font-bold text-[var(--color-primary-foreground)]"
-            : day.isWeekend
-              ? "text-[var(--color-text-muted)]"
-              : "text-[var(--color-text)]"
+          ${
+            isToday
+              ? "bg-[var(--color-primary)] font-bold text-[var(--color-primary-foreground)]"
+              : day.isWeekend
+                ? "text-[var(--color-text-muted)]"
+                : "text-[var(--color-text)]"
           }
         `}
       >
