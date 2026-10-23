@@ -4,5 +4,12 @@
   "title": "Analytics",
   "description": "Track the pace of work, progress, and status of projects.",
   "emptyTitle": "The reports will appear here",
-  "emptyDescription": "Once tasks start being assigned to projects, we'll display progress and team workload charts."
+  "emptyDescription": "Once tasks start being assigned to projects, we'll display progress and team workload charts.",
+  "activity": "Activity",
+  "activePeriod": "Active period",
+  "valueChange": "Change in value",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year",
+  "reset": "Reset"
 }
