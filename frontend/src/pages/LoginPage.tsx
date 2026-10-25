@@ -1,3 +1,4 @@
+import { Button } from "../components/ui/Button/Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -109,6 +110,9 @@ export const LoginPage = () => {
 
         <p className="mt-6 border-t border-[var(--color-border)] pt-5 text-center text-xs leading-5 text-[var(--color-text-muted)]">
           {t("terms")}
+          <Link to="/statute" className="mt-4 block text-center">
+            <Button variant="primary" type="button">Regulamin</Button>
+          </Link>
         </p>
       </section>
     </main>

@@ -11,6 +11,7 @@ import { TeamPage } from "../pages/TeamPage";
 import { TaskPage } from "../pages/TaskPage";
 import { LoginPage } from "../pages/LoginPage";
 import { CreateProjectPage } from "../pages/CreateProjects/CreateProjectPage";
+import { Statute } from "../pages/Statute";
 
 // 404
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -22,6 +23,10 @@ const pageTitle = (titleKey: AppTitleKey) => ({ titleKey });
 
 export const router = createBrowserRouter(
   [
+    {
+      path: "/statute",
+      element: <Statute />,
+    },
     {
       path: "/login",
       element: <LoginPage />,
