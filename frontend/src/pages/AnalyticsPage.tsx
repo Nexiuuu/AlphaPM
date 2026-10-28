@@ -43,6 +43,22 @@ const aggregateByWeek = (points: ChartDataPoint[]): ChartDataPoint[] => {
     });
 };
 
+const addMonths = (date: Date, months: number) => {
+    const result = new Date(date);
+    const originalDay = result.getDate();
+
+    result.setDate(1);
+    result.setMonth(result.getMonth() + months);
+    const lastDayOfTargetMonth = new Date(
+        result.getFullYear(),
+        result.getMonth() + 1,
+        0,
+    ).getDate();
+    result.setDate(Math.min(originalDay, lastDayOfTargetMonth));
+
+    return result;
+};
+
 const generatedData: AnalyticsDataPoint[] = Array.from({ length: 365 }, (_, i) => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
@@ -82,7 +98,10 @@ export const AnalyticsPage = ({ data = generatedData }: { data?: AnalyticsDataPo
         endIndex: index,
     }));
     const selectedData = chartData.slice(startIndex, endIndex + 1);
-    const visibleData = activeRange === "year" ? aggregateByWeek(selectedData) : selectedData;
+    const spansFourMonths =
+        selectedData.length > 0 &&
+        selectedData[selectedData.length - 1].date >= addMonths(selectedData[0].date, 4);
+    const visibleData = spansFourMonths ? aggregateByWeek(selectedData) : selectedData;
 
     const handleRangeSelect = (type: Exclude<RangeType, null>) => {
         const lastIndex = data.length - 1;

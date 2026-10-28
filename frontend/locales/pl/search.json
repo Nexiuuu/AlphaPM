@@ -5,5 +5,14 @@
 
   "projects": {
     "noProject": "Brak projektów spełniających kryteria wyszukiwania."
+  },
+  "categories": {
+    "projects": "Projekty",
+    "teams": "Zespoły",
+    "tasks": "Zadania"
+  },
+  "notAvailable": {
+    "teams": "Wyszukiwanie zespołów będzie dostępne po podłączeniu ich danych.",
+    "tasks": "Wyszukiwanie zadań będzie dostępne po przygotowaniu globalnej listy zadań."
   }
 }

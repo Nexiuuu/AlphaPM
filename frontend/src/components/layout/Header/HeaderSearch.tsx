@@ -1,4 +1,12 @@
-import { ArrowRight, FolderKanban, Loader2, Search, X } from "lucide-react";
+import {
+  ArrowRight,
+  FolderKanban,
+  ListTodo,
+  Loader2,
+  Search,
+  UsersRound,
+  X,
+} from "lucide-react";
 import { useState, useRef, useMemo, type ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import { useClickOutside } from "../../../hooks/useClickOutside";
@@ -51,7 +59,7 @@ export const HeaderSearch = () => {
           transition-all 
           duration-300 
           ease-in-out
-          ${isOpen ? "w-[min(20rem,calc(100vw-8rem))] px-4" : "w-10 px-0 border-transparent bg-transparent"}
+          ${isOpen ? "w-[min(20rem,calc(100vw-8rem))] pl-4 pr-10" : "w-10 px-0 border-transparent bg-transparent"}
         `}
       >
         <Typebar
@@ -63,42 +71,34 @@ export const HeaderSearch = () => {
           variant={isOpen ? "search" : "hidden"}
         />
 
-        {isOpen ? (
-          <button
-            onClick={handleClose}
-            className="
-              cursor-pointer 
-              text-neutral-400 
-              hover:text-neutral-200 
-              ml-2 
-              shrink-0
-            "
-            aria-label={t("aria.closeSearch")}
-          >
-            <X size={18} />
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsOpen(true)}
-            className="
-              cursor-pointer 
-              text-neutral-400 
-              hover:text-[var(--color-text)] 
-              p-2 
-              rounded-full 
-              hover:bg-neutral-800 
-              shrink-0 
-              absolute 
-              right-0
-              focus:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-[var(--color-primary)]
-            "
-            aria-label={t("aria.openSearch")}
-          >
-            <Search size={18} />
-          </button>
-        )}
+        <button
+          onClick={isOpen ? handleClose : () => setIsOpen(true)}
+          className="
+            absolute
+            right-0
+            top-0
+            z-10
+            flex
+            h-10
+            w-10
+            shrink-0
+            cursor-pointer
+            items-center
+            justify-center
+            rounded-full
+            text-neutral-400
+            transition-colors
+            hover:bg-[var(--color-surface-hover)]
+            hover:text-[var(--color-text)]
+            focus:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-[var(--color-primary)]
+          "
+          aria-label={isOpen ? t("aria.closeSearch") : t("aria.openSearch")}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X size={18} /> : <Search size={18} />}
+        </button>
       </div>
 
       {isOpen && query.trim().length > 0 && (
@@ -131,47 +131,64 @@ export const HeaderSearch = () => {
             <div className="p-4 text-center text-sm text-[var(--color-danger)]">
               {t("common:projectsError")} {error}
             </div>
-          ) : filteredProjects.length > 0 ? (
-            <ul className="flex flex-col gap-1">
-              {filteredProjects.map((project) => (
-                <li key={project.id}>
-                  <Link
-                    to={`/projects/${project.id}`}
-                    onClick={handleClose}
-                    className="
-                      w-full 
-                      p-2.5
-                      rounded-lg 
-                      hover:bg-[var(--color-surface-hover)]
-                      transition-colors 
-                      flex
-                      items-center
-                      gap-3
-                    "
-                  >
-                    <span
-                      className="h-3 w-3 shrink-0 rounded-full"
-                      style={{ backgroundColor: project.color }}
-                      aria-hidden="true"
-                    />
-                    <FolderKanban
-                      size={17}
-                      className="shrink-0 text-[var(--color-text-muted)]"
-                    />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-[var(--color-text)]">
-                      {project.name}
-                    </span>
-                    <ArrowRight
-                      size={16}
-                      className="shrink-0 text-[var(--color-text-muted)]"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
           ) : (
-            <div className="p-4 text-center text-sm text-neutral-400">
-              {t("search:noResult")} "{query}"
+            <div className="divide-y divide-[var(--color-border)]">
+              <section className="pb-2">
+                <h3 className="flex items-center gap-2 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
+                  <FolderKanban size={14} />
+                  {t("search:categories.projects")}
+                </h3>
+                {filteredProjects.length > 0 ? (
+                  <ul className="flex flex-col gap-1">
+                    {filteredProjects.map((project) => (
+                      <li key={project.id}>
+                        <Link
+                          to={`/projects/${project.id}`}
+                          onClick={handleClose}
+                          className="flex w-full items-center gap-3 rounded-lg p-2.5 transition-colors hover:bg-[var(--color-surface-hover)]"
+                        >
+                          <span
+                            className="h-3 w-3 shrink-0 rounded-full"
+                            style={{ backgroundColor: project.color }}
+                            aria-hidden="true"
+                          />
+                          <span className="min-w-0 flex-1 truncate text-sm font-medium text-[var(--color-text)]">
+                            {project.name}
+                          </span>
+                          <ArrowRight
+                            size={16}
+                            className="shrink-0 text-[var(--color-text-muted)]"
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="px-2 py-2 text-sm text-[var(--color-text-muted)]">
+                    {t("search:projects.noProject")}
+                  </p>
+                )}
+              </section>
+
+              <section className="py-2">
+                <h3 className="flex items-center gap-2 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
+                  <UsersRound size={14} />
+                  {t("search:categories.teams")}
+                </h3>
+                <p className="px-2 py-2 text-sm text-[var(--color-text-muted)]">
+                  {t("search:notAvailable.teams")}
+                </p>
+              </section>
+
+              <section className="pt-2">
+                <h3 className="flex items-center gap-2 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
+                  <ListTodo size={14} />
+                  {t("search:categories.tasks")}
+                </h3>
+                <p className="px-2 py-2 text-sm text-[var(--color-text-muted)]">
+                  {t("search:notAvailable.tasks")}
+                </p>
+              </section>
             </div>
           )}
         </div>

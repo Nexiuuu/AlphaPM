@@ -5,5 +5,14 @@
 
   "projects": {
     "noProject": "No projects match the search criteria."
+  },
+  "categories": {
+    "projects": "Projects",
+    "teams": "Teams",
+    "tasks": "Tasks"
+  },
+  "notAvailable": {
+    "teams": "Team search will be available once team data is connected.",
+    "tasks": "Task search will be available once a global task list is available."
   }
 }
