@@ -17,6 +17,7 @@ import notfoundPL from "../locales/pl/notfound.json";
 import loginPL from "../locales/pl/login.json";
 import createprojectPL from "../locales/pl/createproject.json";
 import searchPL from "../locales/pl/search.json";
+import statutePL from "../locales/pl/statute.json";
 
 // EN Imports
 import commonEN from "../locales/en/common.json";
@@ -34,6 +35,7 @@ import notfoundEN from "../locales/en/notfound.json";
 import loginEN from "../locales/en/login.json";
 import createprojectEN from "../locales/en/createproject.json";
 import searchEN from "../locales/en/search.json";
+import statuteEN from "../locales/en/statute.json";
 
 import { getUserSettings } from "./features/settings/LocalStorageSettings";
 
@@ -58,6 +60,7 @@ export const resources = {
     login: loginPL,
     createproject: createprojectPL,
     search: searchPL,
+    statute: statutePL,
   },
   en: {
     common: commonEN,
@@ -75,6 +78,7 @@ export const resources = {
     login: loginEN,
     createproject: createprojectEN,
     search: searchEN,
+    statute: statuteEN,
   },
 } as const;
 
@@ -98,6 +102,7 @@ i18n.use(initReactI18next).init({
     "login",
     "createproject",
     "search",
+    "statute",
   ],
   defaultNS,
   interpolation: {

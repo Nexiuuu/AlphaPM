@@ -4,5 +4,6 @@
   "redirect": "Przekierowywanie...",
   "terms": "Logując się, akceptujesz zasady korzystania z AlphaPM.",
   "login": "Zaloguj się",
-  "unable": "Nie udało się rozpocząć logowania przez Google."
+  "unable": "Nie udało się rozpocząć logowania przez Google.",
+  "statute":"Regulamin"
 }
