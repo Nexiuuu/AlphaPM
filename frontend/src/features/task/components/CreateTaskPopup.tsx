@@ -21,10 +21,24 @@ export const CreateTaskPopup = ({ day, onClose }: CreateTaskPopupProps) => {
   const { workspaces } = useWorkspaces();
 
   if (isProjectTasksUsed) {
+    return (
+      <Popup onClose={onClose}>
+        <p className="text-md p-4 ml-2 mr-2 h-30 flex items-center justify-center text-center text-[var(--color-text)]">
+          Jeszcze nie gotowe
+        </p>
+      </Popup>
+    );
     return <CreateTaskPopupContent day={day} onClose={onClose} />;
   }
 
   if (workspaces.length > 0) {
+    return (
+      <Popup onClose={onClose}>
+        <p className="text-md p-4 ml-2 mr-2 h-30 flex items-center justify-center text-center text-[var(--color-text)]">
+          Jeszcze nie gotowe
+        </p>
+      </Popup>
+    );
     return (
       <ProjectProvider id={workspaces[0].id}>
         <CreateTaskPopupContent day={day} onClose={onClose} />
@@ -34,7 +48,7 @@ export const CreateTaskPopup = ({ day, onClose }: CreateTaskPopupProps) => {
 
   return (
     <Popup onClose={onClose}>
-      <p className="text-md p-6 ml-2 mr-2 h-40 flex items-center justify-center text-center text-[var(--color-text-muted)]">
+      <p className="text-md p-6 ml-2 mr-2 h-40 flex items-center justify-center text-center text-[var(--color-text)]">
         Nie masz jeszcze żadnego projektu, w którym można utworzyć zadanie.
       </p>
     </Popup>
