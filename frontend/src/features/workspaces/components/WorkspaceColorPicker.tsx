@@ -104,6 +104,8 @@ export const WorkspaceColorPicker = ({
               border
               border-[var(--color-border)]
               bg-[var(--color-surface)] 
+              -ml-0.5
+              -mt-16
               p-4 
               shadow-xl
             "

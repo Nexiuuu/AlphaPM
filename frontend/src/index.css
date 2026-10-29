@@ -15,6 +15,7 @@ body {
   /* Backgrounds */
   --color-background: #09090b;
   --color-surface: #18181b;
+  --color-surface-deep: #101012;
   --color-surface-hover: #1e1e22;
   --color-surface-active: #2b2b31;
   --color-surface-grid: #070708;
@@ -70,6 +71,7 @@ body {
   /* Backgrounds */
   --color-background: #fafafa;
   --color-surface: #d4d4d8;
+  --color-surface-deep: #f4f4f4;
   --color-surface-hover: #a1a1aa;
   --color-surface-active: #71717a;
   --color-surface-grid: #cccccc;

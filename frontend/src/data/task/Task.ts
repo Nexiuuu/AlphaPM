@@ -12,6 +12,7 @@ export interface Task {
 export interface CreateTaskInput {
   name: string;
   color: string;
+  description?: string;
   startsAt: Date;
   endsAt: Date;
   allDay: boolean;

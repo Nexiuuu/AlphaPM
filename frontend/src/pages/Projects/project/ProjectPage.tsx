@@ -6,12 +6,7 @@ import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../NotFoundPage";
 import { StatCard } from "../../../features/dashboard/DashboardStats/StatCard";
 import { useTranslation } from "react-i18next";
-import { CalendarHeader } from "../../../features/calendar/components/CalendarHeader";
-import { useCallback, useMemo, useState } from "react";
-import type { DayItem } from "../../../features/calendar/types";
-import { groupTasksByDate } from "../../../features/calendar/utils";
-import { CalendarGrid } from "../../../features/calendar/components/CalendarGrid";
-import { DayDetailsModal } from "../../../features/calendar/components/DayDetailsModal";
+import { CalendarComponent } from "../../../features/calendar/components/CalendarComponent";
 
 export const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,36 +22,6 @@ export const ProjectPage = () => {
 const ProjectContent = () => {
   const { tasks, isAuthenticated, isLoading, error } = useProjectTasks();
 
-  const [visibleMonth, setVisibleMonth] = useState(
-    () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-  );
-  const [selectedDay, setSelectedDay] = useState<DayItem | null>(null);
-
-  const currentYear = visibleMonth.getFullYear();
-  const currentMonthId = visibleMonth.getMonth();
-  const tasksByDate = useMemo(() => groupTasksByDate(tasks), [tasks]);
-
-  const showPreviousMonth = () => {
-    setVisibleMonth(
-      (current) => new Date(current.getFullYear(), current.getMonth() - 1, 1),
-    );
-    setSelectedDay(null);
-  };
-
-  const showNextMonth = () => {
-    setVisibleMonth(
-      (current) => new Date(current.getFullYear(), current.getMonth() + 1, 1),
-    );
-    setSelectedDay(null);
-  };
-
-  const showToday = () => {
-    const today = new Date();
-    setVisibleMonth(new Date(today.getFullYear(), today.getMonth(), 1));
-    setSelectedDay(null);
-  };
-
-  const closeDayDetails = useCallback(() => setSelectedDay(null), []);
   const { t } = useTranslation("project");
 
   if (!isAuthenticated) return <></>; // temp sollution TODO: print that: "you have to log in to see project panel"
@@ -103,31 +68,9 @@ const ProjectContent = () => {
         />
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-sm)] sm:rounded-2xl">
-        <CalendarHeader
-          year={currentYear}
-          monthId={currentMonthId}
-          onPreviousMonth={showPreviousMonth}
-          onNextMonth={showNextMonth}
-          onToday={showToday}
-        />
-
-        <CalendarGrid
-          year={currentYear}
-          monthId={currentMonthId}
-          selectedDate={selectedDay?.formattedDate}
-          tasksByDate={tasksByDate}
-          onDayClick={setSelectedDay}
-        />
+      <div className="mt-4">
+        <CalendarComponent tasks={tasks} />
       </div>
-
-      <DayDetailsModal
-        day={selectedDay}
-        tasks={
-          selectedDay ? (tasksByDate[selectedDay.formattedDate] ?? []) : []
-        }
-        onClose={closeDayDetails}
-      />
     </ModulePage>
   );
 };

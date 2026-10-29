@@ -12,12 +12,14 @@ interface DayDetailsModalProps {
   day: DayItem | null;
   tasks: Task[];
   onClose: () => void;
+  onAddTask: (day: DayItem) => void;
 }
 
 export const DayDetailsModal = ({
   day,
   tasks,
   onClose,
+  onAddTask,
 }: DayDetailsModalProps) => {
   const { session } = useAuth();
 
@@ -60,11 +62,6 @@ export const DayDetailsModal = ({
     if (task.allDay) return t("dayDetailsModal.allDay");
 
     return `${timeFormatter.format(new Date(task.startsAt))}–${timeFormatter.format(new Date(task.endsAt))}`;
-  };
-
-  const openTaskPopup = () => {
-    onClose();
-    //TODO: open CreateTaskPopup
   };
 
   return (
@@ -121,7 +118,7 @@ export const DayDetailsModal = ({
               className="relative -top-4 left-3/4"
               variant="primary"
               type="button"
-              onClick={openTaskPopup}
+              onClick={() => onAddTask(day)}
             >
               Add Task
             </Button>
