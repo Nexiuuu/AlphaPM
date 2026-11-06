@@ -62,7 +62,7 @@ class TaskControllerTest {
         );
     }
 
-    private CreateTaskRequestDTO makeCreateTaskRequestDTOWithName(String name) {
+    private CreateTaskRequestDTO makeCreateTaskRequestWithName(String name) {
         CreateTaskRequestDTO valid = validRequest();
 
         return new CreateTaskRequestDTO(
@@ -93,7 +93,7 @@ class TaskControllerTest {
 
     @Test
     void rejectBlankTaskNameTest() throws Exception {
-        CreateTaskRequestDTO request = makeCreateTaskRequestDTOWithName(" ");
+        CreateTaskRequestDTO request = makeCreateTaskRequestWithName(" ");
 
         mockMvc.perform(post("/api/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +105,7 @@ class TaskControllerTest {
 
     @Test
     void rejectNullTaskNameTest() throws Exception {
-        CreateTaskRequestDTO request = makeCreateTaskRequestDTOWithName(null);
+        CreateTaskRequestDTO request = makeCreateTaskRequestWithName(null);
 
         mockMvc.perform(post("/api/tasks")
                 .contentType(MediaType.APPLICATION_JSON)

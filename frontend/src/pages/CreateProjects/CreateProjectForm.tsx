@@ -37,10 +37,7 @@ export const CreateProjectForm = () => {
       const workspace = await createWorkspace(values);
       navigate(`/projects/${workspace.id}`);
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : t("unable");
+      const message = error instanceof Error ? error.message : t("unable");
 
       setCreateError(message);
     }
@@ -85,9 +82,7 @@ export const CreateProjectForm = () => {
       )}
 
       <div className="mt-6">
-        <p className="text-sm font-medium">
-          {t("color")}
-        </p>
+        <p className="text-sm font-medium">{t("color")}</p>
 
         <p className="mt-1 text-sm text-[var(--color-text-muted)]">
           {t("colorDesc")}

@@ -59,11 +59,19 @@ public class SupabaseTaskRepository implements TaskRepository {
                     ?::permissions
                 WHERE EXISTS (
                     SELECT 1
-                    FROM private.project_members
-                    WHERE project_id = ?
-                    AND user_id = ?
-                    AND permissions IN ('member', 'admin', 'owner')
-                    AND permissions >= ?::permissions
+                    FROM private.projects p
+                    WHERE p.id = ?
+                    AND (
+                        p.owner_id = ?
+                        OR EXISTS (
+                            SELECT 1
+                            FROM private.project_members pm
+                            WHERE pm.project_id = p.id
+                            AND pm.user_id = ?
+                            AND pm.permissions IN ('member', 'admin', 'owner')
+                            AND pm.permissions >= ?::permissions
+                        )
+                    )
                 )
                 RETURNING
                     id,
@@ -128,6 +136,7 @@ public class SupabaseTaskRepository implements TaskRepository {
                     request.description(),
                     request.visibleTo().getValue(),
                     request.projectId(),
+                    userId,
                     userId,
                     request.visibleTo().getValue()
             );
@@ -424,13 +433,18 @@ public class SupabaseTaskRepository implements TaskRepository {
                 t.created_at,
                 t.last_update
             FROM private.tasks t
-            JOIN private.project_members pm
+            JOIN private.projects p
+                ON p.id = t.project_id
+            LEFT JOIN private.project_members pm
                 ON pm.project_id = t.project_id
-            AND pm.user_id = ?
+                AND pm.user_id = ?
             LEFT JOIN private.user_settings us
                 ON us.user_id = t.author_id
             WHERE t.id = ?
-            AND pm.permissions >= t.visible_to
+            AND (
+                p.owner_id = ?
+                OR pm.permissions >= t.visible_to
+            )
         """;
 
         try {
@@ -456,7 +470,8 @@ public class SupabaseTaskRepository implements TaskRepository {
                             )
                     ),
                     userId,
-                    taskId
+                    taskId,
+                    userId
             );
         } catch (EmptyResultDataAccessException e) {
             logger.warn("User {} attempted to get task {}", userId, taskId);

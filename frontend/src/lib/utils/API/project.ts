@@ -41,11 +41,14 @@ export const createTaskRequest = async (
     {
       method: "POST",
       body: JSON.stringify({
+        projectId: input.projectId,
         name: input.name,
         color: input.color,
         startsAt: input.startsAt,
         endsAt: input.endsAt,
         allDay: input.allDay,
+        description: input.description,
+        visibleTo: input.visibleTo.toUpperCase(),
       }),
     },
     session.access_token,
@@ -93,6 +96,10 @@ export const deleteTaskRequest = async (taskId: string): Promise<void> => {
   );
 
   if (!response.ok) {
-    throw new ApiError(`Failed to delete task`, response.status);
+    const errorBody = await response.text();
+
+    console.error("Create task error:", response.status, errorBody);
+
+    throw new ApiError("Failed to create task", response.status);
   }
 };

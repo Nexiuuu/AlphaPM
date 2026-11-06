@@ -72,10 +72,10 @@ export const WorkspaceColorPicker = ({
         onClick={handleOpen}
         className="flex min-w-0 cursor-pointer flex-col gap-0.5"
       >
-        <span className="text-sm font-medium text-[var(--color-text)]">
+        <span className="select-none text-sm font-medium text-[var(--color-text)]">
           {description}
         </span>
-        <span className="font-mono text-xs uppercase text-[var(--color-text-muted)]">
+        <span className="select-none font-mono text-xs uppercase text-[var(--color-text-muted)]">
           {currentColor}
         </span>
       </label>

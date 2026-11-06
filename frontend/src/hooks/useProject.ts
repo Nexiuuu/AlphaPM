@@ -10,6 +10,6 @@ export const useProjectTasks = () => {
   return context;
 };
 
-export const useIsProjectTasksUsed = () => {
-  return useContext(ProjectContext) !== null;
+export const useOptionalProjectTasks = () => {
+  return useContext(ProjectContext);
 };

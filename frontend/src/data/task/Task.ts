@@ -10,15 +10,18 @@ export interface Task {
 }
 
 export interface CreateTaskInput {
+  projectId: string;
   name: string;
   color: string;
   description?: string;
   startsAt: Date;
   endsAt: Date;
   allDay: boolean;
+  visibleTo: string;
 }
 
 export interface UpdateTaskInput {
+  projectId: string;
   name: string;
   color: string;
   startsAt: Date;

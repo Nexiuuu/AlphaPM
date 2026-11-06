@@ -6,6 +6,7 @@ import type {
 } from "../../data/task/Task";
 
 export interface ProjectContextValue {
+  projectId: string;
   tasks: Task[];
   isLoading: boolean;
   isAuthenticated: boolean;

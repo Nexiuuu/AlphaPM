@@ -165,6 +165,7 @@ export const ProjectProvider = ({ children, id }: PropsWithChildren<Props>) => {
   }, [load]);
 
   const value = {
+    projectId: id,
     tasks,
     isLoading,
     isAuthenticated,

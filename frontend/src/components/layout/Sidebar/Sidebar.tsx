@@ -56,11 +56,7 @@ export const Sidebar = ({
         hover:bg-[var(--color-surface-hover)] 
         hover:text-[var(--color-text)] 
         md:hidden"
-        aria-label={
-          isMobileMenuOpen
-            ? t("aria.closeMenu")
-            : t("aria.openMenu")
-        }
+        aria-label={isMobileMenuOpen ? t("aria.closeMenu") : t("aria.openMenu")}
         aria-expanded={isMobileMenuOpen}
         onClick={() => setIsMobileMenuOpen((current) => !current)}
       >

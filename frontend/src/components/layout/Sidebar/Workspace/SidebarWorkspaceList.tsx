@@ -19,8 +19,7 @@ export const SidebarWorkspaceList = ({
 }: SidebarWorkspaceListProps) => {
   const { t } = useTranslation("common");
 
-  const { workspaces, isLoading, error, reloadWorkspaces } =
-    useWorkspaces();
+  const { workspaces, isLoading, error, reloadWorkspaces } = useWorkspaces();
 
   const visibleWorkspaces = isExpanded
     ? workspaces
