@@ -1,17 +1,21 @@
 import { UsersRound } from "lucide-react";
 import { ModulePage } from "./ModulePage";
 import { useTranslation } from "react-i18next";
+import { TeamsOverview } from "../features/team/components/TeamsOverview";
 
 export const TeamPage = () => {
     const { t } = useTranslation("teams");
 
     return (
-        <ModulePage icon={UsersRound}
+        <ModulePage
+            icon={UsersRound}
             eyebrow={t("coop")}
             title={t("team")}
             description={t("description")}
             emptyTitle={t("emptyTitle")}
             emptyDescription={t("emptyDescription")}
-        />
+        >
+            <TeamsOverview />
+        </ModulePage>
     );
 };
