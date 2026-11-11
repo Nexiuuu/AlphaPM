@@ -1,7 +1,23 @@
 {
   "pageTitle": "Ustawienia",
 
+  "accountSection": "Ustawienia konta",
+  "nicknameLabel": "Pseudonim",
+  "nicknameHelpLabel": "Informacje o pseudonimie",
+  "nicknameHelp": "Wpisz pseudonim, który będzie widoczny dla innych użytkowników.",
+  "notificationsSection": "Ustawienia powiadomień",
+  "notificationEmailLabel": "E-mail do powiadomień",
+  "notificationEmailHelpLabel": "Informacje o e-mailu do powiadomień",
+  "notificationEmailHelp": "Wpisz adres e-mail, na który chcesz otrzymywać powiadomienia.",
+  "notificationPreferenceLabel": "Priorytet powiadomień",
+  "notificationHigh": "Tylko najwyższy priorytet",
+  "notificationMedium": "Najwyższy i średni priorytet",
+  "notificationAll": "Każdy priorytet",
+  "preferencesSection": "Preferencje",
+
   "langLabel": "Język",
+  "languagePolish": "Polski",
+  "languageEnglish": "Angielski",
 
   "themeLabel": "Motyw",
   "themeDark": "Ciemny",

@@ -6,7 +6,7 @@ export const NOTIFICATION_PREFERENCES = [
   "NOTHING",
 ] as const;
 export type NotificationPreference = (typeof NOTIFICATION_PREFERENCES)[number];
-export const DEFAULT_NOTIFICATION_PREFERENCE: NotificationPreference = "MEDIUM";
+export const DEFAULT_NOTIFICATION_PREFERENCE: NotificationPreference = "HIGH";
 
 export const THEMES = ["DARK", "LIGHT"] as const;
 export type Theme = (typeof THEMES)[number];

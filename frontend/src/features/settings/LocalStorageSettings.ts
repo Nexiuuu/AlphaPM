@@ -8,6 +8,8 @@ type UserSettings = {
   theme: Settings.Theme;
   language: Settings.Language;
   notificationPreference: Settings.NotificationPreference;
+  nickname: string;
+  notificationEmail: string;
 };
 
 const SETTINGS_STORAGE_NAME = "user_settings";
@@ -19,6 +21,8 @@ const DEFAULT_SETTINGS: UserSettings = {
   theme: Settings.DEFAULT_THEME,
   language: Settings.DEFAULT_LANGUAGE,
   notificationPreference: Settings.DEFAULT_NOTIFICATION_PREFERENCE,
+  nickname: "",
+  notificationEmail: "",
 };
 
 export function saveUserSettings(settings: UserSettings) {
@@ -47,6 +51,14 @@ export function getUserSettings(): UserSettings {
       )
         ? parsed.notificationPreference
         : DEFAULT_SETTINGS.notificationPreference,
+      nickname:
+        typeof parsed.nickname === "string"
+          ? parsed.nickname
+          : DEFAULT_SETTINGS.nickname,
+      notificationEmail:
+        typeof parsed.notificationEmail === "string"
+          ? parsed.notificationEmail
+          : DEFAULT_SETTINGS.notificationEmail,
     };
   } catch {
     return {

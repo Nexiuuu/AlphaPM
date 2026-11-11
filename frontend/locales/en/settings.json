@@ -1,7 +1,23 @@
 {
   "pageTitle": "Settings",
 
+  "accountSection": "Account settings",
+  "nicknameLabel": "Nickname",
+  "nicknameHelpLabel": "About the nickname",
+  "nicknameHelp": "Enter the nickname that will be visible to other users.",
+  "notificationsSection": "Notification settings",
+  "notificationEmailLabel": "Notification email",
+  "notificationEmailHelpLabel": "About the notification email",
+  "notificationEmailHelp": "Enter the email address where you want to receive notifications.",
+  "notificationPreferenceLabel": "Notification priority",
+  "notificationHigh": "Highest priority only",
+  "notificationMedium": "High and medium priority",
+  "notificationAll": "Every priority",
+  "preferencesSection": "Preferences",
+
   "langLabel": "Language",
+  "languagePolish": "Polish",
+  "languageEnglish": "English",
 
   "themeLabel": "Theme",
   "themeDark": "Dark",
